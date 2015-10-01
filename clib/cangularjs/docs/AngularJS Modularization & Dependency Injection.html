@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/ca-pub-5569543489255665.js" type="text/javascript" async=""></script><script async="" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/cbgapi.loaded_1"></script><script async="" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/cbgapi.loaded_0"></script><script src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/widgets.js" id="twitter-wjs"></script><script gapi_processed="true" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/platform.js" async="" type="text/javascript"></script><meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="author" content="Jakob Jenkov">
+
+    
+    <script src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/analytics.js" async=""></script><script src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/jquery-1.js"></script>
+
+    
+    
+    
+    <script type="text/javascript" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/jqc-custom-build-mini.js"></script>
+    
+
+    
+    <style>
+            /* jqcLayer styles */
+        [jqc-type=jqcLayer] {
+            position: absolute;  /* layers should be 'absolute' or 'fixed' */
+            display : none;      /* layers are hidden by default. To make a layer at startup (e.g. a splash screen) put "display: block" */
+        }
+
+
+            /* jqcOverlay styles */
+        [jqc-type=jqcOverlay] {
+            position: fixed;
+            left    : 0px;
+            top     : 0px;
+            width   :100%;
+            height  :100%;
+            text-align:center;
+            z-index : 1000; /* put on top of content and layers */
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+              /* jqcResponsiveLayoutManager styles */
+        [jqc-row] {
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        [jqc-cell] {
+            display: inline-block;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            vertical-align    : top;
+        }
+
+            /* jqcToolbar styles */
+        [jqc-type=jqcToolbar] {
+            display : inline-block;
+        }
+        [jqc-type=jqcToolbar] > * {
+            display : inline-block;
+        }
+
+            /* jqcTreeList styles */
+        ul[jqc-type=jqcTreeList], ul[jqc-type=jqcTreeList] ul{
+            list-style-type: none;
+            list-style-position: inside;
+            xmargin: 10px;
+            padding: 2px;
+            padding-left: 16px;
+        }
+        .jqcTreeListItemExpandHandle, .jqcTreeListItemCollapseHandle, .jqcTreeListItemEmptyHandle {
+            display: inline-block;
+            padding: 5px;
+            width  : 10px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+
+        .jqcTreeListItemExpanded {
+            xbackground-color: #ffff00;
+        }
+        .jqcTreeListItemCollapsed {
+            xbackground-color: #00ffff;
+        }
+        .jqcTreeListItemSelected>span {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+
+    
+    
+    <title>AngularJS Modularization &amp; Dependency Injection</title>
+    <meta name="description" content="AngularJS dependency injection mechanism makes it easier to wire up the various components in your AngularJS application. This text explains how to use dependency injection in AngularJS.">
+    <meta name="keywords" content="angularjs dependency injection">
+
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@jjenkov">
+    <meta name="twitter:title" content="AngularJS Modularization &amp; Dependency Injection">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:creator" content="@jjenkov">
+    <meta name="twitter:domain" content="jenkov.com">
+    
+    <meta name="twitter:image:src" content="http://tutorials.jenkov.com/images/angularjs/angularjs-teaser-500-300.png">
+    
+
+    
+    <meta name="og:type" content="article">
+    <meta name="og:title" content="AngularJS Modularization &amp; Dependency Injection">
+    <meta property="og:url" content="http://tutorials.jenkov.com/angularjs/dependency-injection.html">
+    <meta property="og:description" content="AngularJS dependency injection mechanism makes it easier to wire up the various components in your AngularJS application. This text explains how to use dependency injection in AngularJS.">
+    
+    <meta property="og:image" content="http://tutorials.jenkov.com/images/angularjs/angularjs-teaser-500-300.png">
+    
+
+    
+    <link href="https://plus.google.com/108227213807945109821" rel="publisher">
+
+    
+    <meta name="google-site-verification" content="i_TwzdElg-by5uXLvyAjuIaCjxo0yjtW8LdRPUDEEcw">
+
+<script src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/embed.js" async="" type="text/javascript"></script></head>
+
+
+<body data-twttr-rendered="true">
+    <style>
+        body {
+            margin      : 0px;
+            font-family : Helvetica;
+            font-size   : 16px;
+            color       : #333333;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <span jqc-type="jqcResponsiveLayoutManager" jqc-row-paddings="0:16 4:32" jqc-cell-spacings="0:16 4:32"></span>
+
+    <style>
+    #headerBar {
+        background-color: #000000;
+        color           : #ffffff;
+    }
+    #headerBar a {
+        color           : #ffffff;
+        padding         : 10px 20px 10px 0px;
+        text-decoration : none;
+        display         : inline-block;
+        font-size       : 1.2em;
+    }
+</style>
+
+
+<div id="headerBar">
+    <div style="width: 1200px;" jqc-row="" jqc-row-widths="0:100% 4:1200"><div style="width: 260px; margin-left: 32px;" jqc-cell="0:12c 2:3c">
+            <a href="http://jenkov.com/">Jenkov.com</a>
+        </div><!--
+        --><div style="width: 844px; margin-left: 32px;" jqc-cell="0:12c 2:9c">
+            <a href="http://tutorials.jenkov.com/">Tutorials</a>
+            <a href="http://jenkov.com/books/index.html">Books</a>
+            <a href="http://jenkov.com/about/index.html">About</a>
+        </div></div>
+</div>
+
+
+    
+
+
+
+
+
+
+<style>
+    h2, h3 {
+        margin-top: 30px;
+    }
+    code {
+        font-family: Courier;
+        font-size : 1.0em;
+    }
+    .trailhead {
+        font-size : 1.2em;
+        font-weight : bold;
+    }
+    .book-link {
+        background-repeat: no-repeat;
+        padding: 5px 10px 5px 100px;
+        background-color: #eeeeee;
+        font-size : 0.9em;
+    }
+    .book-link:hover {
+        cursor: pointer;
+    }
+    .codeBox {
+        background-color: #eeeeee;
+        border : 1px solid #cccccc;
+        font-family: Courier;
+        font-size : 0.8em;
+        padding : 10px;
+        margin  : 20px 0px 20px 0px;
+    }
+    .diagram {
+        margin  : 20px 0px 30px 0px;
+    }
+    .dataTable {
+        border : 1px solid #cccccc;
+        margin : 30px 0px 30px 0px;
+    }
+    .dataTable th {
+        text-align: left;
+        padding   : 5px;
+        border-bottom : 1px solid #cccccc;
+        background-color : #eeeeee;
+    }
+    .dataTable td {
+        padding   : 5px;
+        text-align: left;
+        vertical-align: top;
+    }
+    .signupFrame {
+        border    : 1px solid #cccccc;
+
+    }
+    .leftMenuLinkCell {
+        height        : 30px;
+        font-size     : 1.0em;
+        border-bottom : 1px solid #f0f0f0;
+        vertical-align: top;
+        padding       : 4px 0px 0px 10px;
+    }
+    .leftMenuLinkCell a {
+        text-decoration : none;
+    }
+    .nextArticleInCategory {
+        font-size : 1.2em;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .ul, ol {
+        margin: 30px 20px 30px 20px;
+    }
+</style>
+
+
+<div style="width: 1200px;" jqc-row="" jqc-row-widths="0:100% 4:1200" jqc-row-paddings="0:0"><div style="width: 1200px; margin-left: 0px;" jqc-cell="0:12c">
+        <div style="width: 728px; margin: 20px auto;" id="topAds">
+            <script async="" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/adsbygoogle.js"></script>
+            <script>
+                var adEl = document.getElementById("topAds");
+                if(window.innerWidth >= 728)  {  
+                    document.write("<ins class='adsbygoogle' style='display:inline-block;width:728px;height:90px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='7630855405'></ins>");
+                    adEl.style.width = "728px"; adEl.style.marginTop = "20px"; adEl.style.marginBottom ="20px"; adEl.style.marginRight = "auto"; adEl.style.marginLeft = "auto";
+                } else {  
+                    document.write("<ins class='adsbygoogle' style='display:inline-block;width:320px;height:50px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='3297914607'></ins>");
+                    adEl.style.marginTop = "10px";
+                }
+            </script><ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="7630855405"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" height="90" width="728" frameborder="0"></iframe></ins></ins></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div></div>
+
+
+<div style="width: 1200px;" jqc-row="" jqc-row-widths="0:100% 4:1200"><div jqc-cell="0:0c  3:3c" style="padding-top: 30px; width: 260px; margin-left: 32px;">
+
+        <span class="trailhead">Angularjs</span> <br><br>
+
+        <table cellpadding="0" cellspacing="0">
+            
+            <tbody><tr>
+                
+                <td class="leftMenuLinkCell" align="right">1</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/index.html">AngularJS Tutorial</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">2</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/views-and-directives.html">AngularJS Views And Directives</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">3</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/scope-hierarchy.html">AngularJS $scope Hierarchy</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">4</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/events.html">AngularJS Events</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">5</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/watch-digest-apply.html">AngularJS $watch() , $digest() and $apply()</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">6</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/ajax.html">AngularJS AJAX</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">7</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/forms.html">AngularJS Forms</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">8</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/custom-directives.html">AngularJS Custom Directives</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right"><b>9</b></td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/dependency-injection.html"><b>AngularJS Modularization &amp; Dependency Injection</b></a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">10</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/routes.html">AngularJS Routes</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">11</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/internationalization.html">AngularJS Internationalization</a><br></td>
+                
+            </tr>
+            
+            <tr>
+                
+                <td class="leftMenuLinkCell" align="right">12</td>
+                <td class="leftMenuLinkCell"><a href="http://tutorials.jenkov.com/angularjs/critique.html">AngularJS Critique</a><br></td>
+                
+            </tr>
+            
+        </tbody></table>
+
+        <br><br>
+
+
+        
+        <div id="side-ads">
+            <script>
+                if(window.innerWidth >= 900){
+                    document.write("<script async src='http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'><");
+                    document.write("/script>");
+                    document.write("<ins class='adsbygoogle' style='display:inline-block;width:160px;height:600px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='3389666608'></ins>");
+                    document.write("<script>\n");
+                    document.write("  (adsbygoogle = window.adsbygoogle || []).push({});\n");
+                    document.write("<");
+                    document.write("/script>");
+                }
+            </script><script async="" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/adsbygoogle.js"></script><ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="3389666608"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" height="600" width="160" frameborder="0"></iframe></ins></ins></ins><script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+
+
+        <br><br>
+        
+        <div id="leftMenuSocialLinks">
+            <div id="social-left-bar" class="signupFrame" style="padding:10px;">
+    <form action="http://jenkov.us4.list-manage.com/subscribe/post?u=39844b57926863757a8be6553&amp;id=74bcc45775" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <table border="0" width="" cellpadding="5" cellspacing="0">
+            <tbody><tr>
+                
+                <td><font color="red"><b>Get all my free tips &amp; tutorials!</b></font></td>
+                
+            </tr>
+            <tr>
+                <td>
+                    Connect with me, or sign up for my news letter or <a href="http://feeds2.feedburner.com/jenkov-com" target="_blank">RSS feed</a>, and
+                    get all my tips that help you become a more skilled and efficient developer.
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div id="leftSocialLinks"><a class="googlePlusIconLink" href="https://plus.google.com/+JakobJenkov?rel=author" style="text-decoration:none;" title="Connect on Google+" target="_blank" rel="author"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"> <path id="google-plus-square-rounded-icon" d="M209.035,235.669c-22.34-0.673-43.568-21.164-47.425-50.498 c-3.858-29.341,11.122-51.789,33.458-51.124c22.329,0.671,41.439,24.737,45.294,54.07 C244.215,217.455,231.363,236.333,209.035,235.669z M204.452,295.702c-33.279-0.366-61.481,21.029-61.481,45.829 c0,25.309,24.033,46.375,57.314,46.375c42.547,0,63.102-19.773,63.102-45.082C263.387,318.698,241.378,295.702,204.452,295.702z M461.945,101v312c0,27.614-22.386,50-50,50h-312c-27.614,0-50-22.386-50-50V101c0-27.614,22.386-50,50-50h312 C439.56,51,461.945,73.386,461.945,101z M292.054,339.882c0-23.364-8.724-38.63-35.119-58.406 c-26.771-19.524-33.313-30.555-7.761-50.31c14.398-11.133,24.488-25.973,24.488-44.295c0-19.961-8.162-38.071-23.51-46.864h21.755 l18.521-19.438c0,0-69.817,0-82.879,0c-51.736,0-77.105,31.01-77.105,65.122c0,34.861,23.915,62.316,70.615,62.316 c-7.24,14.617-4.332,28.117,7.514,37.771c-79.759,0-96.826,34.998-96.826,61.957c0,34.932,40.154,55.699,88.303,55.699  C265.885,403.434,292.054,368.543,292.054,339.882z M400.146,162.626H361.91v-38.235h-19.117v38.235h-38.235v19.117h38.235v38.235 h19.117v-38.235h38.235V162.626z"></path> </svg></a><a class="twitterIconLink" href="https://twitter.com/#%21/jjenkov" title="Follow on Twitter" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">  <path id="twitter-3-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312c27.614,0,50-22.386,50-50V100    C462,72.386,439.614,50,412,50z M371.942,207.125c3.553,79.059-55.408,167.203-159.768,167.203    c-31.743,0-61.289-9.305-86.164-25.253c29.821,3.515,59.586-4.758,83.218-23.278c-24.596-0.453-45.356-16.703-52.508-39.035    c8.808,1.684,17.473,1.19,25.383-0.962c-27.03-5.433-45.692-29.784-45.083-55.826c7.577,4.211,16.245,6.74,25.46,7.032    c-25.034-16.73-32.12-49.786-17.396-75.045c27.723,34.006,69.143,56.385,115.857,58.729c-8.199-35.16,18.474-69.019,54.755-69.019    c16.168,0,30.776,6.825,41.029,17.75c12.804-2.52,24.833-7.198,35.694-13.639c-4.197,13.126-13.11,24.141-24.715,31.098    c11.37-1.357,22.204-4.379,32.284-8.851C392.454,189.301,382.926,199.201,371.942,207.125z"></path> </svg></a><a class="linkedInIconLink" href="http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3" title="Connect on LinkedIn" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="linkedin-square-rounded-icon" d="M411.945,50h-312c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C461.945,72.386,439.56,50,411.945,50z M180.996,392.99h-56.537V210.336h56.537V392.99z     M152.457,186.417c-18.465,0-33.432-15.09-33.432-33.703c0-18.614,14.967-33.704,33.432-33.704c18.463,0,33.432,15.09,33.432,33.704     C185.889,171.327,170.92,186.417,152.457,186.417z M392.865,392.99h-56.262c0,0,0-69.582,0-95.881     c0-26.296-9.988-40.974-30.781-40.974c-22.629,0-34.453,15.289-34.453,40.974c0,28.133,0,95.881,0,95.881h-54.223V210.336h54.223     v24.599c0,0,16.309-30.171,55.041-30.171s66.455,23.648,66.455,72.572C392.865,326.262,392.865,392.99,392.865,392.99z"></path> </svg></a><a class="youTubeIconLink" href="https://www.youtube.com/user/jjenkov" title="Subscribe on YouTube" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">         <path id="youtube-3-icon" d="M233.709,295.811h14.537v78.188h-14.537v-8.631c-2.68,3.181-5.465,5.604-8.363,7.268 c-7.836,4.488-18.594,4.392-18.594-11.473v-65.352h14.538v59.936c0,3.146,0.763,5.27,3.872,5.27c2.833,0,6.773-3.635,8.547-5.855 V295.811z M206.951,268.006h-50.245v15.384h16.937v90.608h16.371V283.39h16.938V268.006z M304.207,314.422v43.377 c0,9.674-3.619,17.188-13.291,17.188c-5.323,0-9.756-1.945-13.809-6.998v6.01H262.43V268.006h14.678v34.122 c3.281-3.997,7.734-7.306,12.926-7.306C300.681,294.822,304.207,303.816,304.207,314.422z M289.245,315.302 c0-2.638-0.517-4.64-1.554-6.008c-1.758-2.321-5.042-2.571-7.586-1.284c-1.013,0.514-2.011,1.31-2.998,2.383v48.725 c1.184,1.271,2.33,2.188,3.441,2.748c2.365,1.198,5.836,1.293,7.438-0.805c0.838-1.1,1.259-2.896,1.259-5.389V315.302z M246.938,209.69c4.106,0,6.385-3.303,6.385-7.773v-38.188c0-4.594-2.004-7.829-6.685-7.829c-4.288,0-6.356,3.335-6.356,7.829 v38.188C240.281,206.242,242.721,209.69,246.938,209.69z M462,100v312c0,27.614-22.385,50-50,50H100c-27.613,0-50-22.386-50-50V100 c0-27.614,22.387-50,50-50h312C439.615,50,462,72.386,462,100z M281.84,209.615c0,8.11,2.479,14.665,10.662,14.665 c4.618,0,11.028-2.403,17.643-10.249v9.063h15.264v-82.099h-15.264v62.317c-1.86,2.33-5.999,6.148-8.975,6.148 c-3.268,0-4.066-2.229-4.066-5.531v-62.934H281.84V209.615z M224.572,162.375v40.242c0,14.468,7.561,22,22.365,22 c12.275,0,21.944-8.21,21.944-22v-40.242c0-12.85-9.571-22.056-21.944-22.056C233.494,140.319,224.572,149.203,224.572,162.375z M167.703,111.8l20.451,66.153v45.14h17.191v-45.14l20.006-66.153h-17.467l-11.014,44.485L185.018,111.8H167.703z M380.961,276.779 c0-19.331-15.67-35.001-35-35.001H166.039c-19.33,0-35,15.67-35,35.001V365.2c0,19.33,15.67,35,35,35h179.922 c19.33,0,35-15.67,35-35V276.779z M357.938,316.831v19.906h-27.805v14.75c0,5.865,0.496,10.938,6.349,10.938 c6.137,0,6.494-4.13,6.494-10.938v-5.435h14.962v5.873c0,15.066-6.467,24.189-21.786,24.189c-13.881,0-20.979-10.113-20.979-24.189 v-35.095c0-13.573,8.967-22.997,22.08-22.997C351.198,293.834,357.938,302.699,357.938,316.831z M342.976,316.686 c0-5.283-1.12-9.163-6.349-9.163c-5.387,0-6.494,3.79-6.494,9.163v7.916h12.843V316.686z"></path> </svg></a><a class="rssIconLink" href="http://feeds2.feedburner.com/jenkov-com" title="Subscribe to RSS Feed" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="rss-square-rounded-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C462,72.386,439.614,50,412,50z M151.005,400.2c-21.554,0-39.026-17.472-39.026-39.026     c0-21.553,17.473-39.024,39.026-39.024s39.024,17.472,39.024,39.024C190.029,382.729,172.559,400.2,151.005,400.2z M244.268,400.2     c-0.747-72.618-59.672-131.542-132.289-132.288v-57.815c104.663,0.747,189.355,85.44,190.104,190.103H244.268z M342.201,400.2     c-0.174-61.521-24.205-119.335-67.728-162.856c-43.436-43.437-101.108-67.456-162.495-67.723V111.8     c158.955,0.556,287.681,129.401,288.043,288.4H342.201z"></path> </svg></a></div>
+                </td>
+            </tr>
+
+            <tr><td>
+                <b>Newsletter</b><br>
+                   
+
+
+    <input name="FNAME" class="" id="mce-FNAME" placeholder="First Name *" size="15" type="text">&nbsp;
+    <input name="LNAME" class="" id="mce-LNAME" placeholder="Last Name *" size="15" type="text">&nbsp;
+    <input name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email *" size="15" type="email">&nbsp;<br>
+    <input value="Yes, give me tips!" name="subscribe" id="mc-embedded-subscribe" class="button" type="submit">
+
+    <input name="listid" value="9579" type="hidden">
+    <input name="specialid:9579" value="SW15" type="hidden">
+
+    <input name="clientid" value="435086" type="hidden">
+    <input name="formid" value="587" type="hidden">
+    <input name="reallistid" value="1" type="hidden">
+    <input name="doubleopt" value="1" type="hidden">
+
+
+                </td>
+            </tr>
+
+        </tbody></table>
+    
+</form></div>
+        </div>
+    </div><!--
+
+    --><div style="width: 844px; margin-left: 32px;" jqc-cell="0:12c 3:9c">
+
+        <h1>AngularJS Modularization &amp; Dependency Injection</h1>
+
+
+        <div id="articleTopDiv" style="height: 163px;"><div style="position:relative; borderx: 1px solid #cccccc; height: 163px;">  <img style="width:111px; height:127px;" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/small-portrait_mini.jpg"> <br>  <span class="author">By <a target="jakob-jenkov" href="http://jakob.jenkov.com/">Jakob Jenkov</a></span>   <div style="position:absolute; top: 0px; left: 131px;">    &nbsp;Connect with me: <br>    <a class="googlePlusIconLink" href="https://plus.google.com/+JakobJenkov?rel=author" style="text-decoration:none;" title="Connect on Google+" target="_blank" rel="author"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"> <path id="google-plus-square-rounded-icon" d="M209.035,235.669c-22.34-0.673-43.568-21.164-47.425-50.498 c-3.858-29.341,11.122-51.789,33.458-51.124c22.329,0.671,41.439,24.737,45.294,54.07 C244.215,217.455,231.363,236.333,209.035,235.669z M204.452,295.702c-33.279-0.366-61.481,21.029-61.481,45.829 c0,25.309,24.033,46.375,57.314,46.375c42.547,0,63.102-19.773,63.102-45.082C263.387,318.698,241.378,295.702,204.452,295.702z M461.945,101v312c0,27.614-22.386,50-50,50h-312c-27.614,0-50-22.386-50-50V101c0-27.614,22.386-50,50-50h312 C439.56,51,461.945,73.386,461.945,101z M292.054,339.882c0-23.364-8.724-38.63-35.119-58.406 c-26.771-19.524-33.313-30.555-7.761-50.31c14.398-11.133,24.488-25.973,24.488-44.295c0-19.961-8.162-38.071-23.51-46.864h21.755 l18.521-19.438c0,0-69.817,0-82.879,0c-51.736,0-77.105,31.01-77.105,65.122c0,34.861,23.915,62.316,70.615,62.316 c-7.24,14.617-4.332,28.117,7.514,37.771c-79.759,0-96.826,34.998-96.826,61.957c0,34.932,40.154,55.699,88.303,55.699  C265.885,403.434,292.054,368.543,292.054,339.882z M400.146,162.626H361.91v-38.235h-19.117v38.235h-38.235v19.117h38.235v38.235 h19.117v-38.235h38.235V162.626z"></path> </svg></a><a class="twitterIconLink" href="https://twitter.com/#%21/jjenkov" title="Follow on Twitter" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">  <path id="twitter-3-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312c27.614,0,50-22.386,50-50V100    C462,72.386,439.614,50,412,50z M371.942,207.125c3.553,79.059-55.408,167.203-159.768,167.203    c-31.743,0-61.289-9.305-86.164-25.253c29.821,3.515,59.586-4.758,83.218-23.278c-24.596-0.453-45.356-16.703-52.508-39.035    c8.808,1.684,17.473,1.19,25.383-0.962c-27.03-5.433-45.692-29.784-45.083-55.826c7.577,4.211,16.245,6.74,25.46,7.032    c-25.034-16.73-32.12-49.786-17.396-75.045c27.723,34.006,69.143,56.385,115.857,58.729c-8.199-35.16,18.474-69.019,54.755-69.019    c16.168,0,30.776,6.825,41.029,17.75c12.804-2.52,24.833-7.198,35.694-13.639c-4.197,13.126-13.11,24.141-24.715,31.098    c11.37-1.357,22.204-4.379,32.284-8.851C392.454,189.301,382.926,199.201,371.942,207.125z"></path> </svg></a><a class="linkedInIconLink" href="http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3" title="Connect on LinkedIn" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="linkedin-square-rounded-icon" d="M411.945,50h-312c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C461.945,72.386,439.56,50,411.945,50z M180.996,392.99h-56.537V210.336h56.537V392.99z     M152.457,186.417c-18.465,0-33.432-15.09-33.432-33.703c0-18.614,14.967-33.704,33.432-33.704c18.463,0,33.432,15.09,33.432,33.704     C185.889,171.327,170.92,186.417,152.457,186.417z M392.865,392.99h-56.262c0,0,0-69.582,0-95.881     c0-26.296-9.988-40.974-30.781-40.974c-22.629,0-34.453,15.289-34.453,40.974c0,28.133,0,95.881,0,95.881h-54.223V210.336h54.223     v24.599c0,0,16.309-30.171,55.041-30.171s66.455,23.648,66.455,72.572C392.865,326.262,392.865,392.99,392.865,392.99z"></path> </svg></a><a class="youTubeIconLink" href="https://www.youtube.com/user/jjenkov" title="Subscribe on YouTube" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">         <path id="youtube-3-icon" d="M233.709,295.811h14.537v78.188h-14.537v-8.631c-2.68,3.181-5.465,5.604-8.363,7.268 c-7.836,4.488-18.594,4.392-18.594-11.473v-65.352h14.538v59.936c0,3.146,0.763,5.27,3.872,5.27c2.833,0,6.773-3.635,8.547-5.855 V295.811z M206.951,268.006h-50.245v15.384h16.937v90.608h16.371V283.39h16.938V268.006z M304.207,314.422v43.377 c0,9.674-3.619,17.188-13.291,17.188c-5.323,0-9.756-1.945-13.809-6.998v6.01H262.43V268.006h14.678v34.122 c3.281-3.997,7.734-7.306,12.926-7.306C300.681,294.822,304.207,303.816,304.207,314.422z M289.245,315.302 c0-2.638-0.517-4.64-1.554-6.008c-1.758-2.321-5.042-2.571-7.586-1.284c-1.013,0.514-2.011,1.31-2.998,2.383v48.725 c1.184,1.271,2.33,2.188,3.441,2.748c2.365,1.198,5.836,1.293,7.438-0.805c0.838-1.1,1.259-2.896,1.259-5.389V315.302z M246.938,209.69c4.106,0,6.385-3.303,6.385-7.773v-38.188c0-4.594-2.004-7.829-6.685-7.829c-4.288,0-6.356,3.335-6.356,7.829 v38.188C240.281,206.242,242.721,209.69,246.938,209.69z M462,100v312c0,27.614-22.385,50-50,50H100c-27.613,0-50-22.386-50-50V100 c0-27.614,22.387-50,50-50h312C439.615,50,462,72.386,462,100z M281.84,209.615c0,8.11,2.479,14.665,10.662,14.665 c4.618,0,11.028-2.403,17.643-10.249v9.063h15.264v-82.099h-15.264v62.317c-1.86,2.33-5.999,6.148-8.975,6.148 c-3.268,0-4.066-2.229-4.066-5.531v-62.934H281.84V209.615z M224.572,162.375v40.242c0,14.468,7.561,22,22.365,22 c12.275,0,21.944-8.21,21.944-22v-40.242c0-12.85-9.571-22.056-21.944-22.056C233.494,140.319,224.572,149.203,224.572,162.375z M167.703,111.8l20.451,66.153v45.14h17.191v-45.14l20.006-66.153h-17.467l-11.014,44.485L185.018,111.8H167.703z M380.961,276.779 c0-19.331-15.67-35.001-35-35.001H166.039c-19.33,0-35,15.67-35,35.001V365.2c0,19.33,15.67,35,35,35h179.922 c19.33,0,35-15.67,35-35V276.779z M357.938,316.831v19.906h-27.805v14.75c0,5.865,0.496,10.938,6.349,10.938 c6.137,0,6.494-4.13,6.494-10.938v-5.435h14.962v5.873c0,15.066-6.467,24.189-21.786,24.189c-13.881,0-20.979-10.113-20.979-24.189 v-35.095c0-13.573,8.967-22.997,22.08-22.997C351.198,293.834,357.938,302.699,357.938,316.831z M342.976,316.686 c0-5.283-1.12-9.163-6.349-9.163c-5.387,0-6.494,3.79-6.494,9.163v7.916h12.843V316.686z"></path> </svg></a><a class="rssIconLink" href="http://feeds2.feedburner.com/jenkov-com" title="Subscribe to RSS Feed" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="rss-square-rounded-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C462,72.386,439.614,50,412,50z M151.005,400.2c-21.554,0-39.026-17.472-39.026-39.026     c0-21.553,17.473-39.024,39.026-39.024s39.024,17.472,39.024,39.024C190.029,382.729,172.559,400.2,151.005,400.2z M244.268,400.2     c-0.747-72.618-59.672-131.542-132.289-132.288v-57.815c104.663,0.747,189.355,85.44,190.104,190.103H244.268z M342.201,400.2     c-0.174-61.521-24.205-119.335-67.728-162.856c-43.436-43.437-101.108-67.456-162.495-67.723V111.8     c158.955,0.556,287.681,129.401,288.043,288.4H342.201z"></path> </svg></a>  </div>  <div style="position:absolute; top: 70px; left: 131px">   Rate article:   </div>  <div style="position:absolute; top: 88px; left: 131px;">     <script type="text/javascript" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/plusone.js" async=""></script>    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/fastbutton.htm" name="I0_1413552419732" id="I0_1413552419732" vspace="0" tabindex="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0"></iframe></div>  </div>  <div style="position:absolute; top: 122px; left: 131px">    Share article:  </div>  <div style="position:absolute; top: 140px; left: 131px">    <div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 64px; height: 24px;"><iframe title="+Share" data-gapiattached="true" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/sharebutton.htm" name="I1_1413552419740" id="I1_1413552419740" vspace="0" tabindex="0" style="position: static; top: 0px; width: 64px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0"></iframe></div>    <script type="text/javascript">     (function() {        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;       po.src = 'https://apis.google.com/js/platform.js';        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);       })();    </script>  </div>  <div style="position:absolute; top: 140px; left: 211px">    <iframe style="width: 109px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/tweet_button.htm" allowtransparency="true" scrolling="no" id="twitter-widget-0" frameborder="0"></iframe>    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  </div></div></div>
+
+
+        <br>
+
+        <style>
+            .pageToc{
+                border         : 1px solid #e0e0e0;
+                border-radius  : 5px;
+            }
+            .pageToc .pageTocTitle {
+                border-bottom: 1px solid #e0e0e0;
+                padding: 10px 20px 10px 20px;
+            }
+            .pageToc div[itemscope] {
+                padding: 10px 20px 10px 20px;
+            }
+        </style>
+        
+        <nav>
+            <div class="pageToc">
+                <div class="pageTocTitle">Table of Contents</div>
+                <div itemscope="" itemtype="http://schema.org/SiteNavigationElement"><ul><li><a href="#value">Value</a></li><ul><li><a href="#injecting-a-value">Injecting a Value</a></li></ul><li><a href="#factory">Factory</a></li><ul><li><a href="#injecting-values-into-a-factory">Injecting Values Into a Factory</a></li></ul><li><a href="#service">Service</a></li><ul><li><a href="#injecting-values-into-a-service">Injecting Values Into a Service</a></li></ul><li><a href="#providers">Providers</a></li><ul><li><a href="#configuring-a-provider">Configuring a Provider</a></li></ul><li><a href="#constants">Constants</a></li><li><a href="#dependencies-between-modules">Dependencies Between Modules</a></li><li><a href="#minification-safe-dependency-injection">Minification Safe Dependency Injection in AngularJS</a></li>       </ul></div>
+            </div>
+        </nav>
+        
+
+
+        <p>
+    AngularJS comes with a built-in dependency injection mechanism. You can divide your application into multiple different
+    types of components which AngularJS can inject into each other. Modularizing your application makes it easier
+    to reuse, configure and test the components in your application.
+</p>
+
+<p>
+    AngularJS contains the following core types of objects and components:
+</p>
+
+
+<ul>
+    <li>Value</li>
+    <li>Factory</li>
+    <li>Service</li>
+    <li>Provider</li>
+    <li>Constant</li>
+</ul>
+
+
+<p>
+    These core types can be injected into each other using AngularJS dependency injection mechanism.
+    Throughout the rest of this text I will explain how to define and inject these components into each other.
+</p>
+
+<a name="value"></a>
+<h2>Value</h2>
+
+<p>
+    A value in AngularJS is a simple object. It can be a number, string or JavaScript object.
+    Values are typically used as configuration which is injected into factories, services or controllers.
+</p>
+
+<p>
+    A value has to belong to an AngularJS module. Here are three examples that add values to
+    an AngularJS module:
+</p>
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.value("numberValue", 999);
+
+myModule.value("stringValue", "abc");
+
+myModule.value("objectValue", { val1 : 123, val2 : "abc"} );
+</pre>
+
+<p>
+    The values are defined using the <code>value()</code> function on the module. The first
+    parameter is the name of the value, and the second parameter is the value itself. Factories,
+    services and controllers can now reference these values by their name.
+</p>
+
+
+<a name="injecting-a-value"></a>
+<h3>Injecting a Value</h3>
+
+<p>
+    Injecting a value into an AngularJS controller function is done simply by adding a parameter
+    with the same name as the value (the first parameter passed to the <code>value()</code> function
+    when the value is defined). Here is an example:
+</p>
+
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.value("<b>numberValue</b>", 999);
+
+myModule.controller("MyController", function($scope, <b>numberValue</b>) {
+
+    console.log(numberValue);
+
+});
+</pre>
+
+<p>
+    Notice how the second parameter of the controller function has the same name as the value.
+</p>
+
+
+<a name="factory"></a>
+<h2>Factory</h2>
+
+<p>
+    Factory is a function that creates values. When a service, controller etc. needs a value
+    injected from a factory, the factory creates the value on demand. Once created, the value
+    is reused for all services, controllers etc. which need it injected. Thus, a factory differs
+    from a value in that it can use a factory function to create the object it returns. You can
+    also inject values into a factory for use when creating the object. You cannot do that
+    with a value.
+</p>
+
+<p>
+    Here is an example that defines a factory on a module, and a controller which gets the
+    factory created value injected:
+</p>
+
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.factory("myFactory", function() {
+    return "a value";
+});
+
+
+myModule.controller("MyController", function($scope, myFactory) {
+
+    console.log(myFactory);
+
+});
+</pre>
+
+<p>
+    As you can see, it is very similar to defining and injecting a value object.
+    Keep in mind that it is not the factory function that is injected, but the value produced
+    by the factory function.
+</p>
+
+
+
+<a name="injecting-values-into-a-factory"></a>
+<h3>Injecting Values Into a Factory</h3>
+
+<p>
+    You can inject a value into a factory. It works just like when a value is injected into a
+    controller. Here is an example:
+</p>
+
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.value("<b>numberValue</b>", 999);
+
+myModule.factory("myFactory", function(<b>numberValue</b>) {
+    return "a value: " + numberValue;
+});
+</pre>
+
+<p>
+    In this example the injected value is used to create the object created by the factory function.
+</p>
+
+
+
+<a name="service"></a>
+<h2>Service</h2>
+
+<p>
+    A service in AngularJS is a singleton JavaScript object which contains a set of functions. The functions
+    contain whatever logic is necessary for the service to carry out its work.
+</p>
+
+<p>
+    AngularJS services are created using the <code>service()</code> function on a module. Here is an example:
+</p>
+
+
+<pre class="codeBox">function MyService() {
+    this.doIt = function() {
+        console.log("done");
+    }
+}
+
+
+var myModule = angular.module("myModule", []);
+
+myModule.service("myService", MyService);
+</pre>
+
+<p>
+    As you can see, services are defined somewhat differently than factories and values. First of all,
+    the service is defined as a separate, named function. That is because services in AngularJS are
+    created using the <code>new</code> keyword. Thus, AngularJS will do this internally:
+</p>
+
+<pre class="codeBox">var theService = new MyService();
+</pre>
+
+<p>
+    Apart from defining services as functions with functions inside, you add them to and use them with AngularJS
+    just like you would with a value or function. You inject a service into a controller like this:
+</p>
+
+
+<pre class="codeBox">function MyService() {
+    this.doIt = function() {
+        console.log("done");
+    }
+}
+
+
+var myModule = angular.module("myModule", []);
+
+myModule.service("myService", MyService);
+
+
+myModule.controller("MyController", function($scope, <b>myService</b>) {
+
+    myService.doIt();
+
+});
+</pre>
+
+
+
+<a name="injecting-values-into-a-service"></a>
+<h3>Injecting Values Into a Service</h3>
+<p>
+    You can inject values into a service, just like you can inject values into controllers, or services
+    into controllers etc. Here is an example:
+</p>
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.value  ("myValue"  , "12345");
+
+function MyService(myValue) {
+    this.doIt = function() {
+        console.log("done: " + myValue;
+    }
+}
+
+myModule.service("myService", MyService);
+</pre>
+
+<p>
+    Notice how the parameter to the <code>MyService</code> function is named the same as
+    the value registered on the module. Thus, the value will be injected into the service
+    when it is created.
+</p>
+
+
+
+<a name="providers"></a>
+<h2>Providers</h2>
+
+<p>
+    Providers in AngularJS is the most flexible form of factory you can create. You register a
+    provider with a module just like you do with a service or factory, except you use the
+    <code>provider()</code> function instead. Here is an AngularJS provider example:
+</p>
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.provider("mySecondService", function() {
+    var provider = {};
+
+    provider.$get = function() {
+        var service = {};
+
+        service.doService = function() {
+            console.log("mySecondService: Service Done!");
+        }
+
+        return service;
+    }
+
+    return provider;
+});
+</pre>
+
+<p>
+    As you can see, the <code>provider()</code> function takes 2 parameters. The first parameter is the
+    name of the service / object which the provider creates. In this case the name is <code>mySecondService</code>.
+    The second parameter is the function which creates the provider. Note: The provider is itself a factory, so
+    at this time no actual service or object is created from the provider. Only the function creating the provider
+    is defined.
+</p>
+
+<p>
+    When you look at the function creating the provider you can see that the provider is a JavaScript object.
+</p>
+
+<p>
+    The JavaScript provider object contains a single <code>$get()</code> function. This is the factory function
+    of the provider. In other words, the <code>$get()</code> function creates whatever the provider creates
+    (service, value etc.). In the example above, the provider creates a service object which contains a single
+    service function (standard JavaScript function) called <code>doService()</code>.
+</p>
+
+<p>
+    In order to get the product of a provider injected into a controller, do specify a dependency on the provider,
+    just like you would with a service. What is injected into the controller is the product created by the provider,
+    not the provider itself. Here is an AngularJS provider injection example:
+</p>
+
+<pre class="codeBox">myModule.controller("MyController", function($scope, <b>mySecondService</b>) {
+
+    $scope.whenButtonClicked = function() {
+        mySecondService.doIt();
+    }
+
+});
+</pre>
+
+<p>
+    As you can see, the name of the provider is used as a parameter in the controller function.
+    The object created by the provider's <code>$get()</code> function will be injected into this parameter.
+</p>
+
+
+
+<a name="configuring-a-provider"></a>
+<h3>Configuring a Provider</h3>
+<p>
+    It is possible to configure a provider further via calls to its function during the configuration phase
+    of a module. Here is an example:
+</p>
+
+<pre class="codeBox">var myModule = angular.module("myModule", []);
+
+myModule.provider("mySecondService", function() {
+    var provider = {};
+    var config   = { configParam : "default" };
+
+    provider.doConfig = function(configParam) {
+        config.configParam = configParam;
+    }
+
+    provider.$get = function() {
+        var service = {};
+
+        service.doService = function() {
+            console.log("mySecondService: " + config.configParam);
+        }
+
+        return service;
+    }
+
+    return provider;
+});
+
+myModule.config( function( mySecondServiceProvider ) {
+    mySecondServiceProvider.doConfig("new config param");
+});
+
+myModule.controller("MyController", function($scope, mySecondService) {
+
+    $scope.whenButtonClicked = function() {
+        mySecondService.doIt();
+    }
+
+});
+
+</pre>
+
+<p>
+    Notice how the provider object now has an extra function called <code>doConfig()</code>. This function
+    can be used to set a configuration parameter on the provider.
+</p>
+
+<p>
+    Notice also the call to the <code>myModule.config()</code> function. The <code>config</code> function
+    takes a function as parameter. This function can configure the module. The function passed to
+    <code>config()</code> takes a single parameter named <code>mySecondServiceProvider</code>. That
+    is the same name the provider is registered with plus <code>Provider</code> as suffix. The suffix tells
+    AngularJS to inject the provider itself, and not the object created by the provider. Inside the
+    function passed to the <code>config()</code> function the <code>mySecondServiceProvider.doConfig()</code> function
+    is called, which sets the config parameter on the provider.
+</p>
+
+<p>
+    The controller defined later in the example just depends on the object created by the provider
+    (not the provider itself).
+    It does so by taking a parameter named <code>mySecondService</code> which is the name the provider
+    of the service is registered with. As you can see, the service used from inside the 
+    <code>$scope.whenButtonClicked()</code> function.
+</p>
+
+
+
+<a name="constants"></a>
+<h2>Constants</h2>
+
+<p>
+    In the previous section on providers you saw how to configure a provider via the <code>module.config()</code>
+    function. Unfortunately you cannot inject values into the <code>module.config()</code> function. Instead you
+    can inject constants.
+</p>
+
+<p>
+    Constants in AngularJS are defined using the <code>module.constants()</code> function. Here is an
+    AngularJS constant example:
+</p>
+
+<pre class="codeBox">myModule.constant("configValue", "constant config value");
+</pre>
+
+<p>
+    This constant can now be injected into the <code>module.config()</code> function like this:
+</p>
+
+<pre class="codeBox">myservices.config( function( mySecondServiceProvider, configValue ) {
+    mySecondServiceProvider.doConfig(configValue);
+});
+</pre>
+
+<p>
+    As you can see, the parameter <code>configValue</code> matches the name of the constant which is also
+    <code>configValue</code>. Thus the value of the constant will be injected into this parameter.
+    The constant value is then passed as parameter to the <code>doConfig()</code> function on the
+    <code>mySecondServiceProvider</code> provider.
+</p>
+
+
+
+
+<a name="dependencies-between-modules"></a>
+<h2>Dependencies Between Modules</h2>
+
+<p>
+    As you have seen, values, factories and services are added to an AngularJS module. It is possible for one module
+    to use the values, factories and services of another module. In order to do so, a module needs to declare a
+    dependency on the module which contains the values, factories and services it wants to use. Here is an example:
+</p>
+
+<pre class="codeBox">var myUtilModule = angular.module("myUtilModule", []);
+
+myUtilModule.value  ("myValue"  , "12345");
+
+
+var myOtherModule = angular.module("myOtherModule", [<b>'myUtilModule'</b>]);
+
+myOtherModule.controller("MyController", function($scope, <b>myValue</b>) {
+
+}
+</pre>
+
+
+<p>
+    Notice how the second module (<code>myOtherModule</code>) lists the name of the
+    first module (<code>myUtilModule</code>) in the second parameter (inside the array) passed
+    to the <code>angular.module()</code> function. This tells AngularJS that all values, factories
+    and services defined inside the <code>myUtilModule</code> should be available inside
+    the <code>myOtherModule</code> module too. In other words, <code>myOtherModule</code> <i>depends on</i>
+    <code>myUtilModule</code>.
+</p>
+
+<p>
+    Second, notice how the <code>MyController</code> controller function now declares
+    a parameter named <code>myValue</code>. This value will be provided from the value
+    registered on the <code>myUtilModule</code> module.
+</p>
+
+
+
+
+<a name="minification-safe-dependency-injection"></a>
+<h2>Minification Safe Dependency Injection in AngularJS</h2>
+
+<p>
+    When you minify JavaScript the JavaScript minifier replaces the names of local variables
+    and parameters with shorter names. However, AngularJS uses the parameter names of controller
+    functions, factories, services and providers to decide what to inject into their factory functions.
+    If the names are changed, AngularJS cannot inject the correct objects.
+</p>
+
+<p>
+    To make your AngularJS code minification safe, you need to provide the names of the objects to inject as strings.
+    You wrap these strings in an array together with the function that needs the values injected. Here is
+    an AngularJS minification safe dependency injection example:
+</p>
+
+
+<pre class="codeBox">var myapp = angular.module("myapp", ['myservices']);
+
+myapp.controller("AController", ['$scope', function(p1) {
+    p1.myvar = "the value";
+}]);
+</pre>
+
+<p>
+    This example injects the <code>$scope</code> object into the <code>p1</code> parameter of
+    the controller function.
+</p>
+
+
+<p>
+    Notice how the controller function is registered. Instead of passing the controller function
+    to the <code>angular.controller</code> function directly, an array is passed instead. This
+    array contains the name of the value to inject into the controller function, as well as the
+    controller function itself. The controller function is always the last value in this array.
+    If you need to inject more than one value, the value names are listed in the beginning
+    of the array and in the sequence they are to be injected into the function. Here is a
+    minification safe multi value example:
+</p>
+
+<pre class="codeBox">var myapp = angular.module("myapp", ['myservices']);
+
+myapp.controller("AController", ['$scope', '$http', function(p1, p2) {
+    p1.myvar = "the value";
+    p2.get("/myservice.json");
+}]);
+</pre>
+
+<p>
+    This example injects the <code>$scope</code> object into the <code>p1</code> parameter,
+    and the <code>$http</code> service into the <code>p2</code> parameter of the controller function.
+</p>
+
+<p>
+    Now it no longer matters what the parameter names of the controller function are. AngularJS will
+    use the strings in the beginning of the array to determine what to inject into the controller
+    function.
+</p>
+
+<p>
+    The same mechanism can be used for factories, services and providers to provide minification safe
+    dependency injection. Here is a minification safe factory, service and provider example:
+</p>
+
+
+<pre class="codeBox">var myutil = angular.module("myutil", []);
+
+
+myutil.value("safeValue", "a safe value");
+
+
+myutil.factory("safeFactory", ['safeValue', function(p1) {
+    return { value : p1 };
+}]);
+
+
+function MySafeService(p1){
+    this.doIt = function() {
+        return "MySafeService.doIt() called: " + p1.value;
+    }
+}
+myutil.service("safeService", ['safeFactory', MySafeService]);
+
+
+myutil.provider("safeService2", function() {
+    var provider = {};
+
+    provider.$get = ['safeService', function(p1) {
+        var service = {};
+
+        service.doService = function() {
+            console.log("safeService from provider: " + p1.doIt());
+        }
+
+        return service;
+    }];
+
+    return provider;
+});
+
+myapp.controller("AController", ['$scope', 'safeService2', function(p1, p2) {
+    p1.myvar = "the value";
+    p2.doService();
+}]);
+</pre>
+
+<p>
+    Notice especially the declaration of the provider. Notice how the dependencies are not
+    specified on the provider factory function, but on the <code>$get()</code> function
+    of the provider returned from inside the provider factory function. Actually, an array
+    with names of dependencies and the function implementation is used instead of just a <code>$get()</code>
+    function. Other than that, specifying dependencies works the same for providers as for factories,
+    services and controller functions.
+</p>
+
+
+        
+        <br><br>
+        
+        <nav>
+            <a href="http://tutorials.jenkov.com/angularjs/routes.html">
+                <div class="nextArticleInCategory">
+                    <b>Next:</b>&nbsp;&nbsp;&nbsp;AngularJS Routes
+                </div>
+            </a>
+        </nav>
+        
+
+
+        <div style="height: 30px"></div>
+
+        <table>
+            <tbody><tr>
+                <td><b>Connect with me:</b></td>
+                <td style="width:30px;"></td>
+                <td><b>Newsletter</b> - Get all my free tips!</td>
+            </tr>
+            <tr>
+                <td><div id="bottomSocialLinks"><a class="googlePlusIconLink" href="https://plus.google.com/+JakobJenkov?rel=author" style="text-decoration:none;" title="Connect on Google+" target="_blank" rel="author"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"> <path id="google-plus-square-rounded-icon" d="M209.035,235.669c-22.34-0.673-43.568-21.164-47.425-50.498 c-3.858-29.341,11.122-51.789,33.458-51.124c22.329,0.671,41.439,24.737,45.294,54.07 C244.215,217.455,231.363,236.333,209.035,235.669z M204.452,295.702c-33.279-0.366-61.481,21.029-61.481,45.829 c0,25.309,24.033,46.375,57.314,46.375c42.547,0,63.102-19.773,63.102-45.082C263.387,318.698,241.378,295.702,204.452,295.702z M461.945,101v312c0,27.614-22.386,50-50,50h-312c-27.614,0-50-22.386-50-50V101c0-27.614,22.386-50,50-50h312 C439.56,51,461.945,73.386,461.945,101z M292.054,339.882c0-23.364-8.724-38.63-35.119-58.406 c-26.771-19.524-33.313-30.555-7.761-50.31c14.398-11.133,24.488-25.973,24.488-44.295c0-19.961-8.162-38.071-23.51-46.864h21.755 l18.521-19.438c0,0-69.817,0-82.879,0c-51.736,0-77.105,31.01-77.105,65.122c0,34.861,23.915,62.316,70.615,62.316 c-7.24,14.617-4.332,28.117,7.514,37.771c-79.759,0-96.826,34.998-96.826,61.957c0,34.932,40.154,55.699,88.303,55.699  C265.885,403.434,292.054,368.543,292.054,339.882z M400.146,162.626H361.91v-38.235h-19.117v38.235h-38.235v19.117h38.235v38.235 h19.117v-38.235h38.235V162.626z"></path> </svg></a><a class="twitterIconLink" href="https://twitter.com/#%21/jjenkov" title="Follow on Twitter" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">  <path id="twitter-3-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312c27.614,0,50-22.386,50-50V100    C462,72.386,439.614,50,412,50z M371.942,207.125c3.553,79.059-55.408,167.203-159.768,167.203    c-31.743,0-61.289-9.305-86.164-25.253c29.821,3.515,59.586-4.758,83.218-23.278c-24.596-0.453-45.356-16.703-52.508-39.035    c8.808,1.684,17.473,1.19,25.383-0.962c-27.03-5.433-45.692-29.784-45.083-55.826c7.577,4.211,16.245,6.74,25.46,7.032    c-25.034-16.73-32.12-49.786-17.396-75.045c27.723,34.006,69.143,56.385,115.857,58.729c-8.199-35.16,18.474-69.019,54.755-69.019    c16.168,0,30.776,6.825,41.029,17.75c12.804-2.52,24.833-7.198,35.694-13.639c-4.197,13.126-13.11,24.141-24.715,31.098    c11.37-1.357,22.204-4.379,32.284-8.851C392.454,189.301,382.926,199.201,371.942,207.125z"></path> </svg></a><a class="linkedInIconLink" href="http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3" title="Connect on LinkedIn" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="linkedin-square-rounded-icon" d="M411.945,50h-312c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C461.945,72.386,439.56,50,411.945,50z M180.996,392.99h-56.537V210.336h56.537V392.99z     M152.457,186.417c-18.465,0-33.432-15.09-33.432-33.703c0-18.614,14.967-33.704,33.432-33.704c18.463,0,33.432,15.09,33.432,33.704     C185.889,171.327,170.92,186.417,152.457,186.417z M392.865,392.99h-56.262c0,0,0-69.582,0-95.881     c0-26.296-9.988-40.974-30.781-40.974c-22.629,0-34.453,15.289-34.453,40.974c0,28.133,0,95.881,0,95.881h-54.223V210.336h54.223     v24.599c0,0,16.309-30.171,55.041-30.171s66.455,23.648,66.455,72.572C392.865,326.262,392.865,392.99,392.865,392.99z"></path> </svg></a><a class="youTubeIconLink" href="https://www.youtube.com/user/jjenkov" title="Subscribe on YouTube" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">         <path id="youtube-3-icon" d="M233.709,295.811h14.537v78.188h-14.537v-8.631c-2.68,3.181-5.465,5.604-8.363,7.268 c-7.836,4.488-18.594,4.392-18.594-11.473v-65.352h14.538v59.936c0,3.146,0.763,5.27,3.872,5.27c2.833,0,6.773-3.635,8.547-5.855 V295.811z M206.951,268.006h-50.245v15.384h16.937v90.608h16.371V283.39h16.938V268.006z M304.207,314.422v43.377 c0,9.674-3.619,17.188-13.291,17.188c-5.323,0-9.756-1.945-13.809-6.998v6.01H262.43V268.006h14.678v34.122 c3.281-3.997,7.734-7.306,12.926-7.306C300.681,294.822,304.207,303.816,304.207,314.422z M289.245,315.302 c0-2.638-0.517-4.64-1.554-6.008c-1.758-2.321-5.042-2.571-7.586-1.284c-1.013,0.514-2.011,1.31-2.998,2.383v48.725 c1.184,1.271,2.33,2.188,3.441,2.748c2.365,1.198,5.836,1.293,7.438-0.805c0.838-1.1,1.259-2.896,1.259-5.389V315.302z M246.938,209.69c4.106,0,6.385-3.303,6.385-7.773v-38.188c0-4.594-2.004-7.829-6.685-7.829c-4.288,0-6.356,3.335-6.356,7.829 v38.188C240.281,206.242,242.721,209.69,246.938,209.69z M462,100v312c0,27.614-22.385,50-50,50H100c-27.613,0-50-22.386-50-50V100 c0-27.614,22.387-50,50-50h312C439.615,50,462,72.386,462,100z M281.84,209.615c0,8.11,2.479,14.665,10.662,14.665 c4.618,0,11.028-2.403,17.643-10.249v9.063h15.264v-82.099h-15.264v62.317c-1.86,2.33-5.999,6.148-8.975,6.148 c-3.268,0-4.066-2.229-4.066-5.531v-62.934H281.84V209.615z M224.572,162.375v40.242c0,14.468,7.561,22,22.365,22 c12.275,0,21.944-8.21,21.944-22v-40.242c0-12.85-9.571-22.056-21.944-22.056C233.494,140.319,224.572,149.203,224.572,162.375z M167.703,111.8l20.451,66.153v45.14h17.191v-45.14l20.006-66.153h-17.467l-11.014,44.485L185.018,111.8H167.703z M380.961,276.779 c0-19.331-15.67-35.001-35-35.001H166.039c-19.33,0-35,15.67-35,35.001V365.2c0,19.33,15.67,35,35,35h179.922 c19.33,0,35-15.67,35-35V276.779z M357.938,316.831v19.906h-27.805v14.75c0,5.865,0.496,10.938,6.349,10.938 c6.137,0,6.494-4.13,6.494-10.938v-5.435h14.962v5.873c0,15.066-6.467,24.189-21.786,24.189c-13.881,0-20.979-10.113-20.979-24.189 v-35.095c0-13.573,8.967-22.997,22.08-22.997C351.198,293.834,357.938,302.699,357.938,316.831z M342.976,316.686 c0-5.283-1.12-9.163-6.349-9.163c-5.387,0-6.494,3.79-6.494,9.163v7.916h12.843V316.686z"></path> </svg></a><a class="rssIconLink" href="http://feeds2.feedburner.com/jenkov-com" title="Subscribe to RSS Feed" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">   <path id="rss-square-rounded-icon" d="M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312     c27.614,0,50-22.386,50-50V100C462,72.386,439.614,50,412,50z M151.005,400.2c-21.554,0-39.026-17.472-39.026-39.026     c0-21.553,17.473-39.024,39.026-39.024s39.024,17.472,39.024,39.024C190.029,382.729,172.559,400.2,151.005,400.2z M244.268,400.2     c-0.747-72.618-59.672-131.542-132.289-132.288v-57.815c104.663,0.747,189.355,85.44,190.104,190.103H244.268z M342.201,400.2     c-0.174-61.521-24.205-119.335-67.728-162.856c-43.436-43.437-101.108-67.456-162.495-67.723V111.8     c158.955,0.556,287.681,129.401,288.043,288.4H342.201z"></path> </svg></a></div></td>
+                <td></td>
+                <td>
+<form action="http://jenkov.us4.list-manage.com/subscribe/post?u=39844b57926863757a8be6553&amp;id=74bcc45775" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+
+    <input name="FNAME" class="" id="mce-FNAME" placeholder="First Name *" size="15" type="text">&nbsp;
+    <input name="LNAME" class="" id="mce-LNAME" placeholder="Last Name *" size="15" type="text">&nbsp;
+    <input name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email *" size="15" type="email">&nbsp;<br>
+    <input value="Yes, give me tips!" name="subscribe" id="mc-embedded-subscribe" class="button" type="submit">
+
+    <input name="listid" value="9579" type="hidden">
+    <input name="specialid:9579" value="SW15" type="hidden">
+
+    <input name="clientid" value="435086" type="hidden">
+    <input name="formid" value="587" type="hidden">
+    <input name="reallistid" value="1" type="hidden">
+    <input name="doubleopt" value="1" type="hidden">
+
+</form></td>
+            </tr>
+            <tr><td></td></tr>
+        </tbody></table>
+        <div style="height: 30px"></div>
+        <div id="articleBottomAds">
+            <script async="" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/adsbygoogle.js"></script>
+            <script>
+                if(window.innerWidth >= 1200){
+                    document.write("<ins class='adsbygoogle' style='display:inline-block;width:728px;height:90px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='7776167002'></ins>");
+                }
+            </script><ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="7776167002"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" height="90" width="728" frameborder="0"></iframe></ins></ins></ins>
+        </div>
+    <div style="height: 30px"></div>
+    <div id="disqussComments">
+            <div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/a.htm" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 594px ! important;" title="Disqus" tabindex="0" scrolling="no" allowtransparency="true" data-disqus-uid="2" id="dsq-2" width="100%" frameborder="0"></iframe><iframe style="width: 844px ! important; border: medium none ! important; overflow: hidden ! important; top: 0px ! important; min-width: 844px ! important; max-width: 844px ! important; position: fixed ! important; z-index: 2147483646 ! important; height: 29px ! important; min-height: 29px ! important; max-height: 29px ! important; display: none ! important;" title="Disqus" tabindex="0" scrolling="no" allowtransparency="true" data-disqus-uid="indicator-north" id="dsq-indicator-north" frameborder="0"></iframe><iframe style="width: 844px ! important; border: medium none ! important; overflow: hidden ! important; bottom: 0px ! important; min-width: 844px ! important; max-width: 844px ! important; position: fixed ! important; z-index: 2147483646 ! important; height: 29px ! important; min-height: 29px ! important; max-height: 29px ! important; display: none ! important;" title="Disqus" tabindex="0" scrolling="no" allowtransparency="true" data-disqus-uid="indicator-south" id="dsq-indicator-south" frameborder="0"></iframe></div>
+<script type="text/javascript">
+    
+    var disqus_shortname = 'tutorials-jenkov-com'; // required: replace example with your forum shortname
+
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        </div>
+</div><div style="width: 1200px;" jqc-row="" jqc-row-paddings="0:0"><div style="width: 1200px; margin-left: 0px;" jqc-cell="0:12c">
+            <div id="pageBottomAds">
+                <script>
+                    var adEl = document.getElementById("pageBottomAds");
+                    if(window.innerWidth >= 728 && window.innerWidth < 1200) {  
+                        document.write("<ins class='adsbygoogle' style='display:inline-block;width:728px;height:90px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='7776167002'></ins>");
+                        adEl.style.width = "728px"; adEl.style.marginTop = "20px"; adEl.style.marginBottom ="20px"; adEl.style.marginRight = "auto"; adEl.style.marginLeft = "auto";
+                    } else if(window.innerWidth < 728) {  
+                        document.write("<ins class='adsbygoogle' style='display:inline-block;width:320px;height:50px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='4216244607'></ins>");
+                        adEl.style.marginTop = "10px";
+                    }
+                </script>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <br><br><br>
+            </div>
+        </div></div></div>
+
+
+<svg id="googlePlusIconSvg"></svg>
+
+
+<script>
+    googlePlusLink =
+"<a class='googlePlusIconLink' href='https://plus.google.com/+JakobJenkov?rel=author' style='text-decoration:none;' title='Connect on Google+'  target='_blank' rel='author'>"
+        + "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' "
+        + "width='40px' height='40px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> "
+        + "<path id='google-plus-square-rounded-icon' d='M209.035,235.669c-22.34-0.673-43.568-21.164-47.425-50.498 "
+        + "c-3.858-29.341,11.122-51.789,33.458-51.124c22.329,0.671,41.439,24.737,45.294,54.07 "
+        + "C244.215,217.455,231.363,236.333,209.035,235.669z M204.452,295.702c-33.279-0.366-61.481,21.029-61.481,45.829 "
+        + "c0,25.309,24.033,46.375,57.314,46.375c42.547,0,63.102-19.773,63.102-45.082C263.387,318.698,241.378,295.702,204.452,295.702z "
+        + "M461.945,101v312c0,27.614-22.386,50-50,50h-312c-27.614,0-50-22.386-50-50V101c0-27.614,22.386-50,50-50h312 "
+        + "C439.56,51,461.945,73.386,461.945,101z M292.054,339.882c0-23.364-8.724-38.63-35.119-58.406 "
+        + "c-26.771-19.524-33.313-30.555-7.761-50.31c14.398-11.133,24.488-25.973,24.488-44.295c0-19.961-8.162-38.071-23.51-46.864h21.755 "
+        + "l18.521-19.438c0,0-69.817,0-82.879,0c-51.736,0-77.105,31.01-77.105,65.122c0,34.861,23.915,62.316,70.615,62.316 "
+        + "c-7.24,14.617-4.332,28.117,7.514,37.771c-79.759,0-96.826,34.998-96.826,61.957c0,34.932,40.154,55.699,88.303,55.699  "
+        + "C265.885,403.434,292.054,368.543,292.054,339.882z M400.146,162.626H361.91v-38.235h-19.117v38.235h-38.235v19.117h38.235v38.235 "
+        + "h19.117v-38.235h38.235V162.626z'/> "
+        + "</svg></a>"
+    ;
+
+    twitterLink =
+          "<a class='twitterIconLink' href='https://twitter.com/#!/jjenkov' title='Follow on Twitter' target='_blank'>"
+        + "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' "
+        + "width='40px' height='40px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> "
+        + " <path id='twitter-3-icon' d='M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312c27.614,0,50-22.386,50-50V100 "
+        + "   C462,72.386,439.614,50,412,50z M371.942,207.125c3.553,79.059-55.408,167.203-159.768,167.203 "
+        + "   c-31.743,0-61.289-9.305-86.164-25.253c29.821,3.515,59.586-4.758,83.218-23.278c-24.596-0.453-45.356-16.703-52.508-39.035 "
+        + "   c8.808,1.684,17.473,1.19,25.383-0.962c-27.03-5.433-45.692-29.784-45.083-55.826c7.577,4.211,16.245,6.74,25.46,7.032 "
+        + "   c-25.034-16.73-32.12-49.786-17.396-75.045c27.723,34.006,69.143,56.385,115.857,58.729c-8.199-35.16,18.474-69.019,54.755-69.019 "
+        + "   c16.168,0,30.776,6.825,41.029,17.75c12.804-2.52,24.833-7.198,35.694-13.639c-4.197,13.126-13.11,24.141-24.715,31.098 "
+        + "   c11.37-1.357,22.204-4.379,32.284-8.851C392.454,189.301,382.926,199.201,371.942,207.125z'/> "
+        + "</svg></a>"
+    ;
+
+    linkedInLink =
+          "<a class='linkedInIconLink' href='http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3' title='Connect on LinkedIn' target='_blank'>"
+        + "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' "
+        + "  width='40px' height='40px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> "
+        + "  <path id='linkedin-square-rounded-icon' d='M411.945,50h-312c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312 "
+        + "    c27.614,0,50-22.386,50-50V100C461.945,72.386,439.56,50,411.945,50z M180.996,392.99h-56.537V210.336h56.537V392.99z "
+        + "    M152.457,186.417c-18.465,0-33.432-15.09-33.432-33.703c0-18.614,14.967-33.704,33.432-33.704c18.463,0,33.432,15.09,33.432,33.704 "
+        + "    C185.889,171.327,170.92,186.417,152.457,186.417z M392.865,392.99h-56.262c0,0,0-69.582,0-95.881 "
+        + "    c0-26.296-9.988-40.974-30.781-40.974c-22.629,0-34.453,15.289-34.453,40.974c0,28.133,0,95.881,0,95.881h-54.223V210.336h54.223 "
+        + "    v24.599c0,0,16.309-30.171,55.041-30.171s66.455,23.648,66.455,72.572C392.865,326.262,392.865,392.99,392.865,392.99z'/> "
+        + "</svg></a>"
+    ;
+
+
+    youTubeLink =
+          "<a class='youTubeIconLink' href='https://www.youtube.com/user/jjenkov' title='Subscribe on YouTube' target='_blank'>"
+        + "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' "
+        + "width='40px' height='40px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> "
+        + "        <path id='youtube-3-icon' d='M233.709,295.811h14.537v78.188h-14.537v-8.631c-2.68,3.181-5.465,5.604-8.363,7.268 "
+        + "c-7.836,4.488-18.594,4.392-18.594-11.473v-65.352h14.538v59.936c0,3.146,0.763,5.27,3.872,5.27c2.833,0,6.773-3.635,8.547-5.855 "
+        + "V295.811z M206.951,268.006h-50.245v15.384h16.937v90.608h16.371V283.39h16.938V268.006z M304.207,314.422v43.377 "
+        + "c0,9.674-3.619,17.188-13.291,17.188c-5.323,0-9.756-1.945-13.809-6.998v6.01H262.43V268.006h14.678v34.122 "
+        + "c3.281-3.997,7.734-7.306,12.926-7.306C300.681,294.822,304.207,303.816,304.207,314.422z M289.245,315.302 "
+        + "c0-2.638-0.517-4.64-1.554-6.008c-1.758-2.321-5.042-2.571-7.586-1.284c-1.013,0.514-2.011,1.31-2.998,2.383v48.725 "
+        + "c1.184,1.271,2.33,2.188,3.441,2.748c2.365,1.198,5.836,1.293,7.438-0.805c0.838-1.1,1.259-2.896,1.259-5.389V315.302z "
+        + "M246.938,209.69c4.106,0,6.385-3.303,6.385-7.773v-38.188c0-4.594-2.004-7.829-6.685-7.829c-4.288,0-6.356,3.335-6.356,7.829 "
+        + "v38.188C240.281,206.242,242.721,209.69,246.938,209.69z M462,100v312c0,27.614-22.385,50-50,50H100c-27.613,0-50-22.386-50-50V100 "
+        + "c0-27.614,22.387-50,50-50h312C439.615,50,462,72.386,462,100z M281.84,209.615c0,8.11,2.479,14.665,10.662,14.665 "
+        + "c4.618,0,11.028-2.403,17.643-10.249v9.063h15.264v-82.099h-15.264v62.317c-1.86,2.33-5.999,6.148-8.975,6.148 "
+        + "c-3.268,0-4.066-2.229-4.066-5.531v-62.934H281.84V209.615z M224.572,162.375v40.242c0,14.468,7.561,22,22.365,22 "
+        + "c12.275,0,21.944-8.21,21.944-22v-40.242c0-12.85-9.571-22.056-21.944-22.056C233.494,140.319,224.572,149.203,224.572,162.375z "
+        + "M167.703,111.8l20.451,66.153v45.14h17.191v-45.14l20.006-66.153h-17.467l-11.014,44.485L185.018,111.8H167.703z M380.961,276.779 "
+        + "c0-19.331-15.67-35.001-35-35.001H166.039c-19.33,0-35,15.67-35,35.001V365.2c0,19.33,15.67,35,35,35h179.922 "
+        + "c19.33,0,35-15.67,35-35V276.779z M357.938,316.831v19.906h-27.805v14.75c0,5.865,0.496,10.938,6.349,10.938 "
+        + "c6.137,0,6.494-4.13,6.494-10.938v-5.435h14.962v5.873c0,15.066-6.467,24.189-21.786,24.189c-13.881,0-20.979-10.113-20.979-24.189 "
+        + "v-35.095c0-13.573,8.967-22.997,22.08-22.997C351.198,293.834,357.938,302.699,357.938,316.831z M342.976,316.686 "
+        + "c0-5.283-1.12-9.163-6.349-9.163c-5.387,0-6.494,3.79-6.494,9.163v7.916h12.843V316.686z'/> "
+        + "</svg></a>"
+    ;
+
+
+    rssLink =
+          "<a class='rssIconLink' href='http://feeds2.feedburner.com/jenkov-com' title='Subscribe to RSS Feed' target='_blank'>"
+        + "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' "
+        + "  width='40px' height='40px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> "
+        + "  <path id='rss-square-rounded-icon' d='M412,50H100c-27.614,0-50,22.386-50,50v312c0,27.614,22.386,50,50,50h312 "
+        + "    c27.614,0,50-22.386,50-50V100C462,72.386,439.614,50,412,50z M151.005,400.2c-21.554,0-39.026-17.472-39.026-39.026 "
+        + "    c0-21.553,17.473-39.024,39.026-39.024s39.024,17.472,39.024,39.024C190.029,382.729,172.559,400.2,151.005,400.2z M244.268,400.2 "
+        + "    c-0.747-72.618-59.672-131.542-132.289-132.288v-57.815c104.663,0.747,189.355,85.44,190.104,190.103H244.268z M342.201,400.2 "
+        + "    c-0.174-61.521-24.205-119.335-67.728-162.856c-43.436-43.437-101.108-67.456-162.495-67.723V111.8 "
+        + "    c158.955,0.556,287.681,129.401,288.043,288.4H342.201z'/> "
+        + "</svg></a>"
+    ;
+
+
+
+
+
+</script>
+<script>
+    var socialConnectLinks = googlePlusLink + twitterLink + linkedInLink + youTubeLink + rssLink;
+    ;
+
+    var photoWidth  = 111;
+    var photoHeight = 127;
+    var authorStr   = "Jakob Jenkov";
+    var afterPhotoX = photoWidth + 20;
+    if(window.innerWidth <= 400){
+        photoWidth  = 72;
+        photoHeight = 82;
+        afterPhotoX = photoWidth + 10;
+        authorStr   = "<br/>Jakob<br/>Jenkov";
+    }
+    var articleTopHtmlStr =
+            "<div style='position:relative; borderx: 1px solid #cccccc; height: 163px;'>"
+          + "  <img style='width:" + photoWidth + "px; height:" + photoHeight+ "px;' src='/images/layout/small-portrait_mini.jpg'> <br/>"
+          + "  <span class='author'>By <a target='jakob-jenkov' href='http://jakob.jenkov.com'>" + authorStr + "</a></span>"
+          + " "
+          + "  <div style='position:absolute; top: 0px; left: " + afterPhotoX +"px;'>"
+          + "    &nbsp;Connect with me: <br/>"
+          + "    " + socialConnectLinks
+          + "  </div>"
+
+          ;
+    articleTopHtmlStr +=
+            "  <div style='position:absolute; top: 70px; left: " + afterPhotoX + "px'>"
+          + "   Rate article: "
+          + "  </div>"
+
+          + "  <div style='position:absolute; top: 88px; left: " + afterPhotoX + "px;'> "
+          + "    <script type='text/javascript' src='https://apis.google.com/js/plusone.js' async>"
+          + "<\/script>"
+          + "    <g:plusone><\/g:plusone>"
+          + "  </div>"
+          
+          + "  <div style='position:absolute; top: 122px; left: " + afterPhotoX + "px'>"
+          + "    Share article:"
+          + "  </div>"
+
+          + "  <div style='position:absolute; top: 140px; left: " + afterPhotoX + "px'>"
+          + "    <div class='g-plus' data-action='share' data-height='24'  data-annotation='none'></div>"
+          + "    <script type='text/javascript'>"
+          + "     (function() { "
+          + "       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;"
+          + "       po.src = 'https://apis.google.com/js/platform.js'; "
+          + "       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);"
+          + "       })();"
+          + "    <\/script>"
+          + "  </div>"
+
+          + "  <div style='position:absolute; top: 140px; left: " + (afterPhotoX + 80) + "px'>"
+          + "    <a href='https://twitter.com/share' class='twitter-share-button' data-via='jjenkov'>Tweet</a>"
+          + "    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');<\/script>"
+          + "  </div>"
+          
+;
+
+//console.log(articleTopHtmlStr);
+</script>
+
+<span jqc-module="mobileAdaptModule"></span>
+
+<script>
+function mobileAdaptModule() {
+
+   var module = {};
+
+    module.postRender = function() {
+        console.log("Mobile Adaptation Running");
+
+        var articleTopDiv = $("#articleTopDiv");
+
+        articleTopDiv.html( articleTopHtmlStr );
+
+        //articleTopDiv.html( $("#articleTopTemplate").html() );
+
+        //$("#googlePlusIconSvg").html( rssIcon );
+        $("#bottomSocialLinks").html(socialConnectLinks);
+        $("#leftSocialLinks").html(socialConnectLinks);
+
+    }
+
+   return module;
+}
+
+</script>
+
+
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-4036229-3', 'auto');
+    ga('send', 'pageview');
+
+</script>
+    
+
+
+
+<iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="AngularJS%20Modularization%20&amp;%20Dependency%20Injection_files/postmessageRelay.htm" id="oauth2relay419323493" name="oauth2relay419323493"></iframe></body></html>

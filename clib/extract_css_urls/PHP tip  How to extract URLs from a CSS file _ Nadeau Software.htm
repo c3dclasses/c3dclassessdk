@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="js" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="Copyright Nadeau Software Consulting. All rights reserved.">
+<meta name="description" content="Though HTML is usually the focus for extracting URLs for a link checker or analysis tool, CSS files also include URLs. This tip shows how to scan a CSS file and extract its URLs.">
+<meta name="keywords" content="PHP,search engine,text processing,css,extract urls,unicode,utf-8">
+<link rel="shortcut icon" href="http://nadeausoftware.com/favicon.gif" type="image/x-icon">
+<style type="text/css" media="all">@import "/sites/NadeauSoftware.com/files/css/d125078869b336dd69d9f5492f6739d3.css";</style>
+<title>PHP tip: How to extract URLs from a CSS file | Nadeau Software</title>
+</head>
+<body>
+<div id="page-body">
+	<div class="breadcrumb"><a href="http://nadeausoftware.com/">Home</a> » <a href="http://nadeausoftware.com/topics">Articles</a> » <a href="http://nadeausoftware.com/articles/2008">2008</a> » <a href="http://nadeausoftware.com/articles/2008/01">January</a></div>	<div id="page-main" class="article">
+		<h1 class="title">PHP tip: How to extract URLs from a CSS file</h1><div class="node">
+  <div class="submitted">January 3, 2008  </div>
+      <div class="taxonomy">Topics: <a href="http://nadeausoftware.com/articles/php">PHP</a>, <a href="http://nadeausoftware.com/articles/text_processing">Text processing</a></div>
+  <div class="content"><div class="article-requirements">Technologies: CSS 1+, PHP 4.3+, UTF-8</div>
+<p class="summary">Though HTML is usually the focus for extracting URLs for a link checker or analysis tool, CSS files also include URLs. The CSS <code>@import</code>
+ rule uses a URL to include another CSS file, and many style properties 
+include a URL to load an image or other content. This tip shows how to 
+scan a CSS file and extract its URLs.</p>
+
+
+<div class="toc">
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Code">Code</a></li>
+<li><a href="#Examples">Examples</a></li>
+<li><a href="#Explanation">Explanation</a></li>
+<ol>
+<li><a href="#FindingCSSurlfunctions">Finding CSS url() functions</a></li>
+<li><a href="#FindingCSSimportrules">Finding CSS @import rules</a></li>
+<li><a href="#Handlingupperandlowercase">Handling upper and lower case</a></li>
+<li><a href="#Handlingcharacterencodings">Handling character encodings</a></li>
+<li><a href="#UsingreturnedURLs">Using returned URLs</a></li>
+</ol>
+<li><a href="#Downloads">Downloads</a></li>
+<li><a href="#Furtherreading">Further reading</a></li>
+<ol>
+<li><a href="#RelatedarticlesatNadeauSoftwarecom">Related articles at NadeauSoftware.com</a></li>
+<li><a href="#Webarticlesandspecifications">Web articles and specifications </a></li>
+</ol>
+</ol>
+</div>
+
+<p class="series-note">This article is an independent article, but it is also associated with the PHP tip on <a href="http://nadeausoftware.com/articles/2008/01/php_tip_how_extract_urls_web_page">How to extract URLs from a web page</a>.  Both of these articles are also part of an article series on <a href="http://nadeausoftware.com/articles/2008/04/php_tip_how_extract_keywords_web_page">How to extract keywords from a web page.</a>
+  The rest of the series looks at how to get a web page from a web 
+server, get the page's content type, convert to UTF-8, strip away HTML 
+syntax, punctuation, symbol characters, and numbers, and break a page 
+down into a keyword list.</p>
+
+<h2 id="Introduction">Introduction</h2>
+<p>URL extraction from  style sheets is useful for:</p>
+<ul>
+  <li><strong>Link checkers</strong> to find missing background images and imported files.</li>
+  <li><strong>Content filters</strong> to check for access to inappropriate content.</li>
+  <li><strong>Web page analysis tools</strong> to collect file statistics and help optimize CDN use.</li>
+</ul>
+<p>Link checking can find missing files and content filters can find 
+files that shouldn't be used. CSS file analysis can highlight when a web
+ site design is using too many files or when those files are not 
+optimally spread across multiple domains or hosted by a Content 
+Distribution Network (CDN).</p>
+<p>The code below handles URL extraction for CSS code contained in  style sheet files, or embedded within HTML or XHTML content.</p>
+<h2 id="Code">Code</h2>
+<p>The <code>extract_css_urls()</code> function below uses regular 
+expressions to find CSS rules and properties that include URLs. The URLs
+ are returned in an associative array of arrays. Keys to the associative
+ array are "<code>import</code>" for URLs in <code>@import</code> rules and "<code>property</code>" for URLs in properties.</p>
+<p>Usage examples and detailed explanations follow in the next sections.</p>
+<p>Download:  <a href="http://nadeausoftware.com/sites/NadeauSoftware.com/files/extract_css_urls.zip">extract_css_urls.zip</a>.
+</p><pre class="code-example"><strong>/**
+ * Extract URLs from CSS text.
+ */
+function extract_css_urls( $text )
+{</strong>
+    $urls = array( );
+ 
+    $url_pattern     = '(([^\\\\\'", \(\)]*(\\\\.)?)+)';
+    $urlfunc_pattern = 'url\(\s*[\'"]?' . $url_pattern . '[\'"]?\s*\)';
+    $pattern         = '/(' .
+         '(@import\s*[\'"]' . $url_pattern     . '[\'"])' .
+        '|(@import\s*'      . $urlfunc_pattern . ')'      .
+        '|('                . $urlfunc_pattern . ')'      .  ')/iu';
+    if ( !preg_match_all( $pattern, $text, $matches ) )
+        return $urls;
+ 
+    // @import '...'
+    // @import "..."
+    foreach ( $matches[3] as $match )
+        if ( !empty($match) )
+            $urls['import'][] = 
+                preg_replace( '/\\\\(.)/u', '\\1', $match );
+ 
+    // @import url(...)
+    // @import url('...')
+    // @import url("...")
+    foreach ( $matches[7] as $match )
+        if ( !empty($match) )
+            $urls['import'][] = 
+                preg_replace( '/\\\\(.)/u', '\\1', $match );
+ 
+    // url(...)
+    // url('...')
+    // url("...")
+    foreach ( $matches[11] as $match )
+        if ( !empty($match) )
+            $urls['property'][] = 
+                preg_replace( '/\\\\(.)/u', '\\1', $match );
+ 
+    return $urls;
+<strong>}</strong></pre>
+<h2 id="Examples">Examples</h2>
+<p>Read a CSS file using <code>file_get_contents()</code>, extract its URLs, and print them:</p>
+<pre class="code-example">$text = file_get_contents( $url );
+<strong>$urls = extract_css_urls( $text );</strong>
+print_r( $urls );<br></pre>
+<p>Only print the <code>@import</code> URLs:</p>
+<pre class="code-example">if ( !empty( $urls['import'] ) )
+    print_r( $urls['import'] );<br></pre>
+<p>Only print property URLs:</p>
+
+<pre class="code-example">if ( !empty( $urls['property'] ) )
+    print_r( $urls['property'] );<br></pre>
+
+<h2 id="Explanation">Explanation</h2>
+<p>In <a href="http://www.w3.org/TR/REC-CSS2/" class="externallink">CSS 2.0,</a> URLs may be given in just two ways:</p>
+<ul>
+  <li>On  properties using the <code>url()</code> function.</li>
+  <li>In an <code>@import</code> rule to include another style sheet.</li>
+</ul>
+<h3 id="FindingCSSurlfunctions">Finding CSS url() functions</h3>
+<p>The <code>url()</code> function takes a single URL argument enclosed 
+in single or double quotes, or  no quotes at all. URLs may not include 
+the characters: ( ) , ' and ". To include these, precede them with a 
+backslash or use percent-hex encoding (such as %28 for an open 
+parenthesis).</p>
+<p>Examples:</p>
+<pre class="code-example">background-image: url(file.gif);
+background-image: url('file.gif') no-repeat;
+background: #FF0000 url( "file.gif" ) no-repeat  ;
+background: #FF0000 url( "file%20space.gif" ) no-repeat;</pre>
+<p>The <code>extract_css_urls()</code> function above uses <a href="http://us2.php.net/preg_match" class="externallink"><code>preg_match()</code></a>  to match "<code>url</code>",
+ an open parenthesis,  white-space, an optional open quote, a URL, an 
+optional close quote, white-space, and a close parenthesis. The URL 
+itself is any sequence of characters except ( ) , ' and ", unless 
+preceded by a backslash.</p>
+<p>Backslash escaped characters are un-escaped.</p>
+<h3 id="FindingCSSimportrules">Finding CSS @import rules</h3>
+<p>An <code>@import</code> rule can have one of two forms:</p>
+<ul>
+  <li><code>@import url("file.css") </code><em>media-list</em><code>;</code></li>
+  <li><code>@import "file.css" </code><em>media-list</em><code>;</code></li>
+</ul>
+<p>The first form uses the <code>url()</code> function, while the second omits it. Both forms may include an optional media list (such as "<code>print</code>" or "<code>screen</code>").</p>
+<p>Examples:</p>
+<pre class="code-example">@import url(file.css);
+@import url('file.css');
+@import url(  "file.css"  ) print;
+@import 'file.css'  ;
+@import   "file.css"   print, screen;</pre>
+<p>The <code>extract_css_urls()</code> function above uses <a href="http://us2.php.net/preg_match" class="externallink"><code>preg_match()</code></a> to match "<code>@import</code>", white-space, and either a <code>url()</code> function or a URL within quotes.</p>
+<p>Backslash escaped characters are un-escaped.</p>
+<h3 id="Handlingupperandlowercase">Handling upper and lower case</h3>
+<p>While CSS requires that <code>url()</code> and <code>@import</code> be in lower-case,  the <code>extract_css_urls()</code> function accepts upper and mixed case as well to be compatible with lenient web browsers.</p>
+<h3 id="Handlingcharacterencodings">Handling character encodings</h3>
+<p>CSS text defaults to the US-ASCII character encoding. This may be overridden:</p>
+<ul class="bullet-block-list">
+  <li>For individual CSS files, the <code>content-type</code> directive in the HTTP header to download the file may specify an alternative character encoding. This is very rare.</li>
+  <li>CSS text may include an <code>@charset</code> rule to specify a character encoding. This is very rare.</li>
+  <li>CSS text embedded in an X/HTML file adopts the character encoding 
+of that file. The most common HTML encodings are ISO-8859-1 (Latin 1) 
+and UTF-8 (Unicode).</li>
+</ul>
+<p>While <code>extract_css_urls()</code> could look for an <code>@charset</code>
+ rule and adapt, it cannot handle the other two cases. Instead, it is up
+ to the application to determine the encoding of the CSS text and use 
+PHP's <a href="http://us3.php.net/iconv" class="externallink"><code>iconv()</code></a> to convert to UTF-8. Thereafter, <code>extract_css_urls()</code> uses the <code>/u</code>
+ pattern modifier to handle Unicode character matching. Fortunately, for
+ the US-ASCII default and Latin-1, no special handling is needed since 
+these are subsets of UTF-8 already.</p>
+<h3 id="UsingreturnedURLs">Using returned URLs</h3>
+<p>All URLs are returned in an associative array of  arrays. Outer array keys are "<code>import</code>" for <code>@import</code> URLs, and "<code>property</code>" for all others.</p>
+<p>Returned URLs may be absolute or relative, depending upon how they 
+were entered in the CSS text. Applications will need to use the file's 
+base URL to convert relative URLs into absolute URLs if they intend to 
+use them for link checking or other analysis.</p>
+
+<h2 id="Downloads">Downloads</h2>
+<ul class="link-list-flush">
+  <li><a href="http://nadeausoftware.com/sites/NadeauSoftware.com/files/extract_css_urls.zip">extract_css_urls.zip</a>
+    <ul>
+      <li>Includes <code> extract_css_urls.php</code>. The code is covered by the <a href="http://www.opensource.org/licenses/bsd-license.php" class="externallink">OSI BSD</a> license so you can use, modify, redistribute, and sell as you see fit.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="Furtherreading">Further reading</h2>
+<h3 id="RelatedarticlesatNadeauSoftwarecom">Related articles at NadeauSoftware.com</h3>
+<ul class="link-list-flush">
+  <li><a href="http://nadeausoftware.com/articles/2008/01/php_tip_how_extract_urls_web_page">PHP tip: How to extract URLs from a web page.</a> Extract URLs from HTML and XHTML web pages and use the <code>extract_css_urls()</code> function in this article to extract URLs from embedded CSS styles.</li>
+  <li><a href="http://nadeausoftware.com/articles/2007/06/php_tip_how_get_web_page_using_curl">PHP tip: How to get a web page using CURL.</a>
+ Use PHP's CURL (Client URL) functions to get a web file, handling web 
+server redirects, compressed content, cookies, and user-agent strings.</li>
+  <li><a href="http://nadeausoftware.com/articles/2007/07/php_tip_how_get_web_page_using_fopen_wrappers">PHP tip: How to get a web page using the fopen wrappers.</a> Use PHP's file reading functions to get a web page, handling web server redirects and user-agent strings.</li>
+  <li><a href="http://nadeausoftware.com/articles/2007/06/php_tip_how_get_web_page_content_type">PHP tip: How to get a web page's content type.</a> Get the MIME type and character set from an HTTP header or from the web page content.</li>
+<li><a href="http://nadeausoftware.com/articles/2008/04/php_tip_how_extract_keywords_web_page">PHP tip: How to extract keywords from a web page.</a>
+  Get a good list of keywords from a web page by getting the web page 
+text, converting it to UTF-8, stripping away HTML tags, punctuation, 
+symbols, and numbers, and breaking the text into words.</li>
+</ul>
+<h3 id="Webarticlesandspecifications">Web articles and specifications </h3>
+<ul class="link-list-flush">
+<li><a href="http://www.w3.org/TR/REC-CSS2/" class="externallink">Cascading Style Sheets Level 2, CSS 2 Specification.</a> The W3C specification for CSS 2.0.</li>
+</ul></div>
+</div>
+<div id="comments"><h2>Comments</h2>  <div class="box">
+    <h2 class="title">Post new comment</h2>    <div class="content"><form action="/comment/reply/71" accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Your name: </label>
+ <input maxlength="60" name="name" id="edit-name" size="30" value="Anonymous" class="form-text" type="text">
+</div>
+<div class="form-item" id="edit-mail-wrapper">
+ <label for="edit-mail">E-mail: </label>
+ <input maxlength="64" name="mail" id="edit-mail" size="30" class="form-text" type="text">
+ <div class="description">The content of this field is kept private and will not be shown publicly.</div>
+</div>
+<div class="form-item" id="edit-homepage-wrapper">
+ <label for="edit-homepage">Homepage: </label>
+ <input maxlength="255" name="homepage" id="edit-homepage" size="30" class="form-text" type="text">
+</div>
+<div class="form-item" id="edit-subject-wrapper">
+ <label for="edit-subject">Subject: </label>
+ <input maxlength="64" name="subject" id="edit-subject" size="60" class="form-text" type="text">
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Comment: <span class="form-required" title="This field is required.">*</span></label>
+ <div class="resizable-textarea"><textarea cols="60" rows="15" name="comment" id="edit-comment" class="form-textarea resizable required processed"></textarea><div style="margin-right: -6px;" class="grippie"></div></div>
+</div>
+<ul class="tips"><li>Allowed HTML tags: &lt;a&gt; &lt;em&gt; 
+&lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; 
+&lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</li><li>Lines and paragraphs break automatically.</li><li>Web page addresses and e-mail addresses turn into links automatically.</li></ul><p><a href="http://nadeausoftware.com/filter/tips">More information about formatting options</a></p><input name="form_id" id="edit-comment-form" value="comment_form" type="hidden">
+<input name="op" id="edit-preview" value="Preview comment" class="form-submit" type="submit">
+
+</div></form>
+</div>
+ </div>
+
+</div>	</div>
+			<div id="footer">Copyright © Nadeau Software Consulting (Dr. David R. Nadeau).  All rights reserved.
+<div class="footer-links">
+<a href="http://nadeausoftware.com/about/privacy_policy">Privacy policy</a> |
+<a href="http://nadeausoftware.com/about/terms_use">Terms of use</a> |
+<a href="http://nadeausoftware.com/sitemap">Site map</a></div>
+</div>
+	</div>
+<div id="page-gradient"></div>
+<div id="page-upperleft"></div>
+<div id="page-upperright"></div>
+<div id="page-logo">
+	<a href="http://nadeausoftware.com/" title="Home"><img src="PHP%20tip%20%20How%20to%20extract%20URLs%20from%20a%20CSS%20file%20_%20Nadeau%20Software_files/logo.png" alt="Home"></a></div>
+<div id="page-id-shadow">
+	<span id="page-sitename-shadow">Nadeau</span>
+	<span id="page-sitename2-shadow">software consulting</span>
+</div>
+<div id="page-id">
+	<span id="page-sitename"><a href="http://nadeausoftware.com/" title="Home">Nadeau</a></span>
+	<span id="page-sitename2"><a href="http://nadeausoftware.com/" title="Home">software consulting</a></span>
+</div>
+<div id="page-menu">  <div class="block block-block" id="block-block-1">
+    <h2 class="title"></h2>
+    <div class="content"><ul class="menu">
+<li class="expanded"><a href="http://nadeausoftware.com/articles">Articles</a>
+<ul class="menu">
+<li class="leaf">Programming
+<ul class="menu">
+<li class="leaf"><a href="http://nadeausoftware.com/articles/c_c">C/C++</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/java">Java</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/php">PHP</a></li>
+</ul></li>
+<li class="leaf">Technique
+<ul class="menu">
+<li class="leaf"><a href="http://nadeausoftware.com/articles/text_processing">Text processing</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/user_interfaces">User interfaces</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/visualization">Visualization</a></li>
+</ul></li>
+<li class="leaf">Web
+<ul class="menu">
+<li class="leaf"><a href="http://nadeausoftware.com/articles/web_servers">Apache</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/drupal">Drupal</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/web_site_performance">Site performance</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/safe_web_use">Spam blocking</a></li>
+<li class="leaf"><a href="http://nadeausoftware.com/articles/web_authoring">Web authoring</a></li>
+</ul></li>
+</ul></li>
+<li class="leaf"><a href="http://nadeausoftware.com/books">Books</a></li>
+<!-- <li class="leaf"><a href="/services">Services</a></li> -->
+<li class="leaf"><a href="http://nadeausoftware.com/about">About</a></li>
+</ul></div>
+ </div>
+</div>
+<div id="page-search"><form action="/articles/2008/01/php_tip_how_extract_urls_css_file" accept-charset="UTF-8" method="post" id="search-theme-form">
+<div><div id="search" class="container-inline"><div class="form-item" id="edit-search-theme-form-keys-wrapper">
+ <input maxlength="128" name="search_theme_form_keys" id="edit-search-theme-form-keys" size="15" title="Enter the terms you wish to search for." class="form-text" type="text">
+</div>
+<input name="op" id="edit-submit" value="Search" class="form-submit" type="submit">
+<input name="form_id" id="edit-search-theme-form" value="search_theme_form" type="hidden">
+</div>
+</div></form>
+</div>
+<script src="PHP%20tip%20%20How%20to%20extract%20URLs%20from%20a%20CSS%20file%20_%20Nadeau%20Software_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="PHP%20tip%20%20How%20to%20extract%20URLs%20from%20a%20CSS%20file%20_%20Nadeau%20Software_files/jquery.js"></script>
+<script type="text/javascript" src="PHP%20tip%20%20How%20to%20extract%20URLs%20from%20a%20CSS%20file%20_%20Nadeau%20Software_files/drupal.js"></script>
+<script type="text/javascript" src="PHP%20tip%20%20How%20to%20extract%20URLs%20from%20a%20CSS%20file%20_%20Nadeau%20Software_files/textarea.js"></script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2204216-1']);
+  _gaq.push(['_trackPageview']);
+
+    (function() {
+	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		      })();
+
+</script>
+
+
+
+
+</body></html>

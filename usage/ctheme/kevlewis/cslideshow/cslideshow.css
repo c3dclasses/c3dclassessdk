@@ -1,0 +1,11 @@
+/*-------------------------------------------------------------------
+// file: cslideshow.css
+// desc: style a slideshow control
+//------------------------------------------------------------------*/
+div.cslideshow div.cslideshow-slide{ overflow:hidden; width:100%; height:100%;display:block; position:absolute; top:0; left:0; z-index:1; }
+div.cslideshow #next{ height:100%; width:20px; font-size:100px; z-index: 3000; position:absolute; top:0; right:-25px; }
+div.cslideshow #next:hover{  background: url("../images/arrow-right.png") no-repeat scroll center center; } 
+div.cslideshow #next{ background: url("../images/arrow-right.png") no-repeat scroll center center; } 
+div.cslideshow #previous{ height:100%; width:20px; font-size:100px; z-index: 3000; position:absolute; top:0; left:-25px;}
+div.cslideshow #previous:hover{ background: url("../images/arrow-left.png") no-repeat scroll center center; }
+div.cslideshow #previous{ background: url("../images/arrow-left.png") no-repeat scroll center center; }

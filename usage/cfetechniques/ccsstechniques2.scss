@@ -1,0 +1,40 @@
+
+/* nesting */
+.grid{ 
+	width:initial;
+	background: #F00;
+	float:left;
+	padding: 10px;
+	
+	.col-2-3{
+		width:66.66%;
+		background: #060;
+	}
+	
+	.col-1-3{
+		width:33.33%;
+		background-color: #006;
+	}
+	
+	[class *=col]{
+		float: left;
+	}
+}
+
+.grid:after{
+	clear:both;
+	content:"after grid";
+	display: table;
+}
+
+
+#boxsizingdemo {
+	/*box-sizing: border-box;*/
+    width: 200px;
+    float: left;
+	border: black solid 20px;
+	position: fixed;
+	left:0px;
+	top:0px;
+	background: red;
+}

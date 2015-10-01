@@ -1,0 +1,14 @@
+/* this is the style of my file */
+@import url('style2.css');
+
+/*
+.cprogram{
+	background: url( "junk/../images/index.jpg" );
+	height: 200px;	
+}*/
+
+
+#content blockquote { 
+	background:url('http://culturesoflove.com/wp-content/themes/maya/images/cite.png') no-repeat 45px 25px; 
+	padding:35px; 
+}        

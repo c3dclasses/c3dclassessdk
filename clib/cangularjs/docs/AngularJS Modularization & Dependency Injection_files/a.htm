@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" dir="ltr" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" dir="ltr" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="js no-touch localstorage sessionstorage contenteditable use-opacity-transitions" dir="ltr" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Disqus Comments</title>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <style>
+        html {
+            overflow: hidden;
+        }
+        
+    </style>
+
+<link href="a_data/lounge.css" rel="stylesheet"><script src="a_data/config.js" data-requiremodule="remote/config" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/common.js" data-requiremodule="common.bundle" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/lounge_002.js" data-requiremodule="lounge.bundle" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/ga.js" data-requiremodule="http://www.google-analytics.com/ga.js" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><style id="css_1413552422749"></style><!-- base href="http://disqus.com/embed/comments/?base=default&disqus_version=aa0a352c&f=tutorials-jenkov-com&t_u=http%3A%2F%2Ftutorials.jenkov.com%2Fangularjs%2Fdependency-injection.html&t_d=AngularJS%20Modularization%20%26%20Dependency%20Injection&t_t=AngularJS%20Modularization%20%26%20Dependency%20Injection&s_o=default" --><script charset="UTF-8" async="" src="a_data/event.js"></script><link href="a_data/discovery.css" rel="stylesheet"><script src="a_data/discovery.js" data-requiremodule="discovery/main" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script charset="UTF-8" async="" src="a_data/event_003.js"></script><script charset="UTF-8" async="" src="a_data/event_002.js"></script></head>
+<body>
+    
+    <!--[if lte IE 8]>
+<script src="//a.disquscdn.com/1413230218/build/vendor/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="//a.disquscdn.com/1413230218/build/vendor/ie9.js"></script>
+<![endif]-->
+
+    
+<script type="text/json" id="disqus-urls">{
+    "root":"//disqus.com",
+    "next":"//a.disquscdn.com/next/aa0a352c"
+}</script>
+
+    
+
+    <div id="error" style="display:none; text-align: center">
+        <p>We were unable to load Disqus. If you are a moderator please see our <a href="http://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+    </div>
+
+    
+    <script type="text/json" id="disqus-forumData">{"session":{"isReadOnly":null,"canModerate":false,"audienceSyncVerified":false,"canReply":true,"mustVerifyEmail":false},"features":{},"forum":{"name":"tutorials.jenkov.com","language":"en","settings":{"canEnableSponsoredComments":false,"discoveryVariant":"default","allowAnonPost":false,"allowMedia":false,"moderatorText":"","typeface":"auto","disable3rdPartyTrackers":false,"promotedDiscoveryEnabled":false,"discoveryMax":false,"ssoRequired":false,"discoveryLocked":false,"audienceSyncEnabled":false,"hasCustomAvatar":false,"organicDiscoveryEnabled":true,"discoverySettingsUrl":"https://tutorials-jenkov-com.disqus.com/admin/settings/ads/","discoveryThumbnailsEnabled":false,"colorScheme":"auto","sponsoredCommentsEnabled":false,"linkAffiliationEnabled":false},"url":"http://tutorials.jenkov.com","guidelines":null,"favicon":{"permalink":"http://disqus.com/api/forums/favicons/tutorials-jenkov-com.jpg","cache":"//a.disquscdn.com/1413230218/images/favicon-default.png"},"avatar":{"small":{"permalink":"http://disqus.com/api/forums/avatars/tutorials-jenkov-com.jpg?size=32","cache":"//a.disquscdn.com/1413230218/images/noavatar32.png"},"large":{"permalink":"http://disqus.com/api/forums/avatars/tutorials-jenkov-com.jpg?size=92","cache":"//a.disquscdn.com/1413230218/images/noavatar92.png"}},"pk":3259545,"founder":"90400732","id":"tutorials-jenkov-com","channel":null}}</script>
+
+    
+    <script type="text/json" id="disqus-threadData">{"cursor":{"hasPrev":false,"prev":null,"total":0,"hasNext":false,"next":"1:0:0"},"code":0,"response":{"lastModified":1413208390,"posts":[],"thread":{"feed":"https://tutorials-jenkov-com.disqus.com/angularjs_modularization_dependency_injection/latest.rss","uploadAdd":"//tutorials-jenkov-com.disqus.com/thread/angularjs_modularization_dependency_injection/async_media_upload/","identifiers":[],"dislikes":0,"likes":0,"message":"","id":"3112341747","isDeleted":false,"category":"3311932","clean_title":"AngularJS Modularization &amp; Dependency Injection","userScore":0,"userSubscription":false,"createdAt":"2014-10-13T13:53:10","hasStreaming":false,"uploadRemove":"//tutorials-jenkov-com.disqus.com/thread/angularjs_modularization_dependency_injection/async_media_remove/","raw_message":"","isClosed":false,"link":"http://tutorials.jenkov.com/angularjs/dependency-injection.html","slug":"angularjs_modularization_dependency_injection","forum":"tutorials-jenkov-com","author":"90400732","posts":0,"moderators":[90400732],"title":"AngularJS Modularization & Dependency Injection","highlightedPost":null}},"order":"popular"}</script>
+
+    
+
+    <div id="fixed-content"></div>
+
+    <script src="a_data/lounge.js" id="bootstrap-script" data-app="lounge"></script>
+
+
+<div id="layout" data-tracking-area="layout">
+
+<div id="discovery-top" data-tracking-area="discovery-north"></div>
+
+<div id="onboard" data-tracking-area="onboard"></div>
+
+<div style="display: none;" id="highlighted-post" data-tracking-area="highlighted" class="highlighted-post"></div>
+
+<header id="main-nav" data-tracking-area="main-nav">
+
+<nav class="nav nav-primary">
+<ul>
+<li class="tab-conversation active">
+
+<a href="#" data-role="post-count" class="publisher-nav-color" data-nav="conversation">
+
+<span class="comment-count">
+
+0 comments
+
+</span>
+
+
+<span class="comment-count-placeholder">
+Comments
+</span>
+</a>
+</li>
+
+<li class="tab-community">
+<a href="#" class="publisher-nav-color" data-nav="community" id="community-tab">
+
+
+<span class="community-name">
+
+<strong>tutorials.jenkov.com</strong>
+
+</span>
+
+
+<strong class="community-name-placeholder">Community</strong>
+</a>
+</li>
+
+<li class="dropdown user-menu" data-role="logout">
+
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown-toggle-wrapper">
+
+
+<span>
+Login
+</span>
+
+
+</span> <span class="caret"></span>
+</a>
+
+<ul class="dropdown-menu">
+
+
+
+
+<li>
+<a href="#" data-action="auth:disqus">Disqus</a>
+</li>
+<li>
+<a href="#" data-action="auth:facebook">Facebook</a>
+</li>
+<li>
+<a href="#" data-action="auth:twitter">Twitter</a>
+</li>
+<li>
+<a href="#" data-action="auth:google">Google</a>
+</li>
+
+
+
+
+
+
+
+</ul>
+</li>
+<li class="notification-menu" data-role="notification-menu">
+<a href="#" class="notification-container" data-nav="dashboard">
+<span class="notification-icon icon-comment"></span>
+<span class="notification-count" data-role="notification-count"></span>
+</a>
+</li>
+</ul>
+</nav>
+
+</header>
+
+
+
+
+<section id="conversation" data-role="main" data-tracking-area="main">
+
+<div class="nav nav-secondary" data-tracking-area="secondary-nav">
+<ul>
+
+<li data-role="post-sort" class="dropdown sorting">
+<a href="#" class="dropdown-toggle" data-nav="conversation" data-toggle="dropdown">
+Sort by Best
+
+
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+<li class="selected">
+<a href="#" data-action="sort" data-sort="popular">Best<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+
+<li>
+<a href="#" data-action="sort" data-sort="desc">Newest<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+
+<li>
+<a href="#" data-action="sort" data-sort="asc">Oldest<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+</ul>
+</li>
+
+
+<li id="thread-votes" class="favorite pull-right">
+<!-- rendered dynamically -->
+<div data-role="vote-button" class="thread-likes">
+<a href="#" data-action="upvote" title="Favorite this discussion">
+<span class="label">Favorite</span>
+<span class="icon-star"></span>
+<span class="icon-check"></span>
+</a>
+</div></li>
+
+<li id="thread-share-menu" class="dropdown share-menu">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+<span class="label">Share</span> <span class="icon-export"></span>
+</a>
+<ul class="share-menu dropdown-menu pull-right">
+<li class="share">Share this discussion on
+<ul>
+<li class="twitter">
+<a data-action="share:twitter" href="#">Twitter</a>
+</li>
+<li class="facebook">
+<a data-action="share:facebook" href="#">Facebook</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div id="posts">
+
+<div id="form"><form class="reply">
+
+<div class="postbox">
+<div role="alert"></div>
+<div class="avatar">
+
+<span class="user">
+<img data-role="user-avatar" src="a_data/noavatar92.png" alt="Avatar">
+</span>
+
+</div>
+
+<div class="textarea-wrapper" data-role="textarea" dir="auto"><div><span class="placeholder">Start the discussion…</span><div aria-label="Start the discussion…" style="overflow: auto; max-height: 350px;" data-role="editable" aria-multiline="true" role="textbox" tabindex="0" class="textarea" contenteditable="true"><p><br></p></div><div style="display: none;">
+<ul class="suggestions">
+<li class="header">
+<h5>in this conversation</h5>
+</li>
+</ul>
+</div></div>
+<div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+<div class="drag-text">
+⬇ Drag and drop your images here to upload them.
+</div>
+</div>
+
+<div class="edit-alert" role="postbox-alert"></div>
+<div class="post-actions">
+<ul class="wysiwyg">
+
+</ul>
+
+
+</div>
+</div>
+
+<div data-role="login-form"><div>
+
+<section class="auth-section logged-out">
+<div class="connect">
+<h6>Sign in with</h6>
+
+<ul data-role="login-menu" class="services login-buttons">
+
+
+
+<li class="auth-disqus">
+<button type="button" data-action="auth:disqus" title="Disqus"><i class="icon-disqus"></i></button>
+</li>
+<li class="auth-facebook">
+<button type="button" data-action="auth:facebook" title="Facebook"><i class="icon-facebook-circle"></i></button>
+</li>
+<li class="auth-twitter">
+<button type="button" data-action="auth:twitter" title="Twitter"><i class="icon-twitter-circle"></i></button>
+</li>
+<li class="auth-google">
+<button type="button" data-action="auth:google" title="Google"><i class="icon-google-plus-circle"></i></button>
+</li>
+<li class="auth-signup">
+<button type="button" data-action="auth:disqus" title="Disqus">Sign up for Disqus</button>
+</li>
+</ul>
+
+</div>
+
+<div class="guest">
+<h6 class="guest-form-title">
+
+or register with Disqus
+
+</h6>
+
+<div class="what-is-disqus help-icon">
+<div id="rules" class="tooltip show">
+<h3>Disqus is a conversation network</h3>
+<ul>
+<li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+<li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+<li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+</ul>
+<p class="clearfix"><a href="http://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+</div>
+</div>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Name" name="display_name" id="view130_display_name" maxlength="30" type="text">
+</p>
+
+<div class="guest-details " data-role="guest-details">
+<p class="input-wrapper">
+<input dir="auto" placeholder="Email" name="email" id="view130_email" type="email">
+</p>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Password" name="password" id="view130_password" type="password">
+</p>
+
+<input name="author-guest" style="display:none" type="checkbox">
+
+</div>
+</div>
+<div class="proceed">
+
+<button type="submit" class="btn submit" aria-label="Next"><span class="icon-proceed"></span></button>
+
+</div>
+
+</section>
+
+
+
+
+</div></div>
+</div>
+</form></div>
+
+<button class="alert realtime" style="display: none" data-role="realtime-notification">
+
+</button>
+
+
+<div id="no-posts" style="">Be the first to comment.</div>
+
+<ul id="post-list" class="post-list"></ul>
+
+<div class="load-more" data-role="more" style="display:none">
+<a href="#" data-action="more-posts" class="btn">Load more comments</a>
+</div>
+</div>
+
+</section>
+
+<section id="community" data-tracking-area="main" style="display:none" data-role="main" data-outbound-link="embed:community">
+
+</section>
+
+<section id="dashboard" style="display:none" data-role="main" data-tracking-area="main">
+
+
+<p style="line-height: 1.4">Nothing for you here ... yet. But as you comment with Disqus and follow
+other Disqus users, you will start to receive notifications here, as well as a personalized
+feed of activity by you and the people you follow. So get out there and participate in
+some discussions!</p>
+</section>
+
+<section id="profile" style="display:none" data-role="main" data-tracking-area="main">
+</section>
+
+<div style="position: static; visibility: visible; display: block; width: 100%;" id="discovery" data-tracking-area="discovery-south">
+<div id="discovery-main-c147" class="discovery-main style-variant-default">
+<div id="discovery-note" class="discovery-note">
+
+<div class="alert">
+<button class="close" data-action="discovery-help-close" title="Close this box">×</button>
+Disqus helps you find new and interesting content, discussions and 
+products. Some sponsors and ecommerce sites may pay us for these 
+recommendations and links. 
+<a href="http://help.disqus.com/customer/portal/articles/666278-introducing-promoted-discovery-and-f-a-q-" target="_blank">Learn more</a>
+ or 
+<a href="https://www.surveymonkey.com/s/GHK872T" target="_blank">
+give us feedback</a>.
+
+</div>
+
+</div>
+
+<div class="discovery-options">
+<button class="discovery-help" data-action="discovery-help">
+What's this?
+</button>
+</div>
+
+
+
+<section id="col-organic-c147" class="col-organic discovery-col-0 ">
+<header class="discovery-col-header">
+
+
+<h2>Also on 
+<strong>tutorials.jenkov.com</strong>
+</h2>
+
+
+
+
+</header>
+<ul class="discovery-posts">
+
+<li style="margin-bottom: 19.5px;" class="discovery-post post-0" id="discovery-link-organic-3112634684">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fcss%2Flinks.html%3Aqc620J5L1fAlex8Hr2yP-cDyseg&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112634684&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="CSS Link Styling">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="2">
+CSS Link Styling
+</span>
+
+
+
+</h3>
+
+
+<ul class="meta">
+
+<li class="comments">
+
+
+1 comment
+
+
+</li>
+
+
+<li class="time">4 days ago</li>
+
+</ul>
+
+</header>
+
+
+
+</a><a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fcss%2Flinks.html%3Aqc620J5L1fAlex8Hr2yP-cDyseg&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112634684&amp;zone=internal_discovery" class="top-comment" data-role="discovery-top-comment">
+<img alt="Avatar" data-role="discovery-avatar">
+<p><span class="user" data-role="discovery-top-comment-author">Alex Ivanovs</span> — <span data-role="discovery-top-comment-snippet" class="line-truncate" data-line-truncate="3">Hey Jakob, thank you! :)</span></p>
+</a>
+
+
+
+</li>
+
+<li style="clear: right;" class="discovery-post post-1" id="discovery-link-organic-3112362627">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fhtml5%2Fdrag-and-drop.html%3A7SXuK7oCZ1uUBy2ydl0-zzhNu3I&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112362627&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="HTML5 Drag and Drop">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="2">
+HTML5 Drag and Drop
+</span>
+
+
+
+</h3>
+
+
+<ul class="meta">
+
+<li class="comments">
+
+
+3 comments
+
+
+</li>
+
+
+<li class="time">4 days ago</li>
+
+</ul>
+
+</header>
+
+
+
+</a><a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fhtml5%2Fdrag-and-drop.html%3A7SXuK7oCZ1uUBy2ydl0-zzhNu3I&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112362627&amp;zone=internal_discovery" class="top-comment" data-role="discovery-top-comment">
+<img alt="Avatar" data-role="discovery-avatar">
+<p><span class="user" data-role="discovery-top-comment-author">Aman</span> — <span data-role="discovery-top-comment-snippet" class="line-truncate" data-line-truncate="3"> by "dragging anything" I mean just select "Dragging Files Into The Browser" using mouse and drag it to drop location.Yes I agree that we can user …</span></p>
+</a>
+
+
+
+</li>
+
+<li style="margin-bottom: 19.5px;" class="discovery-post post-2" id="discovery-link-organic-3112345241">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fangularjs%2Fcustom-directives.html%3A8i9LzsbBPjI4Zop62XT1bkbPYlE&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112345241&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="AngularJS Custom Directives">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="2">
+AngularJS Custom Directives
+</span>
+
+
+
+</h3>
+
+
+<ul class="meta">
+
+<li class="comments">
+
+
+2 comments
+
+
+</li>
+
+
+<li class="time">4 days ago</li>
+
+</ul>
+
+</header>
+
+
+
+</a><a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fangularjs%2Fcustom-directives.html%3A8i9LzsbBPjI4Zop62XT1bkbPYlE&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112345241&amp;zone=internal_discovery" class="top-comment" data-role="discovery-top-comment">
+<img alt="Avatar" data-role="discovery-avatar">
+<p><span class="user" data-role="discovery-top-comment-author">jjenkov</span> — <span data-role="discovery-top-comment-snippet" class="line-truncate" data-line-truncate="3">Good idea! - that will avoid confusion with the $scope object from the controller function.</span></p>
+</a>
+
+
+
+</li>
+
+<li style="clear: right;" class="discovery-post post-3" id="discovery-link-organic-3112349265">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fsvg%2Fsvg-and-css.html%3AKWtjHwYOvR0ghHqpbJP0HX5HgIg&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112349265&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="SVG and CSS - Cascading Style Sheets">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="2">
+SVG and CSS - Cascading Style Sheets
+</span>
+
+
+
+</h3>
+
+
+<ul class="meta">
+
+<li class="comments">
+
+
+2 comments
+
+
+</li>
+
+
+<li class="time">4 days ago</li>
+
+</ul>
+
+</header>
+
+
+
+</a><a href="http://redirect.disqus.com/url?url=http%3A%2F%2Ftutorials.jenkov.com%2Fsvg%2Fsvg-and-css.html%3AKWtjHwYOvR0ghHqpbJP0HX5HgIg&amp;imp=386o3st30d07pa&amp;prev_imp&amp;forum_id=3259545&amp;forum=tutorials-jenkov-com&amp;thread_id=3112341747&amp;major_version=metadata&amp;thread=3112349265&amp;zone=internal_discovery" class="top-comment" data-role="discovery-top-comment">
+<img alt="Avatar" data-role="discovery-avatar">
+<p><span class="user" data-role="discovery-top-comment-author">jjenkov</span> — <span data-role="discovery-top-comment-snippet" class="line-truncate" data-line-truncate="3"> I am actually not sure. Have you tried referring to the SVG element via its ID from your external CSS file? Maybe it filters out svg element names, but …</span></p>
+</a>
+
+
+
+</li>
+
+</ul>
+</section>
+
+
+</div>
+</div>
+
+<div id="footer" data-tracking-area="footer">
+<ul>
+<li class="logo"><a href="http://disqus.com/" title="Powered by Disqus">Powered by Disqus</a></li>
+<li id="thread-subscribe-button" class="email"> 
+<div class="default">
+<a href="#" data-action="subscribe" title="Subscribe and get email updates from this discussion"><i aria-hidden="true" class="icon-mail"></i><span class="clip">Subscribe</span> <i aria-hidden="true" class="icon-checkmark"></i></a>
+</div>
+<div class="form">
+<div class="input-wrapper"><input id="thread-subscribe-email" placeholder="yourname@email.com" type="email"></div>
+</div>
+</li>
+<li class="install">
+<a href="https://disqus.com/websites/?utm_source=tutorials-jenkov-com&amp;utm_medium=Disqus-Footer" target="_blank">
+<i aria-hidden="true" class="icon-disqus"></i>
+<span class="clip">Add Disqus to your site</span>
+</a>
+</li>
+<li class="privacy">
+<a href="https://help.disqus.com/customer/portal/articles/1657951?utm_source=disqus&amp;utm_medium=embed-footer&amp;utm_content=privacy-btn" target="_blank">
+<i aria-hidden="true" class="icon-privacy"></i>
+<span class="clip">Privacy</span>
+</a>
+</li>
+</ul>
+</div>
+</div></body></html>

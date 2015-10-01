@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html><head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <link rel="icon" type="image/vnd.microsoft.icon" href="http://www.gstatic.com/codesite/ph/images/phosting.ico">
+ 
+ 
+ <link rel="canonical" href="http://code.google.com/p/phamlp/wiki/InstallationAndUsage">
+ 
+ <script async="" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/plusone.js" async="" type="text/javascript"></script><script type="text/javascript">
+ 
+ 
+ 
+ 
+ var codesite_token = "70lw9Huq6tpw1BsZlvZuCG9nGW8:1394733044889";
+ 
+ 
+ var CS_env = {"assetVersionPath": "http://www.gstatic.com/codesite/ph/11512667522589661435", "relativeBaseUrl": "", "assetHostPath": "http://www.gstatic.com/codesite/ph", "projectHomeUrl": "/p/phamlp", "projectName": "phamlp", "loggedInUserEmail": "c3dclasses@gmail.com", "token": "70lw9Huq6tpw1BsZlvZuCG9nGW8:1394733044889", "domainName": null, "profileUrl": "/u/110564087277602952038/"};
+ var _gaq = _gaq || [];
+ _gaq.push(
+ ['siteTracker._setAccount', 'UA-18071-1'],
+ ['siteTracker._trackPageview']);
+ 
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+ 
+ </script><script src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/ga.js" async="" type="text/javascript"></script>
+ 
+ 
+ <title>InstallationAndUsage - 
+ phamlp -
+ 
+ Installation and Usage of PHamlP. - 
+ PHP port of Haml and Sass - Google Project Hosting
+ </title>
+ <link type="text/css" rel="stylesheet" href="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/core.css">
+ 
+ <link type="text/css" rel="stylesheet" href="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/ph_detail.css">
+ 
+ 
+ 
+ <link type="application/atom+xml" rel="alternate" href="http://code.google.com/feeds/p/phamlp/svnchanges/basic?path=/wiki/InstallationAndUsage.wiki">
+ 
+ 
+<!--[if IE]>
+ <link type="text/css" rel="stylesheet" href="http://www.gstatic.com/codesite/ph/11512667522589661435/css/d_ie.css" >
+<![endif]-->
+ <style type="text/css">
+ .menuIcon.off { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -42px }
+ .menuIcon.on { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -28px }
+ .menuIcon.down { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 0; }
+ 
+ 
+ #maincol {
+ padding-top: 0;
+ padding-bottom: 0;
+ }
+
+ 
+ </style>
+</head>
+<body class="t6">
+<script type="text/javascript">
+ window.___gcfg = {lang: 'en'};
+ (function() 
+ {var po = document.createElement("script");
+ po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(po, s);
+ })();
+</script>
+<div class="headbg">
+
+ <div id="gaia">
+ 
+
+ <span>
+ 
+ 
+ 
+ <b>c3dclasses@gmail.com</b>
+ 
+ 
+ | <a href="http://code.google.com/u/110564087277602952038/" id="projects-dropdown" onclick="return false;"><u>My favorites</u> <small>▼</small></a>
+ | <a href="http://code.google.com/u/110564087277602952038/" onclick="_CS_click('/gb/ph/profile');" title="Profile, Updates, and Settings"><u>Profile</u></a>
+ | <a href="https://www.google.com/accounts/Logout?continue=http%3A%2F%2Fcode.google.com%2Fp%2Fphamlp%2Fwiki%2FInstallationAndUsage" onclick="_CS_click('/gb/ph/signout');"><u>Sign out</u></a>
+ 
+ </span>
+
+ </div>
+
+ <div class="gbh" style="left: 0pt;"></div>
+ <div class="gbh" style="right: 0pt;"></div>
+ 
+ 
+ <div style="height: 1px"></div>
+<!--[if lte IE 7]>
+<div style="text-align:center;">
+Your version of Internet Explorer is not supported. Try a browser that
+contributes to open source, such as <a href="http://www.firefox.com">Firefox</a>,
+<a href="http://www.google.com/chrome">Google Chrome</a>, or
+<a href="http://code.google.com/chrome/chromeframe/">Google Chrome Frame</a>.
+</div>
+<![endif]-->
+
+
+
+ <table style="padding:0px; margin: 0px 0px 10px 0px; width:100%" itemscope="" itemtype="http://schema.org/CreativeWork" cellpadding="0" cellspacing="0">
+ <tbody><tr style="height: 58px;">
+ 
+ 
+ 
+ <td id="plogo">
+ <link itemprop="url" href="http://code.google.com/p/phamlp">
+ <a href="http://code.google.com/p/phamlp/">
+ 
+ 
+ <img src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/logo.png" alt="Logo" itemprop="image">
+ 
+ </a>
+ </td>
+ 
+ <td style="padding-left: 0.5em">
+ 
+ <div id="pname">
+ <a href="http://code.google.com/p/phamlp/"><span itemprop="name">phamlp</span></a>
+ </div>
+ 
+ <div id="psum">
+ <a id="project_summary_link" href="http://code.google.com/p/phamlp/"><span itemprop="description">PHP port of Haml and Sass</span></a>
+ 
+ </div>
+ 
+ 
+ </td>
+ <td style="white-space:nowrap;text-align:right; vertical-align:bottom;">
+ 
+ <form action="/hosting/search">
+ <input size="30" name="q" type="text">
+ 
+ <input name="projectsearch" value="Search projects" type="submit">
+ </form>
+ 
+ </td></tr>
+ </tbody></table>
+
+</div>
+
+ 
+<div id="mt" class="gtb"> 
+ <a href="http://code.google.com/p/phamlp/" class="tab ">Project&nbsp;Home</a>
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/phamlp/downloads/list" class="tab ">Downloads</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/phamlp/w/list" class="tab active">Wiki</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/phamlp/issues/list" class="tab ">Issues</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/phamlp/source/checkout" class="tab ">Source</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class="gtbc"></div>
+</div>
+<table class="st" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+ <tbody><tr>
+ 
+ 
+ 
+ <td class="subt">
+ <div class="issueDetail">
+<div class="isf">
+ 
+ <span class="inIssueList"> 
+ <span>Search</span>
+ <form action="/p/phamlp/w/list" method="GET" style="display:inline">
+ <select id="can" name="can">
+ <option disabled="disabled">Search within:</option>
+ 
+ <option value="1">&nbsp;All wiki pages</option>
+ <option value="3">&nbsp;Featured pages</option>
+ <option value="2" selected="selected">&nbsp;Current pages</option>
+ 
+ 
+ <option value="5">&nbsp;My starred pages</option>
+ 
+ <option value="4">&nbsp;Deprecated pages</option>
+ 
+ </select>
+ <span>for</span>
+ <span id="qq"><input size="38" id="searchq" name="q" autocomplete="off" type="text"></span>
+ 
+ 
+ 
+ <input value="Search" type="submit">
+ </form>
+ </span>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+</div>
+</div>
+
+ </td>
+ 
+ 
+ 
+ 
+ 
+ 
+ <td class="bevel-right" align="right" valign="top"></td>
+ </tr>
+</tbody></table>
+
+
+<script type="text/javascript">
+ var cancelBubble = false;
+ function _go(url) { document.location = url; }
+</script>
+<div id="maincol">
+
+ 
+
+
+
+
+
+
+
+ <style type="text/css">
+ .delcom { background: #e8e8e8 }
+ .commentcontent {
+ margin: 2em;
+ padding: 0px 10px;
+ width: 66em;
+ }
+ .artifactcomment {
+ border-top: 3px solid #c3d9ff;
+ }
+ #commentform {
+ border-top: 3px solid #c3d9ff;
+ }
+ </style>
+
+<div id="wikipage">
+<table>
+ <tbody><tr>
+ 
+ 
+ <td style="vertical-align:top; padding-left:5px">
+ 
+ <div id="wikiheader">
+ 
+ <img id="star_img" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/star_off.gif" style="cursor:pointer" onclick="_CS_toggleStar(this,
+ {'scope': 'wiki',
+ 'user': '_CURRENT_USER',
+ 'item': 'phamlp:InstallationAndUsage'
+ });" height="15" width="15">
+ 
+ <span style="font-size:120%;font-weight:bold">InstallationAndUsage</span>
+ &nbsp;
+ <div> 
+ 
+ <i>Installation and Usage of PHamlP.</i>
+ 
+ 
+ <br>
+ 
+ <a class="label" style="padding-top: 2px" href="http://code.google.com/p/phamlp/w/list?q=label:Haml" title="">Haml</a>, 
+ 
+ <a class="label" style="padding-top: 2px" href="http://code.google.com/p/phamlp/w/list?q=label:Featured" title="Listed on project home page">Featured</a>, 
+ 
+ <a class="label" style="padding-top: 2px" href="http://code.google.com/p/phamlp/w/list?q=label:Phase-Deploy" title="How to install and configure the program">Phase-Deploy</a>
+ 
+ 
+ 
+ <div id="wikiauthor" style="float:right">
+ Updated <span title="Sat Apr  3 11:10:24 2010">
+ Apr 3, 2010</span>
+ 
+ by 
+
+ <a class="userlink" href="http://code.google.com/u/112113984486325481018/">chris.l....@gmail.com</a>
+ 
+ </div>
+ </div>
+ </div>
+ 
+ <div id="wikicontent">
+ <div class="vt" id="wikimaincol">
+ <h1><a name="Introduction"></a>Introduction<a href="#Introduction" class="section_anchor"></a></h1><p>PHamlP is a PHP port of Haml (<a href="http://haml-lang.com/" rel="nofollow">http://haml-lang.com/</a>) and Sass (<a href="http://sass-lang.com/" rel="nofollow">http://sass-lang.com/</a>). </p><p>phamlp_2.2_r<strong></strong><strong></strong> is the equivalent of the Haml/Sass V2.2 (Powerful Penny). </p><p>Requires PHP5.2 or later. </p><h1><a name="Installation"></a>Installation<a href="#Installation" class="section_anchor"></a></h1><p>Download and unzip the files. </p><h1><a name="Useage"></a>Useage<a href="#Useage" class="section_anchor"></a></h1><p>Include (or import if using a framework) HamlParser.php and/or SassParser.php   </p><h2><a name="Haml"></a>Haml<a href="#Haml" class="section_anchor"></a></h2><p>Instantiate
+ a HamlParser object with the options you require, then call the parse 
+method with the path to the Haml file to parse. The parsed content is 
+returned as a string. </p><pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br>&nbsp; $haml </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HamlParser</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(&lt;</span><span class="pln">haml parser options</span><span class="pun">&gt;));</span><span class="pln"><br>&nbsp; $xhtml </span><span class="pun">=</span><span class="pln"> $haml</span><span class="pun">-&gt;</span><span class="pln">parse</span><span class="pun">(</span><span class="str">'path/to/haml/sourcefile.haml'</span><span class="pun">);</span><span class="pln"><br></span><span class="pun">?&gt;</span></pre><h2><a name="Sass"></a>Sass<a href="#Sass" class="section_anchor"></a></h2><p>Instantiate
+ a SassParser object with the options you require, then call the "toCss"
+ method with the path to the sass file to parse. The parsed content is 
+returned as a string. </p><pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br>&nbsp; $sass </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SassParser</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(&lt;</span><span class="pln">sass parser options</span><span class="pun">&gt;));</span><span class="pln"><br>&nbsp; $css </span><span class="pun">=</span><span class="pln"> $sass</span><span class="pun">-&gt;</span><span class="pln">toCss</span><span class="pun">(</span><span class="str">'path/to/sass/sourcefile.sass'</span><span class="pun">);</span><span class="pln"><br></span><span class="pun">?&gt;</span></pre><h3><a name="Indentation"></a>Indentation<a href="#Indentation" class="section_anchor"></a></h3><p>Both
+ Haml and Sass are whitespace sensitive, i.e. indentation has meaning. 
+In PHamlP spaces or tabs can be used as the indentation character and 
+which is used is automatically detected on a per file basis; the first 
+indented line determines the indentation character for that file; you 
+can not mix characters in the same file. </p><p>If spaces are being 
+used, the number of spaces at the start of the first indented line 
+determine the number of spaces used for indentation. e.g. if the first 
+indented line starts with 2 spaces valid indentations are 2 spaces, 4 
+spaces, 6 spaces, etc.; if it is 3 spaces the valid indentations are 3 
+spaces, 6 spaces, 9 spaces, etc. </p><p>If a tab is used each tab character in a line is an indentation level.  </p>
+ </div>
+ </div>
+ </td></tr><tr>
+</tr></tbody></table>
+ </div>
+
+
+ 
+ <div id="wikicommentcol">
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+<div class="collapse">
+
+
+ 
+
+
+<div id="commentlist">
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/101452952179976530301/">renat...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jun 22 20:44:37 2010">Jun 22, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Hello guys, I'm having a problem with the installation and would like to know if you can help me. </p><p>I did everything as described here. However I'm getting a blank page without anything being rendered. </p><pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br>require_once </span><span class="str">'includes/phamlp/haml/HamlParser.php'</span><span class="pun">;</span><span class="pln"><br><br>$haml </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HamlParser</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'style'</span><span class="pun">=&gt;</span><span class="str">'nested'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'ugly'</span><span class="pun">=&gt;</span><span class="str">'compressed'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'debug'</span><span class="pun">=&gt;</span><span class="kwd">true</span><span class="pun">));</span><span class="pln"><br>$xhtml </span><span class="pun">=</span><span class="pln"> $haml</span><span class="pun">-&gt;</span><span class="pln">parse</span><span class="pun">(</span><span class="str">'./contents/mycontent.haml'</span><span class="pun">);</span><span class="pln"><br></span><span class="pun">?&gt;</span></pre><p>Why I can't see anything my HAML code being parsed? </p><p>Thanks </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/103710464386655287541/">mau...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 24 00:14:06 2010">Jun 24, 2010</span>
+ <div>
+<div class="commentcontent">
+<pre class="prettyprint"><span class="pln">echo $xhtml</span><span class="pun">;</span></pre><p>Should be included in the example for the sake of completeness... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/115394871694584204240/">jesse.br...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jul  6 07:45:48 2010">Jul 6, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Can anyone tell me why this is not working? </p><pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br>require_once</span><span class="pun">(</span><span class="pln"> </span><span class="str">'SassParser.php'</span><span class="pln"> </span><span class="pun">);</span><span class="pln"><br>$sass </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SassParser</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'style'</span><span class="pun">=&gt;</span><span class="str">'nested'</span><span class="pun">));</span><span class="pln"><br>$css </span><span class="pun">=</span><span class="pln"> $sass</span><span class="pun">-&gt;</span><span class="pln">toCss</span><span class="pun">(</span><span class="str">'sourcefile.sass'</span><span class="pun">);</span><span class="pln"><br>echo $css</span><span class="pun">;</span><span class="pln"><br></span><span class="pun">?&gt;</span></pre><p>This
+ php file just comes up blank. My assumption is that it should be coming
+ up displaying the css that was parsed from sourcefile.sass as passed 
+into $css </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/107794628775657347751/">tom.d.ma...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Oct  4 09:46:08 2010">Oct 4, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>i am having the same issue as jesse. any idea why this is happening? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/koch.chris@gmail.com/">koch.chris@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Oct 18 11:26:08 2010">Oct 18, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>me too </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/101585077586176166980/">foolosop...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Nov  9 02:48:28 2010">Nov 9, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Change the php error reporting to ALL in your php.ini. Then you 
+should see "Warning: require_once(..." It is useful to use PHamlP for 
+HAML but you should install SASS to convert your .sass to .css. It is a 
+bad idea to use Php to convert everytime your .sass file to .css; due to
+ server ressource. CSS file are always static. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/101585077586176166980/">foolosop...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Nov  9 02:49:10 2010">Nov 9, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Install sass with "gem install haml" </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/114648704434727542943/">timfong...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Nov 17 15:53:34 2010">Nov 17, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>It's not clear what we need to do to install...this is php, right?  
+What are the steps to create a .sass file and the compiled .css file? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/104856063196031981963/">jorobi...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Aug 30 15:49:23 2011">Aug 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br>&nbsp; &nbsp; &nbsp; &nbsp; header</span><span class="pun">(</span><span class="str">"Content-Type: text/css"</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; require_once</span><span class="pun">(</span><span class="str">'sass/SassParser.php'</span><span class="pun">);</span><span class="pln"> &nbsp; &nbsp;</span><span class="com">//including Sass libary (Syntactically Awesome Stylesheets)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $sass </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SassParser</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'style'</span><span class="pun">=&gt;</span><span class="str">'nested'</span><span class="pun">));</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $css </span><span class="pun">=</span><span class="pln"> $sass</span><span class="pun">-&gt;</span><span class="pln">toCss</span><span class="pun">(</span><span class="str">'sassCSS.sass'</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; echo $css</span><span class="pun">;</span><span class="pln"><br></span><span class="pun">?&gt;</span></pre><p>is how i did it. Works for me Great Top example doesn't show the echo $css;. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/107297646438873905955/">ch...@globerunnerseo.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Mar  6 12:27:35 2012">Mar 6, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>@jorobi@gmail.com What if you need multiple sass files?  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/118188477735929160413/">joe...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Apr 24 08:35:28 2012">Apr 24, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>@ch then I think @import "/path/to/sass/or/scss/file"; within your main sass/scss file should solve your problem. </p><p>$css = $sass-&gt;toCss("sassCss.sass"); //sassCss.sass is where you'd incorporate the @import "/path/to/filename"; </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/113673028958164750276/">der...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jan 31 15:48:04 2013">Jan 31, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>mau...@gmail.com: </p><blockquote>echo $xhtml; 
+Should be included in the example for the sake of completeness... 
+</blockquote><p>That is not completely true, in case we have php code in there, that should be: </p><blockquote>eval($xhtml); 
+</blockquote>However since eval does not want a starting "&lt;?php" at the beginning, we need to get rid of that and it becomes: <blockquote>$xhtml = substr ( $xhtml, 5); 
+eval ($xhtml); 
+</blockquote>	 <p></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="http://code.google.com/u/109791921983966943138/">mevat...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Feb 16 02:15:04 2013">Feb 16, 2013</span>
+ <div>
+<div class="commentcontent">
+<blockquote>Joe! have you tested your multiple sass files solution by 
+yourself or it is just a thought because it does not seems to working 
+for me with following error: 
+</blockquote><p>Fatal error: Uncaught exception 'SassException<a href="http://code.google.com/p/phamlp/w/edit/SassException">?</a>' with message 'Invalid indentation: sassCSS.sass::3 </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+</div>
+</div>
+
+ 
+
+
+ <script type="text/javascript">
+ function delComment(sequence_num, create_time, delete_mode) {
+ var f = document.forms["delcom"];
+ f.sequence_num.value = sequence_num;
+ f.create_time.value = create_time;
+ f.mode.value = delete_mode;
+ f.submit();
+ return false;
+ }
+ </script>
+
+
+ </div>
+ 
+ 
+ 
+ 
+ 
+ <div id="commentform">
+ <form action="../w/detail.do" method="post">
+ <table>
+ <tbody><tr><td class="vt">
+ <input name="pagename" value="InstallationAndUsage" type="hidden">
+ <input name="token" value="70lw9Huq6tpw1BsZlvZuCG9nGW8:1394733044889" type="hidden">
+ <div class="graytext" style="float: right;">
+ Hint: You can use <a href="http://code.google.com/p/support/wiki/WikiSyntax">Wiki Syntax.</a>
+ </div>
+ <div>Enter a comment:</div>
+ <textarea name="content" rows="6" cols="100"></textarea><br><br>
+ <input name="submit" value="Submit" type="submit">
+ </td>
+ </tr></tbody></table>
+ </form>
+ </div>
+ 
+ 
+ 
+ 
+ 
+ <form name="delcom" action="../w/delComment.do" method="POST">
+ <input name="sequence_num" value="" type="hidden">
+ <input name="create_time" value="" type="hidden">
+ <input name="mode" value="" type="hidden">
+ <input name="pagename" value="InstallationAndUsage" type="hidden">
+ <input name="token" value="70lw9Huq6tpw1BsZlvZuCG9nGW8:1394733044889" type="hidden">
+ </form>
+
+
+ <script src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/prettify.js"></script>
+ <script type="text/javascript">
+ prettyPrint();
+ </script>
+
+<script type="text/javascript" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/dit_scripts.js"></script>
+
+
+
+  
+ 
+ 
+ <script type="text/javascript" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/ph_core.js"></script>
+ 
+ <script type="text/javascript" src="InstallationAndUsage%20-%20phamlp%20-%20Installation%20and%20Usage%20of%20PHamlP.%20-%20PHP%20port%20of%20Haml%20and%20Sass%20-%20Google%20Project%20Hosting_files/ph_dwiki.js"></script>
+ 
+ 
+ 
+ 
+</div> 
+
+<div id="footer" dir="ltr">
+ <div class="text">
+ <a href="http://code.google.com/projecthosting/terms.html">Terms</a> -
+ <a href="http://www.google.com/privacy.html">Privacy</a> -
+ <a href="http://code.google.com/p/support/">Project Hosting Help</a>
+ </div>
+</div>
+ <div class="hostedBy" style="margin-top: -20px;">
+ <span style="vertical-align: top;">Powered by <a href="http://code.google.com/projecthosting/">Google Project Hosting</a></span>
+ </div>
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+<div style="display: none;" id="menuDiv-projects-dropdown" class="menuDiv instance0"><div class="menuCategory default"></div><div class="menuCategory controls"><hr class="menuSeparator"><a href="http://code.google.com/hosting/" style="display: block;" class="menuItem">Find open source projects...</a><a href="http://code.google.com/hosting/createProject" style="display: block;" class="menuItem">Create a project...</a></div></div></body></html>
