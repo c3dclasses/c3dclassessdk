@@ -20,8 +20,8 @@ class extract_css_urls extends CProgram{
 	public function innerhtml(){
 ob_start();
 	printbr("<b>extract_css_urls</b>");
-	printbr("<b>css: </b>http://creedsoflove.com/wp-content/themes/maya/style.css");
-	$text = file_get_contents( "http://creedsoflove.com/wp-content/themes/maya/style.css" );
+	printbr("<b>css: </b>http://kevlewis.com/style.css");
+	$text = file_get_contents( "http://kevlewis.com/wp-content/plugins/rocket-maintenance-mode/css/public/bootstrap/css/bootstrap-theme.min.css" );
 	printbr( "<b>file_get_contents:</b> " . $text );
 	$urls = extract_css_urls( $text );
 	printbr();

@@ -48,7 +48,7 @@ class CKernal {
 	static public function createCKernal($strclasstype, $strmainentrypoint=NULL) { 
 		if(($ckernal = new $strclasstype()) == FALSE) 
 			return NULL; 
-		CPath :: add("main", $strmainentrypoint);
+		CPath :: add("main", $strmainentrypoint, array("client"=>"true"));
 		$ckernal->create(); 
 		return $ckernal; 
 	} // end createCKernal()

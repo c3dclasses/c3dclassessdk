@@ -7,7 +7,7 @@
 // includes
 include_program( "CCSSTechniquesProgram" );
 include_css(relname(__FILE__) . "/ccsstechniques.css");
-include_sass( dirname(__FILE__ ) . "/ccsstechniques2.scss" );
+include_sass(dirname(__FILE__ ) . "/ccsstechniques2.scss");
 include_css(relname(__FILE__) . "/ccsstechniques.css");
 include_css("http://fonts.googleapis.com/css?family=Average|Courgette");
 
@@ -19,7 +19,7 @@ include_css("http://fonts.googleapis.com/css?family=Average|Courgette");
 class CCSSTechniquesProgram extends CProgram{
 	public function CCSSTechniquesProgram(){ 
 		parent :: CProgram();	
-	} // end CCSSProgram()
+	} // end CCSSTechniquesProgram()
 	
 	public function c_main(){
 return <<<SCRIPT

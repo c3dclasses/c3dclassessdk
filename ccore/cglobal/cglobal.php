@@ -198,6 +198,10 @@ function confirm( $strmessage, $strjsyesbody, $strjsnobody, $bscript=true ){
 		echo "</script>"; 
 } // end confirm()
 
+function precode( $str ){
+	return "<pre><code>$str</code></pre>";
+} // end precode()
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //-------------------------------------------------------------------

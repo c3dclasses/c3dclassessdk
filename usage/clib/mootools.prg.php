@@ -22,6 +22,8 @@ return <<<SCRIPT
 	$$(".cprogram").setStyle("background","red");
 	printbr("painting the background of the program (above) to red using jquery. $$(\".cprogram\").setStyle(\"background\",\"red\");");  
 	
+	
+	/*
 	function CObject(){
 		this.m_name = "default name";
 		this.m_age = "default age";	
@@ -55,10 +57,11 @@ return <<<SCRIPT
 	
 	CSubObject.prototype = new CObject();
 	var csubobject = new CSubObject();
-	alert( csubobject.m_name );	
+	//alert( csubobject.m_name );	
 	
-	alert( this.__FILE__ );
-	include_js( relname( this.__FILE__ + "/jsonp.js" ) );
+	//print( "this.__FILE__:" + this.__FILE__ );
+	//include_js( relname( this.__FILE__ + "/jsonp.js" ) );
+	*/
 SCRIPT;
 	} // end c_main()
 	

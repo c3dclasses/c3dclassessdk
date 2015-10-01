@@ -1,17 +1,17 @@
 <?php
 //---------------------------------------------------------------------------
-// name: javascript.prg.php
+// name: JavascriptPatterns.prg.php
 // desc: demonstates how to use javascript functions
 //---------------------------------------------------------------------------
 
 // includes
-include_program( "javascript" );
+include_program( "JavascriptPatterns" );
 
 //---------------------------------------------------
-// name: javascript
+// name: JavascriptPatterns
 // desc: demonstatrates how to use javascript functions
 //---------------------------------------------------
-class javascript extends CProgram{
+class JavascriptPatterns extends CProgram{
 	public function javascript(){ 
 		parent :: CProgram();	
 	} // end javascript()
@@ -28,7 +28,7 @@ ob_start();
 <?php  
 return ob_end();
 	} // end innerhtml()
-} // end javascript
+} // end JavascriptPatterns
 ob_start();
 ?>
 <script parse="true" location="footer">
@@ -46,8 +46,6 @@ ob_start();
 	
 	cobject = CObject();
 	cobject.setName("Joe");
-	
-	//alert( cobject.getName() );
 </script><!-- end script -->
 <?php
 ob_end_queue("body");	// put this code in the script queue to be rendered later

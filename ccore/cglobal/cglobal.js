@@ -15,7 +15,8 @@ function dirpath( strpathpath, brelative ){
 
 // returns the path of the document root
 function docroot(){	
-	return "NA";
+	//return "NA";
+	return CPath._("main");
 } // end docroot()
 
 function dirname( path ){
