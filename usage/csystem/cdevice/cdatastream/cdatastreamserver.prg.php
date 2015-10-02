@@ -4,13 +4,6 @@
 // desc: demonstrates ho to send/recieve data from a server with a CDataStream object
 //-----------------------------------------------------------------------------------
 
-// echo the output back to the client
-if( isset( $_REQUEST["program"] ) ){ 
-	echo json_encode( $_REQUEST );
-	//echo "hello";
-	return;
-} // end if
-
 // include the program below in the system
 include_program("CDataStreamServerProgram");
 
@@ -27,9 +20,9 @@ class CDataStreamServerProgram extends CProgram{
 		} // end if	
 		
 		// open the steeam
-		//if( $cdss->open( "http://www.google.com", "get" ) == FALSE ){
+		if( $cdss->open( "http://www.google.com", "get" ) == FALSE ){
 		//if( $cdss->open( "http://www.yahoo.com", "get" ) == FALSE ){
-		if( $cdss->open( "http://blog.jimdo.com/wp-content/uploads/2014/01/tree-247122.jpg", "get" ) == FALSE ){
+		//if( $cdss->open( "http://blog.jimdo.com/wp-content/uploads/2014/01/tree-247122.jpg", "get" ) == FALSE ){
 		//if( $cdss->open( absname( __FILE__ ) . "/cdatastreamserver.prg.php", "post" ) == FALSE ){
 			alert('ERROR: CDataStreamServer::open()');
 			return;

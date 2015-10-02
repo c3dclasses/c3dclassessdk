@@ -6,7 +6,7 @@
 
 // includes
 include_program( "CArrayMemoryProgram" );
-include_array_memory( "mymemory", "session", $_SESSION );
+include_array_memory( "mymemory", "session", $_SESSION, array("client"=>true));
 
 //---------------------------------------------------
 // name: CArrayMemoryProgram

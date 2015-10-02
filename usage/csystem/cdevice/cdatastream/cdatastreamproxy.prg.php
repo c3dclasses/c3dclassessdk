@@ -31,7 +31,7 @@ ob_start();
 		return;
 	} // end if	
 		
-	if( $cdsp->open( "http://www.barnesandnoble.com", "get", "CDataStreamProxy" ) == FALSE ){
+	if( $cdsp->open( "localhost", "get", "CDataStreamProxy" ) == FALSE ){
 		alert('ERROR: CDataStreamServer::open()');
 		return;
 	} // end if

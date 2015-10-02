@@ -11,6 +11,7 @@ var CEvent = new Class ({
 	ClassMethods : { 		
 	fire : function( streventname, params, uri ){	
 		//alert( CPath._("CKernal_instance"));
+		//var uri = "http://localhost/usage/main.php";
 		var uri = ( !uri ) ? CPath._("main") : uri;
 		var cds = new CDataStream();	// create
     	if( !cds || cds.open( uri, "post", "cevent" ) == false ) // open

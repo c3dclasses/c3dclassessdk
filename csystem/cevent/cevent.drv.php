@@ -16,7 +16,7 @@ function CEvent_isEmpty(){
 } // end CEvent_isEmpty()
 	
 function CEvent_dispatch(){
-	if( $_REQUEST == NULL || isset( $_REQUEST["cevent_name"] ) == false )
+	if( CEvent_isEmpty() )
 		return NULL;
 	$streventname = $_REQUEST["cevent_name"];
 	$iscdatastream = isset( $_REQUEST["m_bcdatastream"] );
@@ -35,7 +35,7 @@ function CEvent_doSMain(){
 function CEvent_doInit(){ 
 } // end CEvent_doSMain()
 
-CHook :: add("s_main","CEvent_doSMain");
-CHook :: add("init","CEvent_doInit");
-
+// add this methods to the kernal when it initializes and runs smain
+CHook :: add("init", "CEvent_doInit");
+CHook :: add("s_main", "CEvent_doSMain");
 ?>

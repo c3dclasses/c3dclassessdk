@@ -40,7 +40,7 @@ ob_start();
 	
 	printbr( $img->path() );
 	
-	printbr("<img src='".rel_uri( $img->path() ) . "'/>" );
+	printbr("<img src='".relname( $img->path() ) . "/cimage2.jpg" . "'/>" );
 	
 return ob_end();
 	} // end innerhtml()
