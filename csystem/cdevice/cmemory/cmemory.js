@@ -71,7 +71,7 @@ var CMemory = new Class({
 			if( params == null && params[0] == null )
 				_this.m_jsondata = null;
 			var cvar = jQuery.parseJSON(params[0].m_jsondata);
-			alert( print_r( cvar, true ) );
+			//alert( print_r( cvar, true ) );
 			_this.m_jsondata[cvar.m_strname]=cvar;
 			this._return();
 		})._elseif( function(){ return creturn.iserror(); }, function(){
@@ -81,7 +81,8 @@ var CMemory = new Class({
 		})._elseif( function(){ return creturn.isbusy(); }, function(){
 			//printbr("BUSY");
 		})._endif(); 
-		return this.m_jsondata[strname]; // retrieve it locally
+		return creturn;
+		//return this.m_jsondata[strname]; // retrieve it locally
 	}, // end retrieve()
 	update : function( strname, value, strtype ){ 
 		if( !this.m_strid || !strname || !this.m_jsondata || !this.m_jsondata[strname] )

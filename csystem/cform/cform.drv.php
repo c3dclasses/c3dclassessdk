@@ -46,7 +46,7 @@ function COptions_processParamsOnCMemory($params){
 		return ($loc) ? $loc["m_value"] : "";
 	}
 	else if($op == "set") {
-		$cmemory->update($name, $params["coption-value"], "string");
+		$cmemory->update($name, $params["coption-value"], "string");	// the control type defines the type for the value so pass in
 	}
 	else if($op == "remove")
 		$cmemory->delete($name);
@@ -67,9 +67,9 @@ function CControls_processParams($params){
 	$strtype = $params["ccontrol-type"];
 	$strid = $strname = $params["ccontrol-name"];
 	$value = $params["ccontrol-value"];
+	$attributes = $params["ccontrol-attributes"];	
 	$params = $params["ccontrol-params"];
-	$attributes = isset( $params["attributes"] ) ? $params["attributes"] : NULL;	// attributes
-	
+
 	$strcontrol="";
 	if($strtype == "section")
 		$strcontrol = "";
@@ -96,8 +96,15 @@ function CControls_processParams($params){
 		$strcontrol = "<input class=\"checkbox\" id=\"$strid\" name=\"$strname\" type=\"checkbox\" value=\"$value\" />";
 	else if($strtype == "radio")
 		$strcontrol = "<input class=\"radio\" id=\"$strid\" name=\"$strname\" type=\"radio\" value=\"$value\" />";
-	else if($strtype == "button")
-		$strcontrol = "<input type=\"button\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
+	else if($strtype == "button") {
+		//$strcontrol = "<input type=\"button\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
+		$attributes["type"] = "button";
+		//$attributes["class"] = "widefat";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;
+		$strcontrol = buildTag("input", $attributes);
+	} // 
 	else if($strtype == "submit")
 		$strcontrol = "<input type=\"submit\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
 	else if($strtype == "select"){

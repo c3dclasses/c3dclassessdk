@@ -46,7 +46,7 @@ return <<<SCRIPT
 	//})._endif();
 	
 	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
-		printbr( "cmemory = use_memory( cjsonmemory ):");
+		printbr( "cmemory = use_memory(cjsonmemory):");
 		printbr( cmemory._toString() );		
 		printbr();
 		this._return();
@@ -54,22 +54,45 @@ return <<<SCRIPT
 		//alert("no memory yet");
 	})._endif();
 
-	jQuery("#btn-name").click(function(){ 
-		alert("do ajax using cmemory api"); 
-		var _return = cmemory.update("name", jQuery("#name").val(), 'string');
-	/*	
-		_if( _return ) {
-			printbr(cmemory._toString());
-		}
-		_else {
-			printbr("waiting for results");
-		}
-	*/	
+
+
+	jQuery("#btn-name-create").click(function(){ 
+		var cvar = cmemory.create( "name", jQuery("#name").val(), "string" );
 		
+		//var _return = cmemory.update("name", jQuery("#name").val(), 'string');		
+		//print_r(cvar);
+		//jQuery("#name").val(cvar);
+		//alert("done ajax using cmemory api"); 
+		//_if( function(){ return _return.isdone(); }, function(){ 
+		//	printbr(cmemory._toString());
+		//})._endif();
+	});
+
+
+	jQuery("#btn-name-retrieve").click(function(){ 
+		alert("do ajax using cmemory api"); 
+		var _return = cmemory.retrieve("name");		
 		_if( function(){ return _return.isdone(); }, function(){ 
 			printbr(cmemory._toString());
 		})._endif();
 	});
+
+	
+	jQuery("#btn-name-update").click(function(){ 
+		alert("do ajax using cmemory api"); 
+		var _return = cmemory.update("name", jQuery("#name").val(), 'string');		
+		_if( function(){ return _return.isdone(); }, function(){ 
+			print_r(_return.data()[0]);
+		})._endif();
+	});
+
+	jQuery("#btn-name-delete").click(function(){ 
+		cmemory.delete("name");		
+		//_if( function(){ return _return.isdone(); }, function(){ 
+		//	printbr(cmemory._toString());
+		//})._endif();
+	});	
+
 
 SCRIPT;
 	} // end c_main()
@@ -77,6 +100,8 @@ SCRIPT;
 	public function innerhtml(){	
 		$ccontrols = $this->m_cform->getCControls();		
 		print("Enter your name: ");
+		
+		$ccontrols->set("data-foo","this is my attribute");
 		echo $ccontrols->text_ex("name", "");
 		return ob_end();
 	} // end innerhtml()

@@ -11,7 +11,7 @@ include_js(relname(__FILE__) . "/ccontrols.js");
 // name: CControls
 // desc: defines controls used inside a form
 //-----------------------------------------------------------------
-class CControls {		
+class CControls extends CHash {		
 	protected $m_cform;
 	public function CControls(){}	
 	
@@ -23,7 +23,20 @@ class CControls {
 	public function hidden($strname, $value, $params=NULL){ return $this->control("hidden", $strname, $value, $params);}
 	public function text($strname, $value, $params=NULL){ return $this->control("text", $strname, $value, $params);}
 	
-	public function text_ex($strname, $value, $params=NULL){ return $this->text($strname, $value, $params) . $this->button( "btn-" . $strname, "submit"); }
+	public function text_ex($strname, $value, $params=NULL){ 
+		$str = $this->text($strname, $value, $params);
+		$this->set("data-name", $strname); 
+		$this->set("data-action", "create"); 
+		$str .= $this->button( "btn-" . $strname . "-create", "create");
+		$this->set("data-action", "retrieve"); 
+		$str .= $this->button( "btn-" . $strname . "-retrieve", "retrieve");
+		$this->set("data-action", "update"); 
+		$str .= $this->button( "btn-" . $strname . "-update", "update"); 
+		$this->set("data-action", "delete"); 
+		$str .= $this->button( "btn-" . $strname . "-delete", "delete"); 	 
+		$this->clear();
+		return $str;
+	} // end text_ex()
 	
 	public function	textarea($strname, $value, $params=NULL){ return $this->control("textarea", $strname, $value, $params);}
 	public function select($strname, $value, $options=NULL, $params=NULL){return $this->control_choices("select", $strname, $value, $options, $params);}
@@ -47,6 +60,7 @@ class CControls {
 		$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
 		$_params["ccontrol-value"]=$value;
 		$_params["ccontrol-params"]=$params;
+		$_params["ccontrol-attributes"]=$this->valueOf();
 		return $this->processParams($_params);
 	} // end control()
 	public function processParams($params){ return CControls_processParams($params); } 
