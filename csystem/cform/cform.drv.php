@@ -4,11 +4,13 @@
 // desc: defines a driver seperates html 
 //----------------------------------------------------------------------------
 
-//--------------------------------------------------------
+//--------------------------------------------------------------------
 // name: COptions_processParams()
-// desc: method used to do crud on the incoming params
-//--------------------------------------------------------
+// desc: method used to do default crud on the incoming params
+//--------------------------------------------------------------------
 function COptions_processParams($params){
+	if($params && isset($params["coption-cmemory-id"]))
+		return COptions_processParamsOnCMemory($params);
 	if($params && !isset($params["coption-operator"]))
 		return;
 	$op = $params["coption-operator"];
@@ -23,6 +25,37 @@ function COptions_processParams($params){
 		// add the other stuff
 	} // end else
 } // end COptions_processParams()
+
+//--------------------------------------------------------
+// name: COptions_processParams()
+// desc: method used to do CRUD on cmemory location
+//--------------------------------------------------------
+function COptions_processParamsOnCMemory($params){
+	if(!$params ||
+	   !isset($params["coption-operator"]) ||
+	   !isset($params["coption-cmemory-id"]))
+		return "";
+	$op = $params["coption-operator"];
+	$name = $params["coption-name"];	
+	$id = $params["coption-cmemory-id"];
+	$cmemory = use_memory($id);
+	if(!$cmemory)
+		return "";
+	if($op=="get") {
+		$loc = $cmemory->retrieve($name);
+		return ($loc) ? $loc["m_value"] : "";
+	}
+	else if($op == "set") {
+		$cmemory->update($name, $params["coption-value"], "string");
+	}
+	else if($op == "remove")
+		$cmemory->delete($name);
+	else { 
+		// add the other stuff
+	} // end else
+} // end COptions_processParams()
+
+
 
 //--------------------------------------------------------
 // name: CControls_processParams()

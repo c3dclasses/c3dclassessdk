@@ -50,7 +50,7 @@ class CForm {
 		$this->m_cmemoryid = $strcmemoryid;
 	} // end setMemoryId()
 	
-	public function getCMemoryId($strcmemoryid) {
+	public function getCMemoryId() {
 		return $this->m_cmemoryid;
 	} // end setMemoryId()
 	

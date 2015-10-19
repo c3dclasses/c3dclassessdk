@@ -22,7 +22,14 @@ class qunit_prg extends CProgram{
 return <<<SCRIPT
 	QUnit.test( "hello test", function( assert ) {
 		assert.ok( 1 == "1", "Passed!" );
-		assert.ok( 1 == "2", "Passed!" );
+		assert.ok( 2 == "2", "Passed!" );
+		
+		var actual = '1';
+		var expected = 1;
+		assert.ok(actual == expected, 'Truthy!');
+		assert.equal(actual, expected, '.... are Equal');
+		
+		
 	}); // end test()
 SCRIPT;
 	} // end c_main()

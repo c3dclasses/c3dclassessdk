@@ -32,6 +32,7 @@ class COptions {
 	public function processOption($stroperator, $strname, $strvalue=NULL, $params=NULL){ 
 		if(!$this->m_cform || !$strname || $strname == "")
 			return;
+		$_params["coption-cmemory-id"]=$this->m_cform->getCMemoryId();
 		$_params["coption-operator"]=$stroperator;
 		$_params["coption-name"]=$strname; 
 		$_params["coption-id"]=$this->m_cform->getNameWithSuffix($strname); 
