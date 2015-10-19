@@ -35,6 +35,8 @@ function CControls_processParams($params){
 	$strid = $strname = $params["ccontrol-name"];
 	$value = $params["ccontrol-value"];
 	$params = $params["ccontrol-params"];
+	$attributes = isset( $params["attributes"] ) ? $params["attributes"] : NULL;	// attributes
+	
 	$strcontrol="";
 	if($strtype == "section")
 		$strcontrol = "";
@@ -44,16 +46,23 @@ function CControls_processParams($params){
 		$strcontrol = "</form>";		
 	else if($strtype == "label")
 		$strcontrol = "<label for=\"$strname\">$value</label>";
-	else if($strtype == "text")
-		$strcontrol = "<input type=\"text\" class=\"widefat\" id=\"$strid\" name=\"$strname\" value=\"$value\" />";
+	else if($strtype == "text") {
+		$attributes["type"] = "text";
+		$attributes["class"] = "widefat";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;
+		//$strcontrol = "<input type=\"text\" class=\"widefat\" id=\"$strid\" name=\"$strname\" value=\"$value\" />";
+		$strcontrol = buildTag("input", $attributes);
+	}
 	else if($strtype == "hidden")	
 		$strcontrol = "<input type=\"hidden\" class=\"widefat\" id=\"$strid\" name=\"$strname\" value=\"$value\" />";		
 	else if($strtype == "textarea")
 		$strcontrol = "<textarea type=\"text\" class=\"widefat\" id=\"$strid\" name=\"$strname\">$value</textarea>";
 	else if($strtype == "checkbox")
-		$strcontrol = "<input class=\"checkbox\" $checked id=\"$strid\" name=\"$strname\" type=\"checkbox\" value=\"$value\" />";
+		$strcontrol = "<input class=\"checkbox\" id=\"$strid\" name=\"$strname\" type=\"checkbox\" value=\"$value\" />";
 	else if($strtype == "radio")
-		$strcontrol = "<input class=\"radio\" $checked id=\"$strid\" name=\"$strname\" type=\"radio\" value=\"$value\" />";
+		$strcontrol = "<input class=\"radio\" id=\"$strid\" name=\"$strname\" type=\"radio\" value=\"$value\" />";
 	else if($strtype == "button")
 		$strcontrol = "<input type=\"button\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
 	else if($strtype == "submit")
@@ -70,7 +79,32 @@ function CControls_processParams($params){
 	} // end else if
 	else return;
 	return $strcontrol;
-} // end CWidgetControls_processParams()
+} // end CControls_processParams()
+
+/*
+public function init( $strname, $value, $params ){
+	$attributes = isset( $params["attributes"] ) ? $params["attributes"] : NULL;
+	$attributes["id"] = $strid;
+	$attributes["name"] = $strname;
+	if( $value ) 
+		$attributes["value"] = $value;
+	if( $this->m_coptions->optionExists($strname) ) 
+		$attributes["optexist"] = true; 
+	return $attributes;
+	} // end init()
+*/
+
+//-----------------------------------------------------------------
+// name: helper functions
+// desc: 
+//-----------------------------------------------------------------
+function buildTag($strtagname, $attributes){
+	$strattributes="";
+	foreach( $attributes as $name => $value )
+		$strattributes .= "$name=\"$value\" ";
+	return "<{$strtagname} {$strattributes}>"; 
+} // end buildHTMLTag()
+
 
 /*
 //-----------------------------------------------------------------

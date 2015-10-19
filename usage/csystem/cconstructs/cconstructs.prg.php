@@ -39,15 +39,14 @@ return <<<SCRIPT
 		}
 		else printbr( "_for(2000): " + this.getIteration(), _this.getElement() );
 	}); // end _while()
-	/*
+
 	// if/else
 	_if( function(){ return (i%5)==0; }, function(){
 		printbr( "_if("+(i%5)+")", _this.getElement() );
 		this._return();
 	})._else( function(){
 		printbr( "_else("+(i%5)+")", _this.getElement() );
-	})._endif(); // end _if()
-	*/
+	})._endif(); // _endif()
 	
 	// do while
 	_do( function(){ 

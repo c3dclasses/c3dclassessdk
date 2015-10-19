@@ -4,12 +4,13 @@
 // desc: abstracts the functionality for angularjs and makes it easy to use in c3dclassesSDK
 //----------------------------------------------------------------------------------------------
 
+
 //--------------------------------------------------
 // name: CAngularJS_includes()
 // desc: includes all of the angularjs components 
 //--------------------------------------------------
 function CAngularJS_includes(){
-	if( CAngularJS :: $m_strappname == "" )
+	if( class_exists("CAngularJS") == false || CAngularJS :: $m_strappname == "" )
 		return "";
 	$pattern = "/\"<params>(.*?)<params>\"/";
 	$replacement = '$1'; 
@@ -34,6 +35,8 @@ CHook :: add( "cangularjs", "CAngularJS_includes" );	// put it in the angularjs 
 // desc: loads the angularjs main module in the angularjs section
 //----------------------------------------------------------------------
 function CAngularJS_loadMainModule(){
+	if( class_exists("CAngularJS") == false )
+		return "";
 	$strapp = CAngularJS :: getApp(); 
 	if( $strapp == NULL )
 		return "";
@@ -53,6 +56,8 @@ CHook :: add( "cangularjs", "CAngularJS_loadMainModule" );
 // desc: renders and runs the angularjs section on fscript section
 //----------------------------------------------------------------------
 function CAngularJS_Section(){
+	if( class_exists("CAngularJS") == false )
+		return "";
 	$str = CHook :: fire( "cangularjs" );
 $strjs = <<<SCRIPT
 // BEGIN - CAngularJS section

@@ -15,6 +15,11 @@ var CMemory = new Class({
 	open : function( strmemid, params ){
 		if( strmemid == "" || strmemid == null )
 			return false;
+		if( params ) {
+			this.m_strid = strmemid;
+			this.m_jsondata = params;
+			return true;
+		} // end if
 		var creturn = CEvent.fire( "oncmemory", { memid:strmemid, memcommand:"open" } );
 		if( !creturn )
 			return false;

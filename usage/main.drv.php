@@ -23,7 +23,8 @@ function main_html($ckernal) {
 			<?php if($ckernal) echo $ckernal->headr(); // embed tags ?>
 		</div>
 		
-        <div id="content" ng-app="<?php echo CAngularJS::getApp(); ?>">
+		
+		<div id="content">
 			Content
 			<?php if($ckernal) echo $ckernal->body(); // embed tags ?>
 		</div>

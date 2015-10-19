@@ -20,6 +20,7 @@ class CForm {
 	protected $m_ccontrols;		// stores the controls of the form 
 	protected $m_strname;		// stores the name of the form
 	protected $m_strnamespace;	// stores the namesapce of the form
+	protected $m_cmemoryid;		// stores the memoryid of the form
 	
 	public function CForm($COptionsType="COptions", $CControlsType="CControls") {	
 		$this->m_params = NULL;
@@ -44,6 +45,15 @@ class CForm {
 	public function getName() { 
 		return $this->m_strname;
 	} // end getName()
+	
+	public function setCMemoryId($strcmemoryid) {
+		$this->m_cmemoryid = $strcmemoryid;
+	} // end setMemoryId()
+	
+	public function getCMemoryId($strcmemoryid) {
+		return $this->m_cmemoryid;
+	} // end setMemoryId()
+	
 	public function getNameWithSuffix($strsuffix) {
 		return ( $this->m_strname ) ?  ($this->m_strname . "_" . $strsuffix) : $strsuffix;
 	} // end getNameWithSuffix()

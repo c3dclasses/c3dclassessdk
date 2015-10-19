@@ -13,7 +13,7 @@ function CPath_Section(){
 	if( !CPath :: $m_chashpath )
 		return "";
 	$pathparams = CPath :: $m_chashpath->valueOf();
-	if( $pathparams )
+	if( !$pathparams )
 		return "";
 	$filterpathparams = NULL;
 	foreach( $pathparams as $key=>$params ){

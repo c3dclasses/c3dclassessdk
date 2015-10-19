@@ -69,6 +69,8 @@ CHook :: add( "style", "CElement_defineStyles" );
 // desc: includes the controller on the element object
 //---------------------------------------------------------
 function CElement_includeNGControllers(){
+	if(!class_exists("CAngularJS"))
+		return "";
 	$celements = CElement :: getCElements();
 	if( !$celements )
 		return "";

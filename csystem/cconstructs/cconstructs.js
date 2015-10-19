@@ -38,8 +38,9 @@ var CIf = new Class({
 				_if = _ifs[i];
 				if( _if.m_fncond && 
 					_if.m_fncond.bind(this)() &&
-					_if.m_fnbody  ){
+					_if.m_fnbody ){
 					_if.m_fnbody.bind(this)();
+					this._return();
 					break;	 
 				} // end if()
 				else if( !_if.m_fncond && _if.m_fnbody ){
