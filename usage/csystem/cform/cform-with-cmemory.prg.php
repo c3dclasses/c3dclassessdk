@@ -40,58 +40,63 @@ return <<<SCRIPT
 		return;
 	}
 	
-	//_if( function(){ return 1 == 1; }, function(){ 
-		//alert("1==1");
-		//this._return();
-	//})._endif();
-	
 	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
 		printbr( "cmemory = use_memory(cjsonmemory):");
 		printbr( cmemory._toString() );		
 		printbr();
 		this._return();
-	})._else(function(){
-		//alert("no memory yet");
 	})._endif();
 
-
-
 	jQuery("#btn-name-create").click(function(){ 
-		var cvar = cmemory.create( "name", jQuery("#name").val(), "string" );
-		
-		//var _return = cmemory.update("name", jQuery("#name").val(), 'string');		
-		//print_r(cvar);
-		//jQuery("#name").val(cvar);
-		//alert("done ajax using cmemory api"); 
-		//_if( function(){ return _return.isdone(); }, function(){ 
-		//	printbr(cmemory._toString());
-		//})._endif();
+		alert("creating the name"); 
+		var name = jQuery(this).attr("data-name");
+		var creturn = cmemory.create( name, jQuery("#"+name).val(), "string" );
+		if( creturn ){
+			_if( function(){ return creturn.isdone() }, function(){
+				alert("created the name");
+				printbr(cmemory._toString());
+				this._return();
+			})._endif();
+		} // end if
 	});
 
 
 	jQuery("#btn-name-retrieve").click(function(){ 
-		alert("do ajax using cmemory api"); 
-		var _return = cmemory.retrieve("name");		
-		_if( function(){ return _return.isdone(); }, function(){ 
-			printbr(cmemory._toString());
-		})._endif();
+		alert("retrieving the name"); 
+		var name = jQuery(this).attr("data-name");
+		var creturn = cmemory.retrieve(name);		
+		if( creturn ){
+			_if( function(){ return creturn.isdone(); }, function(){ 
+				alert("retrieved the name");
+				printbr(cmemory._toString());
+			})._endif();
+		} // end if
 	});
 
-	
+	/*
 	jQuery("#btn-name-update").click(function(){ 
-		alert("do ajax using cmemory api"); 
+		alert("updating the name"); 
 		var _return = cmemory.update("name", jQuery("#name").val(), 'string');		
 		_if( function(){ return _return.isdone(); }, function(){ 
+			alert("deleted the name");
+				printbr(cmemory._toString());
 			print_r(_return.data()[0]);
 		})._endif();
-	});
+	});*/
 
 	jQuery("#btn-name-delete").click(function(){ 
-		cmemory.delete("name");		
-		//_if( function(){ return _return.isdone(); }, function(){ 
-		//	printbr(cmemory._toString());
-		//})._endif();
-	});	
+		alert("deleting the name"); 
+		var name = jQuery(this).attr("data-name");
+		var creturn = cmemory.delete(name);
+		if( creturn ){
+			_if( function(){ return creturn.isdone(); }, function(){
+				alert("deleted the name");
+				printbr(cmemory._toString());
+				this._return();
+			})._endif(); // end _if
+		} // end if
+		else alert("does not exist in memory");			
+	});	 // end jQuery()
 
 
 SCRIPT;
