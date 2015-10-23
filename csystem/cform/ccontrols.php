@@ -23,11 +23,12 @@ class CControls extends CHash {
 	public function hidden($strname, $value, $params=NULL){ return $this->control("hidden", $strname, $value, $params);}
 	public function text($strname, $value, $params=NULL){ return $this->control("text", $strname, $value, $params);}
 	
-	public function text_ex($strname, $value, $params=NULL){ 
-		$str = $this->text($strname, $value, $params);
+	public function crud($strname, $strtype="string", $params=NULL){ 
 		$this->set("data-name", $strname); 
-		$this->set("data-action", "create"); 
-		$str .= $this->button( "btn-" . $strname . "-create", "create");
+		$this->set("data-type", $strtype); 
+		$this->set("data-action", "create");
+		$this->set("class", "ccontrol-crud");
+		$str = $this->button( "btn-" . $strname . "-create", "create");
 		$this->set("data-action", "retrieve"); 
 		$str .= $this->button( "btn-" . $strname . "-retrieve", "retrieve");
 		$this->set("data-action", "update"); 

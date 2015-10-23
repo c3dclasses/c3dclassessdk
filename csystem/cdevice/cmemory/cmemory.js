@@ -75,7 +75,7 @@ var CMemory = new Class({
 			_this.m_jsondata[cvar.m_strname]=cvar;
 			this._return();
 		})._elseif( function(){ return creturn.iserror(); }, function(){
-			alert("ERROR: could not open memory");
+			//alert("ERROR: could not open memory");
 			_this.m_jsondata = null;
 			this._return();
 		})._elseif( function(){ return creturn.isbusy(); }, function(){
@@ -95,7 +95,7 @@ var CMemory = new Class({
 	}, // end update()
 	delete : function( strname ){
 		if( !this.m_strid || !strname || !this.m_jsondata || !this.m_jsondata[strname] )
-			return null;	  
+			return null;		  
 		var creturn = CEvent.fire( "oncmemory", { memid:this.m_strid, memcommand:"delete", varname:strname }); // update it remotely
 		this.m_jsondata[strname] = null;
 		delete this.m_jsondata[strname];

@@ -47,57 +47,32 @@ return <<<SCRIPT
 		this._return();
 	})._endif();
 
-	jQuery("#btn-name-create").click(function(){ 
-		alert("creating the name"); 
-		var name = jQuery(this).attr("data-name");
-		var creturn = cmemory.create( name, jQuery("#"+name).val(), "string" );
-		if( creturn ){
-			_if( function(){ return creturn.isdone() }, function(){
-				alert("created the name");
-				printbr(cmemory._toString());
-				this._return();
-			})._endif();
-		} // end if
-	});
-
-
-	jQuery("#btn-name-retrieve").click(function(){ 
-		alert("retrieving the name"); 
-		var name = jQuery(this).attr("data-name");
-		var creturn = cmemory.retrieve(name);		
+	jQuery(".ccontrol-crud").click(function(){ 
+		var btn = jQuery(this);
+		var name = btn.attr("data-name");
+		var ctrl = jQuery("#"+name); 
+		var action = btn.attr("data-action");
+		var type = btn.attr("data-type");
+		var data = ctrl.val();
+		alert(action); 
+	
+		var creturn = cmemory[action](name, data, type);		
 		if( creturn ){
 			_if( function(){ return creturn.isdone(); }, function(){ 
-				alert("retrieved the name");
+				if( action == "retrieve" ){
+					var data = creturn.data();
+					console.log(data);
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					ctrl.val(data.m_value);
+				} // end if
+				else if(action == "delete"){
+					ctrl.val("");
+				} // end else if
 				printbr(cmemory._toString());
+				alert("done");
 			})._endif();
 		} // end if
 	});
-
-	/*
-	jQuery("#btn-name-update").click(function(){ 
-		alert("updating the name"); 
-		var _return = cmemory.update("name", jQuery("#name").val(), 'string');		
-		_if( function(){ return _return.isdone(); }, function(){ 
-			alert("deleted the name");
-				printbr(cmemory._toString());
-			print_r(_return.data()[0]);
-		})._endif();
-	});*/
-
-	jQuery("#btn-name-delete").click(function(){ 
-		alert("deleting the name"); 
-		var name = jQuery(this).attr("data-name");
-		var creturn = cmemory.delete(name);
-		if( creturn ){
-			_if( function(){ return creturn.isdone(); }, function(){
-				alert("deleted the name");
-				printbr(cmemory._toString());
-				this._return();
-			})._endif(); // end _if
-		} // end if
-		else alert("does not exist in memory");			
-	});	 // end jQuery()
-
 
 SCRIPT;
 	} // end c_main()
@@ -107,7 +82,9 @@ SCRIPT;
 		print("Enter your name: ");
 		
 		$ccontrols->set("data-foo","this is my attribute");
-		echo $ccontrols->text_ex("name", "");
+		echo $ccontrols->text("name", "");
+		echo $ccontrols->crud("name", "");
+		
 		return ob_end();
 	} // end innerhtml()
 } // end CFormWithCMemoryProgram
