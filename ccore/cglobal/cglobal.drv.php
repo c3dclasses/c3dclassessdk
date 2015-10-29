@@ -7,13 +7,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //-----------------------------------------------------------------
-// name: helper functions
-// desc: 
+// name: buildHTMLTag*()
+// desc: helper functions
 //-----------------------------------------------------------------
-function buildHTMLTag( $strtagname, $attributes, $bmultitag=false, $strbody="" ){
+function buildHTMLTag( $strtagname, $attributes=NULL, $bmultitag=false, $strbody="" ){
 	$strattributes="";
-	foreach( $attributes as $name => $value )
-		$strattributes .= "$name=\"$value\" ";
+	if( $attributes != NULL )
+		foreach( $attributes as $name => $value )
+			$strattributes .= "$name=\"$value\" ";
 	$str = "<{$strtagname} {$strattributes}"; 
 	$str .= ( $bmultitag )? ">{$strbody}</{$strtagname}>" : "/>";
 	return $str;
@@ -30,6 +31,8 @@ function buildHTMLOpenTag( $strtagname, $attributes ){
 function buildHTMLCloseTag( $strtagname ){
 	return "</{$strtagname}>";
 } // buildHTMLClosingTag()
+
+////////////////////////////////////////
 
 function method_exists_ex( $strclasstype, $strmethodname ){
 	if( $strclasstype == "" )

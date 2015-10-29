@@ -55,125 +55,103 @@ function COptions_processParamsOnCMemory($params){
 	} // end else
 } // end COptions_processParams()
 
-
-
 //--------------------------------------------------------
 // name: CControls_processParams()
 // desc: method used to process params
 //--------------------------------------------------------
 function CControls_processParams($params){
 	if(!$params)
-		return;
+		return "";
 	$strtype = $params["ccontrol-type"];
 	$strid = $strname = $params["ccontrol-name"];
 	$value = $params["ccontrol-value"];
 	$attributes = $params["ccontrol-attributes"];	
 	$params = $params["ccontrol-params"];
-
 	$strcontrol="";
-	if($strtype == "section")
+	
+	if($strtype == "section") {
 		$strcontrol = "";
-	else if($strtype == "form")
-		$strcontrol = "<form>";
-	else if($strtype == "endform")
-		$strcontrol = "</form>";		
-	else if($strtype == "label")
-		$strcontrol = "<label for=\"$strname\">$value</label>";
+	} // end if
+	else if($strtype == "form") {
+		$strcontrol = buildHTMLTag("form", $attributes);
+	} // end elseif
+	else if($strtype == "endform") { 
+		$strcontrol = buildHTMLTag("/form");
+	}  // end elseif
+	else if($strtype == "label") {
+		$tag = "label";
+		$attributes["for"] = $strname;
+		$strcontrol = buildHTMLTag("label", $attributes, true, $value);
+	} // end elseif
 	else if($strtype == "text") {
 		$attributes["type"] = "text";
 		$attributes["class"] = "widefat";
 		$attributes["id"] = $strid;
 		$attributes["name"] = $strname;
 		$attributes["value"] = $value;
-		//$strcontrol = "<input type=\"text\" class=\"widefat\" id=\"$strid\" name=\"$strname\" value=\"$value\" />";
-		$strcontrol = buildTag("input", $attributes);
-	}
-	else if($strtype == "hidden")	
-		$strcontrol = "<input type=\"hidden\" class=\"widefat\" id=\"$strid\" name=\"$strname\" value=\"$value\" />";		
-	else if($strtype == "textarea")
-		$strcontrol = "<textarea type=\"text\" class=\"widefat\" id=\"$strid\" name=\"$strname\">$value</textarea>";
-	else if($strtype == "checkbox")
-		$strcontrol = "<input class=\"checkbox\" id=\"$strid\" name=\"$strname\" type=\"checkbox\" value=\"$value\" />";
-	else if($strtype == "radio")
-		$strcontrol = "<input class=\"radio\" id=\"$strid\" name=\"$strname\" type=\"radio\" value=\"$value\" />";
-	else if($strtype == "button") {
-		//$strcontrol = "<input type=\"button\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
-		$attributes["type"] = "button";
-		//$attributes["class"] = "widefat";
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
+	else if($strtype == "hidden"){	
+		$attributes["type"] = "hidden";
+		$attributes["class"] = "widefat";
 		$attributes["id"] = $strid;
 		$attributes["name"] = $strname;
 		$attributes["value"] = $value;
-		$strcontrol = buildTag("input", $attributes);
-	} // 
-	else if($strtype == "submit")
-		$strcontrol = "<input type=\"submit\" id=\"$strid\" name=\"$strname\" value=\"{$value}\" />";
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
+	else if($strtype == "textarea") {
+		$attributes["type"] = "text";
+		$attributes["class"] = "widefat";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$strcontrol = buildHTMLTag("textarea", $attributes, true, $value);
+	} // end elseif
+	else if($strtype == "checkbox") {
+		$attributes["type"] = "checkbox";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;	
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
+	else if($strtype == "radio") {
+		$attributes["type"] = "radio";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;	
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
+	else if($strtype == "button") {
+		$attributes["type"] = "button";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
+	else if($strtype == "submit") {
+		$attributes["type"] = "submit";
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;
+		$strcontrol = buildHTMLTag("input", $attributes);
+	} // end elseif
 	else if($strtype == "select"){
 		$selectedvalue = $value;
 		$stroptions = "";
-		if($options=$params["choices"]) 
+		if($options=$params["choices"]) {
 			foreach($options as $name=>$ovalue){ 
 				$selected = ($selectedvalue == $name) ? "selected=''" : ""; 
-				$stroptions	.= "<option {$selected} value=\"{$name}\">{$ovalue}</option>"; 
+				if($selected) $attr["selected"] = '';
+				$attr = NULL;
+				$attr["value"] = $name;
+				$stroptions .= buildHTMLTag("option", $attr, true, $ovalue);
 			} // end foreach 
-		$strcontrol = "<select class=\"widefat\" id=\"$strid\" name=\"$strname\">$stroptions</select>";
-	} // end else if
-	else return;
-	return $strcontrol;
-} // end CControls_processParams()
-
-/*
-public function init( $strname, $value, $params ){
-	$attributes = isset( $params["attributes"] ) ? $params["attributes"] : NULL;
-	$attributes["id"] = $strid;
-	$attributes["name"] = $strname;
-	if( $value ) 
-		$attributes["value"] = $value;
-	if( $this->m_coptions->optionExists($strname) ) 
-		$attributes["optexist"] = true; 
-	return $attributes;
-	} // end init()
-*/
-
-//-----------------------------------------------------------------
-// name: helper functions
-// desc: 
-//-----------------------------------------------------------------
-function buildTag($strtagname, $attributes){
-	$strattributes="";
-	foreach( $attributes as $name => $value )
-		$strattributes .= "$name=\"$value\" ";
-	return "<{$strtagname} {$strattributes}>"; 
-} // end buildHTMLTag()
-
-
-/*
-//-----------------------------------------------------------------
-// name: helper functions
-// desc: 
-//-----------------------------------------------------------------
-function buildHTMLTag( $strtagname, $attributes, $bmultitag=false, $strbody="" ){
-	$strattributes="";
-	foreach( $attributes as $name => $value )
-		$strattributes .= "$name=\"$value\" ";
-	$str = "<{$strtagname} {$strattributes}"; 
-	$str .= ( $bmultitag )? ">{$strbody}</{$strtagname}>" : "/>";
-	return $str;
-} // end buildHTMLTag()
-
-public function init( $strname, $value, $params ){
-		if( $this->m_coptions ){	
-			$strid = $this->m_coptions->getFieldID($strname); 
-			$strname = $this->m_coptions->getFieldName($strname); 
-			$value = $this->m_coptions->optionExists($strname) ? $this->m_coptions->option($strname) : $value;	
 		} // end if
-		$attributes = isset( $params["attributes"] ) ? $params["attributes"] : NULL;
 		$attributes["id"] = $strid;
 		$attributes["name"] = $strname;
-		if( $value ) 
-			$attributes["value"] = $value;
-		if( $this->m_coptions->optionExists($strname) ) 
-			$attributes["optexist"] = true; 
-		return $attributes;
-	} // end init()
-*/
+		$attributes["value"] = $value;
+		$attributes["class"] = "widefat";
+		$strcontrol = buildHTMLTag("select", $attributes, true, $stroptions);	
+	} // end else if
+	return $strcontrol;
+} // end CControls_processParams()
 ?>

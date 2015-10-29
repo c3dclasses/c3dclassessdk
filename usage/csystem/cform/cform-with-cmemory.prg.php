@@ -53,9 +53,73 @@ return <<<SCRIPT
 		var action = btn.attr("data-action");		
 		var ctrl = jQuery("#"+name); 	
 		
-		if (!ctrl)
+		if (!ctrl || !action)
+			return;
+			
+		var type = ctrl.attr("type");
+		var tag = ctrl.prop("tagName");	
+		
+		if(type == "checkbox" || type == "radio") {
+			//ctrl = jQuery('input[name='+name+']:checked');
+			if(ctrl) {
+				alert("the control exist: " + ctrl.val() );
+				ctrl.css("border","none");
+			}
+		}
+		
+		if(!ctrl)
+			return;
+
+		var data = ctrl.val();
+		if(!data) 
+			data="";
+				
+		var creturn = cmemory[action](name, data, "string");
+		if(!creturn)
 			return;
 		
+		_if(function(){ return creturn.isdone(); }, function(){ 
+			if(action == "retrieve"){
+				var data = creturn.data();
+				data = jQuery.parseJSON(data[0].m_jsondata);
+				if(type == "checkbox" || type == "radio") {
+					if(data.m_value != null){
+						ctrl.attr("checked","true");
+					} // end if
+				} // end if
+				else ctrl.val(data.m_value);
+			} // end if
+			else if(action=="delete"){
+				if(type == "checkbox" || type == "radio")
+					ctrl.prop("checked",false);
+				else ctrl.val("");
+			} // end elseif
+			printbr(cmemory._toString());
+		})._endif();
+			
+			
+			
+			/*
+		crud_updateText(ctrl, action, creturn);
+			
+		function crud_updateText(ctrl, action, creturn) {
+			if(!creturn)
+				return true;
+			_if( function(){ return creturn.isdone(); }, function(){ 
+				if(action == "retrieve"){
+					var data = creturn.data();
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					ctrl.val(data.m_value);
+				} // end if
+				else if(action=="delete"){
+					ctrl.val("");
+				} // end elseif
+			})._endif();
+			return true;
+		} // end crud_text()
+		*/
+		
+		/*
 		var type = ctrl.attr("type");
 		if (type == "checkbox" || type == "radio") { 
 			// get the control that's checked
@@ -67,6 +131,7 @@ return <<<SCRIPT
 		if (!data) {
 			data="";
 		} // end if
+		*/
 		
 		// if checkbox or radio box - get selected value 
 		//if(type == "checkbox" || type == "radio"){
@@ -78,7 +143,7 @@ return <<<SCRIPT
 		//}
 		
 		//	var data = ctrl.selected().value();
-	
+	/*
 		var creturn = cmemory[action](name, data, "string");		
 		if(creturn) {
 			_if( function(){ return creturn.isdone(); }, function(){ 
@@ -89,10 +154,10 @@ return <<<SCRIPT
 					ctrl.val(data.m_value);
 					
 					// if this is a checkbox or radio box make it selected
-					if(type == "radio" || type == "checkbox"){
-						ctrl = jQuery('input[value='+data.m_value+']');
-						ctrl.prop("checked",true);
-					} // end if
+					//if(type == "radio" || type == "checkbox"){
+					//	ctrl = jQuery('input[value='+data.m_value+']');
+					//	ctrl.prop("checked",true);
+					//} // end if
 					
 				} // end if
 				else if(action == "delete"){
@@ -102,7 +167,8 @@ return <<<SCRIPT
 				alert("done");
 			})._endif();
 		} // end if
-	});
+		*/
+	}); // jQuery(".ccontrol-crud").click()
 
 //alert(type);
 		//var type = btn.attr("data-type");
@@ -114,6 +180,7 @@ SCRIPT;
 		$ccontrols = $this->m_cform->getCControls();		
 		print("Enter your name: ");
 		
+		$ccontrols->set("data-cmemory", "cjsonmemory");
 		$ccontrols->set("data-foo","this is my attribute");
 		echo $ccontrols->text("name", "");
 		echo $ccontrols->crud("name", "");

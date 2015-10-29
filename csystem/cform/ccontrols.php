@@ -24,6 +24,7 @@ class CControls extends CHash {
 	public function text($strname, $value, $params=NULL){ return $this->control("text", $strname, $value, $params);}
 	
 	public function crud($strname, $strtype="string", $params=NULL){ 
+		$this->clear();
 		$this->set("data-name", $strname); 
 		$this->set("data-type", $strtype); 
 		$this->set("data-action", "create");
@@ -54,15 +55,24 @@ class CControls extends CHash {
 		return $this->control($strtype, $strname, $value, $params);
 	} // end control_choices()
 	public function control($strtype, $strname, $value, $params){
-		if($this->m_cform && ($coptions = $this->m_cform->getCOptions()) && $strtype != "label")
-			$value = ($coptions->optionExists($strname)) ? $coptions->option($strname) : $value;
+		if($this->m_cform && ($coptions = $this->m_cform->getCOptions()) && $strtype != "label") {
+			$ovalue = ($coptions->optionExists($strname)) ? $coptions->option($strname) : "";
+			if($strtype == "radio" || $strtype == "checkbox") {
+				if($ovalue == $value) // optionvalue == attribute-value
+					$this->set("checked","");
+				else $this->remove("checked");
+				$value = $value;
+			} // end if
+			else $value = ($ovalue) ? $ovalue : $value;
+		} // end if
 		$_params["ccontrol-type"]=$strtype;
 		$_params["ccontrol-name"]=$strname; 
 		$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
 		$_params["ccontrol-value"]=$value;
 		$_params["ccontrol-params"]=$params;
 		$_params["ccontrol-attributes"]=$this->valueOf();
-		return $this->processParams($_params);
+		$ret = $this->processParams($_params);
+		return $ret;
 	} // end control()
 	public function processParams($params){ return CControls_processParams($params); } 
 } // end class CControls
