@@ -42,7 +42,7 @@ class CControls extends CHash {
 	public function	textarea($strname, $value, $params=NULL){ return $this->control("textarea", $strname, $value, $params);}
 	public function select($strname, $value, $options=NULL, $params=NULL){return $this->control_choices("select", $strname, $value, $options, $params);}
 	public function checkbox($strname, $value, $params=NULL){ return $this->control("checkbox", $strname, $value, $params);}
-	public function radio($strname, $value, $options=NULL, $params=NULL){return $this->control_choices("radio", $strname, $value, $options, $params);}
+	public function radio($strname, $value, $params=NULL){return $this->control("radio", $strname, $value, $params);}
 	public function button($strname, $value, $params=NULL){ return $this->control("button", $strname, $value, $params);} 
 	public function submit($strname, $value, $params=NULL){ return $this->control("submit", $strname, $value, $params);} 
 	public function dropDownPages($strname, $value, $params=NULL){ return $this->control("dropdown-pages", $strname, $value, $params); }

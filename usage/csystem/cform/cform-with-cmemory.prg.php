@@ -50,20 +50,50 @@ return <<<SCRIPT
 	jQuery(".ccontrol-crud").click(function(){ 
 		var btn = jQuery(this);
 		var name = btn.attr("data-name");
-		var ctrl = jQuery("#"+name); 
-		var action = btn.attr("data-action");
-		var type = btn.attr("data-type");
+		var action = btn.attr("data-action");		
+		var ctrl = jQuery("#"+name); 	
+		
+		if (!ctrl)
+			return;
+		
+		var type = ctrl.attr("type");
+		if (type == "checkbox" || type == "radio") { 
+			// get the control that's checked
+			ctrl = jQuery('input[name='+name+']:checked');
+		} // end if
+		
+		// get the data for the control	
 		var data = ctrl.val();
-		alert(action); 
+		if (!data) {
+			data="";
+		} // end if
+		
+		// if checkbox or radio box - get selected value 
+		//if(type == "checkbox" || type == "radio"){
+		//	ctrl = jQuery('input[name='+name+']:checked');
+		//	data = ctrl.val();
+		//	if( data == undefined )
+		//		data = "";
+		//	alert(data);
+		//}
+		
+		//	var data = ctrl.selected().value();
 	
-		var creturn = cmemory[action](name, data, type);		
-		if( creturn ){
+		var creturn = cmemory[action](name, data, "string");		
+		if(creturn) {
 			_if( function(){ return creturn.isdone(); }, function(){ 
 				if( action == "retrieve" ){
 					var data = creturn.data();
 					console.log(data);
 					data = jQuery.parseJSON(data[0].m_jsondata);
 					ctrl.val(data.m_value);
+					
+					// if this is a checkbox or radio box make it selected
+					if(type == "radio" || type == "checkbox"){
+						ctrl = jQuery('input[value='+data.m_value+']');
+						ctrl.prop("checked",true);
+					} // end if
+					
 				} // end if
 				else if(action == "delete"){
 					ctrl.val("");
@@ -73,6 +103,9 @@ return <<<SCRIPT
 			})._endif();
 		} // end if
 	});
+
+//alert(type);
+		//var type = btn.attr("data-type");
 
 SCRIPT;
 	} // end c_main()
@@ -84,6 +117,21 @@ SCRIPT;
 		$ccontrols->set("data-foo","this is my attribute");
 		echo $ccontrols->text("name", "");
 		echo $ccontrols->crud("name", "");
+		printbr();
+		
+		echo $ccontrols->textarea("name2", "");
+		echo $ccontrols->crud("name2", "");
+		printbr();
+		
+		echo $ccontrols->checkbox("fruit", "apple");
+		echo $ccontrols->crud("fruit", "");
+		printbr();
+		
+		echo $ccontrols->radio("veges", "carrots");
+		echo $ccontrols->radio("veges", "spanich");
+		echo $ccontrols->radio("veges", "tomatoe");
+		echo $ccontrols->crud("veges", "");
+		
 		
 		return ob_end();
 	} // end innerhtml()
