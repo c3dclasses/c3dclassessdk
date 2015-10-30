@@ -59,13 +59,19 @@ return <<<SCRIPT
 		var type = ctrl.attr("type");
 		var tag = ctrl.prop("tagName");	
 		
-		if(type == "checkbox" || type == "radio") {
-			//ctrl = jQuery('input[name='+name+']:checked');
-			if(ctrl) {
-				alert("the control exist: " + ctrl.val() );
-				ctrl.css("border","none");
-			}
+		if(type == "checkbox"){
+			if(ctrl.prop('checked'))
 		}
+		 
+		 /*
+		 || type == "radio") {
+			ctrl = jQuery('input[name='+name+']:checked');
+			if(ctrl) {
+				alert("
+				//alert("the control exist: " + ctrl.val() );
+				//ctrl.css("border","none");
+			}
+		}*/
 		
 		if(!ctrl)
 			return;
