@@ -46,7 +46,10 @@ return <<<SCRIPT
 		printbr();
 		this._return();
 	})._endif();
+	
+	CControls.doCRUD(cmemory);
 
+/*
 	jQuery(".ccontrol-crud").click(function(){ 
 		var btn = jQuery(this);
 		var name = btn.attr("data-name");
@@ -58,10 +61,22 @@ return <<<SCRIPT
 			
 		var type = ctrl.attr("type");
 		var tag = ctrl.prop("tagName");	
+		var data = ctrl.val();
 		
-		if(type == "checkbox"){
-			if(ctrl.prop('checked'))
-		}
+		if(type == "checkbox") {
+			if(!ctrl.prop('checked')) {
+				alert("not check so dont save data point");
+				data = "";
+			}
+		} // end if()
+		else if(type=="radio") {
+			ctrl = jQuery('input[name='+name+']:checked'); // get the checked control
+		 	if(ctrl.length==0){
+		 		alert("not check so dont save data point");
+				data = "";
+			}
+		} // end else if
+		 
 		 
 		 /*
 		 || type == "radio") {
@@ -73,13 +88,12 @@ return <<<SCRIPT
 			}
 		}*/
 		
-		if(!ctrl)
-			return;
+		//if(!ctrl)
+		//	return;
 
-		var data = ctrl.val();
-		if(!data) 
-			data="";
-				
+		//if(!data) 
+		//	data="";
+	/*			
 		var creturn = cmemory[action](name, data, "string");
 		if(!creturn)
 			return;
@@ -89,9 +103,7 @@ return <<<SCRIPT
 				var data = creturn.data();
 				data = jQuery.parseJSON(data[0].m_jsondata);
 				if(type == "checkbox" || type == "radio") {
-					if(data.m_value != null){
-						ctrl.attr("checked","true");
-					} // end if
+					ctrl.prop("checked", data.m_value!=null);
 				} // end if
 				else ctrl.val(data.m_value);
 			} // end if
@@ -104,81 +116,12 @@ return <<<SCRIPT
 		})._endif();
 			
 			
-			
-			/*
-		crud_updateText(ctrl, action, creturn);
-			
-		function crud_updateText(ctrl, action, creturn) {
-			if(!creturn)
-				return true;
-			_if( function(){ return creturn.isdone(); }, function(){ 
-				if(action == "retrieve"){
-					var data = creturn.data();
-					data = jQuery.parseJSON(data[0].m_jsondata);
-					ctrl.val(data.m_value);
-				} // end if
-				else if(action=="delete"){
-					ctrl.val("");
-				} // end elseif
-			})._endif();
-			return true;
-		} // end crud_text()
-		*/
 		
-		/*
-		var type = ctrl.attr("type");
-		if (type == "checkbox" || type == "radio") { 
-			// get the control that's checked
-			ctrl = jQuery('input[name='+name+']:checked');
-		} // end if
-		
-		// get the data for the control	
-		var data = ctrl.val();
-		if (!data) {
-			data="";
-		} // end if
-		*/
-		
-		// if checkbox or radio box - get selected value 
-		//if(type == "checkbox" || type == "radio"){
-		//	ctrl = jQuery('input[name='+name+']:checked');
-		//	data = ctrl.val();
-		//	if( data == undefined )
-		//		data = "";
-		//	alert(data);
-		//}
-		
-		//	var data = ctrl.selected().value();
-	/*
-		var creturn = cmemory[action](name, data, "string");		
-		if(creturn) {
-			_if( function(){ return creturn.isdone(); }, function(){ 
-				if( action == "retrieve" ){
-					var data = creturn.data();
-					console.log(data);
-					data = jQuery.parseJSON(data[0].m_jsondata);
-					ctrl.val(data.m_value);
-					
-					// if this is a checkbox or radio box make it selected
-					//if(type == "radio" || type == "checkbox"){
-					//	ctrl = jQuery('input[value='+data.m_value+']');
-					//	ctrl.prop("checked",true);
-					//} // end if
-					
-				} // end if
-				else if(action == "delete"){
-					ctrl.val("");
-				} // end else if
-				printbr(cmemory._toString());
-				alert("done");
-			})._endif();
-		} // end if
-		*/
 	}); // jQuery(".ccontrol-crud").click()
 
 //alert(type);
 		//var type = btn.attr("data-type");
-
+*/
 SCRIPT;
 	} // end c_main()
 	
@@ -188,23 +131,39 @@ SCRIPT;
 		
 		$ccontrols->set("data-cmemory", "cjsonmemory");
 		$ccontrols->set("data-foo","this is my attribute");
+		echo $ccontrols->label("name","text");
 		echo $ccontrols->text("name", "");
 		echo $ccontrols->crud("name", "");
 		printbr();
 		
+		echo $ccontrols->label("name2","text");
 		echo $ccontrols->textarea("name2", "");
 		echo $ccontrols->crud("name2", "");
 		printbr();
 		
+		echo $ccontrols->label("fruit","fruit - apple");
 		echo $ccontrols->checkbox("fruit", "apple");
 		echo $ccontrols->crud("fruit", "");
 		printbr();
 		
+		echo $ccontrols->label("veges","veges");
 		echo $ccontrols->radio("veges", "carrots");
 		echo $ccontrols->radio("veges", "spanich");
 		echo $ccontrols->radio("veges", "tomatoe");
 		echo $ccontrols->crud("veges", "");
 		
+		printbr();
+		echo $ccontrols->label("colors", "select");
+		echo $ccontrols->select("colors", "RED", array( "RED"=>"red", "GREEN"=>"green", "BLUE"=>"blue"));
+		echo $ccontrols->crud("colors", "");
+		
+		printbr();
+		echo $ccontrols->label("group", "");
+		echo $ccontrols->form("group");
+		echo $ccontrols->select("colors", "RED", array( "RED"=>"red", "GREEN"=>"green", "BLUE"=>"blue"));
+		echo $ccontrols->submit("hello","hello");
+		echo $ccontrols->endform();
+		echo $ccontrols->crud("group", "");
 		
 		return ob_end();
 	} // end innerhtml()

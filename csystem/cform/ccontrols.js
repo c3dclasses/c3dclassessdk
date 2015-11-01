@@ -172,6 +172,133 @@ var CControls = new Class({
 	
 	// classmethods
 	ClassMethods : {
+		doCRUD:function(cmemory){
+			if(!cmemory)
+				return;
+			jQuery(".ccontrol-crud").click(function(){ 
+				var btn = jQuery(this);
+				var name = btn.attr("data-name");
+				var action = btn.attr("data-action");		
+				var ctrl = jQuery("#"+name); 	
+		
+				if (!ctrl || !action)
+					return null;
+		
+				var type = ctrl.attr("type");
+				var tag = ctrl.prop("tagName").toLowerCase();
+		
+				if(tag == "form")
+					return CControls.doFormCRUD(ctrl, cmemory, action);
+				if(type == "checkbox")
+					return CControls.doCheckboxCRUD(ctrl, cmemory, action);
+				else if(type == "radio")
+					return CControls.doRadioCRUD(ctrl, cmemory, action);
+				else if(type == "text" || tag == "textarea")
+					return CControls.doTextCRUD(ctrl, cmemory, action);
+				else if(tag == "select")
+					return CControls.doSelectCRUD(ctrl, cmemory, action);
+				return null;
+			}); // end jQuery(".ccontrol-crud").click()
+		}, // end doCRUD()
+		
+		doTextCRUD:function(ctrl, cmemory, action){
+			var data = ctrl.val();
+			var name = ctrl.attr("id");
+			alert("do text crud: " + data);
+			var creturn = cmemory[action](name, data, "string");
+			if(!creturn)
+				return null;
+			_if(function(){ return creturn.isdone(); }, function(){ 
+				var data = creturn.data();
+				if(action == "retrieve"){
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					ctrl.val(data.m_value);
+				} // end if
+				else if(action=="delete"){
+					ctrl.val("");
+				} // end else if	
+				printbr(cmemory._toString());			
+			})._endif();
+			return creturn;
+		}, // end doTextCRUD()
+		
+		doCheckboxCRUD:function(ctrl, cmemory, action){
+			var data = ctrl.prop('checked') ? ctrl.val() : "";	
+			var name = ctrl.attr("id");
+			var creturn = cmemory[action](name, data, "string");
+			if(!creturn)
+				return null;
+			_if(function(){ return creturn.isdone(); }, function(){ 
+				if(action == "retrieve"){
+					var data = creturn.data();
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					ctrl.prop("checked", data.m_value!=null);
+				} // end if
+				else if(action=="delete"){
+					ctrl.prop("checked",false);
+				} // end elseif
+			})._endif();
+			return creturn;
+		}, // end doCheckboxCRUD()
+		
+		doRadioCRUD:function(ctrl, cmemory, action){
+			var data = "";
+			var name = ctrl.attr("id");
+			var chkctrl = jQuery('input[name="'+name+'"]');
+			chkctrl.each(function(){
+				if( $(this).prop("checked") ){
+					data = $(this).val();
+					ctrl = chkctrl;
+				} // end if
+			}); // end chkctrl
+			var creturn = cmemory[action](name, data, "string");
+			if(!creturn)
+				return null;
+			_if(function(){ return creturn.isdone(); }, function(){ 
+				if(action == "retrieve"){
+					var data = creturn.data();
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					chkctrl.each(function(){
+						if($(this).attr("value") == data.m_value)
+						   $(this).prop("checked", data.m_value!=null);
+					}); // end chkctrl.each()
+				} // end if
+				else if(action=="delete"){
+					ctrl.prop("checked",false);
+				} // end elseif
+				printbr(cmemory._toString());			
+			})._endif();
+			return creturn;
+		}, // end doCheckboxCRUD()
+		
+		doSelectCRUD:function(ctrl, cmemory, action){
+			var name = ctrl.attr("id");
+			var data = ctrl.val();
+			var creturn = cmemory[action](name, data, "string");
+			if(!creturn)
+				return null;
+			_if(function(){ return creturn.isdone(); }, function(){ 
+				if(action == "retrieve"){
+					var data = creturn.data();
+					data = jQuery.parseJSON(data[0].m_jsondata);
+					if( data.m_value != "")
+						ctrl.find('option[value="' + data.m_value + '"]').prop("selected", "selected");
+				} // end if
+				else if(action=="delete"){
+				} // end elseif
+				printbr(cmemory._toString());			
+			})._endif();
+		}, // end doSelectCRUD()
+		
+		doFormCRUD:function(ctrl,cmemory,action){
+			var name = ctrl.attr("id");
+			alert(name);
+			var ctrls = $("#"+name+" :input");
+			
+		//	var formChildren = $( "form > *" );
+			
+			alert(ctrls.children().length);
+		} // end doFormCRUD()
 	} // end ClassMethods
 }); // end CControls
 

@@ -73,13 +73,15 @@ function CControls_processParams($params){
 		$strcontrol = "";
 	} // end if
 	else if($strtype == "form") {
-		$strcontrol = buildHTMLTag("form", $attributes);
+		$attributes["id"] = $strid;
+		$attributes["name"] = $strname;
+		$attributes["value"] = $value;
+		$strcontrol = buildHTMLOpenTag("form", $attributes);
 	} // end elseif
 	else if($strtype == "endform") { 
-		$strcontrol = buildHTMLTag("/form");
+		$strcontrol = "</form>";//buildHTMLTag("/form");
 	}  // end elseif
 	else if($strtype == "label") {
-		$tag = "label";
 		$attributes["for"] = $strname;
 		$strcontrol = buildHTMLTag("label", $attributes, true, $value);
 	} // end elseif
@@ -140,8 +142,8 @@ function CControls_processParams($params){
 		if($options=$params["choices"]) {
 			foreach($options as $name=>$ovalue){ 
 				$selected = ($selectedvalue == $name) ? "selected=''" : ""; 
-				if($selected) $attr["selected"] = '';
 				$attr = NULL;
+				if($selected) $attr["selected"] = '';
 				$attr["value"] = $name;
 				$stroptions .= buildHTMLTag("option", $attr, true, $ovalue);
 			} // end foreach 

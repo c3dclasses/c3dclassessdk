@@ -16,7 +16,7 @@ class CControls extends CHash {
 	public function CControls(){}	
 	
 	public function create($cform){ $this->m_cform = $cform; return true; }
-	public function form($strname, $value, $params=NULL){ return $this->control("form", $strname, $value, $params);}
+	public function form($strname, $value=NULL, $params=NULL){ return $this->control("form", $strname, $value, $params);}
 	public function endform(){ return $this->control("endform",NULL,NULL,NULL); }
 	public function section($strname, $strlabel, $params=NULL){ return $this->control("section", $strname, $strlabel, $params);}
 	public function label($strname, $value, $params=NULL){ return $this->control("label", $strname, $value, $params);}
