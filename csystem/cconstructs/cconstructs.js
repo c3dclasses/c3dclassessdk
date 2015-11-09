@@ -93,6 +93,7 @@ var CDoWhile = new Class({
 var CReturn = new Class({
 	initialize : function(){ 
 		this.m_data = null;
+		this.m_fnformat = null;
 		this.m_strerror = "";
 		this.m_icode = CReturn.IDLE;
 		this.m_strstatus = "";
@@ -115,9 +116,12 @@ var CReturn = new Class({
 	}, // end status();
 	data : function( data ){
 		if( arguments.length == 1  )
-			this.m_data = arguments[0];
- 		return this.m_data; 
+			this.m_data = arguments[0];	
+		return (this.m_fnformat) ? this.m_fnformat(this.m_data) : this.m_data; 
 	}, // end data()
+	formatfn : function(fn){
+		this.m_fnformat=fn;
+	}, // end format() 
 	isdone : function(){ 
 		return this.m_icode==CReturn.DONE;
 	}, // end isdone()

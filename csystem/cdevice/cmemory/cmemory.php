@@ -39,6 +39,16 @@ class CMemory extends CResource{
 	public function save(){ 
 		return FALSE; 
 	} // end save()
+	public function batch($crudop, $params){
+		$ret=NULL;
+		foreach( $params as $index => $var ){
+			$strname = $var["name"];
+			$strtype = $var["type"];
+			$value = $var["value"];
+			$ret[] = $this->{$crudop}($strname,$value,$strtype);
+		} // end foreach()
+		return $ret;
+	} // end batch()
 	public function serialize( $value ){ 
 		return serialize($value); 
 	} // end serialize()

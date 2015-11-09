@@ -13,15 +13,22 @@ function oncmemory_handler( $params ){
 	// use 
 	$strid = $params["memid"];
 	$strcommand = $params["memcommand"];
+	$bbatch = isset($params["membatch"])?true:false;
 	if( !$cmemory = use_memory( $strid ) )
 		return NULL;
 		
 	// open / close
 	if( $strcommand == "open" )
 		return array( "m_bjson" => true, "m_jsondata" => $cmemory->toJSON() );
+	else if( $strcommand == "close" )
+		return NULL;
 		
-	// crud - create, retrieve, update, delete
-	if( $strcommand == "create" ){
+	// crud - batch crud or create, retrieve, update, delete
+	if($bbatch){
+		$data = $cmemory->batch($strcommand, $params["memparams"]);
+		return ($data!=NULL) ? array("m_bjson"=>true, "m_jsondata" => json_encode($data)) : NULL;
+	} // end if
+	else if( $strcommand == "create" ){
 		$strname = $params["varname"];
 		$strtype = $params["vartype"];
 		$value = $params["varvalue"];
@@ -45,6 +52,7 @@ function oncmemory_handler( $params ){
 		$cmemory->delete( $strname );
 		return NULL;//array( "m_bjson" => true, "m_jsondata" => json_encode( $cvar ) );
 	} // end if
+	
 	return NULL;
 } // end oncmemory()
 

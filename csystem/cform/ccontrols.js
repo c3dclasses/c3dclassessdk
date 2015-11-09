@@ -180,13 +180,10 @@ var CControls = new Class({
 				var name = btn.attr("data-name");
 				var action = btn.attr("data-action");		
 				var ctrl = jQuery("#"+name); 	
-		
 				if (!ctrl || !action)
 					return null;
-		
 				var type = ctrl.attr("type");
 				var tag = ctrl.prop("tagName").toLowerCase();
-		
 				if(tag == "form")
 					return CControls.doFormCRUD(ctrl, cmemory, action);
 				if(type == "checkbox")
@@ -211,7 +208,7 @@ var CControls = new Class({
 			_if(function(){ return creturn.isdone(); }, function(){ 
 				var data = creturn.data();
 				if(action == "retrieve"){
-					data = jQuery.parseJSON(data[0].m_jsondata);
+					//data = jQuery.parseJSON(data[0].m_jsondata);
 					ctrl.val(data.m_value);
 				} // end if
 				else if(action=="delete"){
@@ -231,7 +228,7 @@ var CControls = new Class({
 			_if(function(){ return creturn.isdone(); }, function(){ 
 				if(action == "retrieve"){
 					var data = creturn.data();
-					data = jQuery.parseJSON(data[0].m_jsondata);
+				//	data = jQuery.parseJSON(data[0].m_jsondata);
 					ctrl.prop("checked", data.m_value!=null);
 				} // end if
 				else if(action=="delete"){
@@ -257,7 +254,7 @@ var CControls = new Class({
 			_if(function(){ return creturn.isdone(); }, function(){ 
 				if(action == "retrieve"){
 					var data = creturn.data();
-					data = jQuery.parseJSON(data[0].m_jsondata);
+					//data = jQuery.parseJSON(data[0].m_jsondata);
 					chkctrl.each(function(){
 						if($(this).attr("value") == data.m_value)
 						   $(this).prop("checked", data.m_value!=null);
@@ -280,7 +277,7 @@ var CControls = new Class({
 			_if(function(){ return creturn.isdone(); }, function(){ 
 				if(action == "retrieve"){
 					var data = creturn.data();
-					data = jQuery.parseJSON(data[0].m_jsondata);
+					//data = jQuery.parseJSON(data[0].m_jsondata);
 					if( data.m_value != "")
 						ctrl.find('option[value="' + data.m_value + '"]').prop("selected", "selected");
 				} // end if
@@ -292,12 +289,92 @@ var CControls = new Class({
 		
 		doFormCRUD:function(ctrl,cmemory,action){
 			var name = ctrl.attr("id");
-			alert(name);
-			var ctrls = $("#"+name+" :input");
+			var ctrls = $("#"+name+" :input");	
+			var vars = [];
+			ctrls.each(function() {
+				var ctrl = $(this);
+				var name = ctrl.attr("name");
+				var type = ctrl.attr("type");
+				var value = "";
+				var tag = ctrl.prop("tagName").toLowerCase();
+				
+				if(type == "button" || type == "submit" || tag == "button") 
+					return true;
+				
+				if(type == "checkbox")	
+					value = ctrl.prop('checked') ? ctrl.val() : "";	
+				else if(type == "radio"){
+					value = ctrl.prop('checked') ? ctrl.val() : "";	
+					if( value == "" )
+						return true;
+				} // end else if
+				else value = ctrl.val();
+				/*
+				if( type == "hidden" ||
+					type == "text" ||
+					type == "checkbox" ||
+					type == "radio" ||
+					tag == "textarea" ||
+					tag == "select" ) {	
+					params.push({ name: name, value: value, type: "string"});
+					alert("name: " + name + " value: " + value);
+				} // end if
+				*/
+				alert("name: " + name + " value: " + value);
+				vars.push({ name: name, value: value, type: "string"});
+				return true;
+			}); // end ctrls.each()
+			//alert(params.length);
+			//return;
+			//var params = [{ name:"kevin", value:"hello", type:"string" }];
+			var creturn = cmemory.batch(action, vars);
+			if(!creturn){
+				alert("no creturn");
+				return null;
+			}
+			_if(function(){ return creturn.isdone(); }, function(){ 
+				if(action == "retrieve"){
+					vars = creturn.data();
+					if(!vars)
+						return;
+					for( var i in vars ){
+						if(!vars[i])
+							continue;
+						var name = vars[i].m_strname;
+						var value = vars[i].m_value;
+						//var type = vars[i].m_strtype;	
+						var _ctrl = ctrl.find("#"+name);
+						if(!_ctrl || _ctrl.length == 0)
+							continue;
+						alert( name );
+						var type = _ctrl.attr("type");
+						var tag = _ctrl.prop("tagName").toLowerCase();
+						if(type == "checkbox")
+							_ctrl.prop("checked", value!=null);
+						else if(type == "radio")
+							if(value != "")
+								_ctrl.prop("checked", true);
+							else _ctrl.prop("checked", false);
+						else _ctrl.val(value);
+					} // end for
+				} // end if
+				else if(action == "delete"){
+					alert(action);
+					ctrls.each(function(){
+						var ctrl = $(this);
+						var name = ctrl.attr("name");
+						var type = ctrl.attr("type");
+						var value = "";
+						var tag = ctrl.prop("tagName").toLowerCase();
+						if(type == "button" || type == "submit" || tag == "button") 
+							return true;
+						if(type == "checkbox" || type=="radio")
+							ctrl.prop("checked", false);
+						else ctrl.val("");
+					});
+				} // end if
+			})._endif(); // end _if()
 			
-		//	var formChildren = $( "form > *" );
-			
-			alert(ctrls.children().length);
 		} // end doFormCRUD()
 	} // end ClassMethods
 }); // end CControls

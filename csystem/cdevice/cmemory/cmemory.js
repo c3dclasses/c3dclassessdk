@@ -64,14 +64,15 @@ var CMemory = new Class({
 	retrieve : function( strname ){ 
 		if( !this.m_strid || !strname || !this.m_jsondata || !this.m_jsondata[strname] )
 			return null;	  
-		var creturn = CEvent.fire( "oncmemory", { memid:this.m_strid, memcommand:"retrieve", varname:strname } );
+		var creturn = CEvent.fire("oncmemory", {memid:this.m_strid, memcommand:"retrieve", varname:strname});
+		creturn.formatfn(function(data){return jQuery.parseJSON(data[0].m_jsondata);});
 		var _this = this;
 		_if( function(){ return creturn.isdone(); }, function(){
-			var params = creturn.data();
-			if( params == null && params[0] == null )
-				_this.m_jsondata = null;
-			var cvar = jQuery.parseJSON(params[0].m_jsondata);
-			//alert( print_r( cvar, true ) );
+			//var params = creturn.data();
+			//if( params == null && params[0] == null )
+			//	_this.m_jsondata = null;
+			//var cvar = jQuery.parseJSON(params[0].m_jsondata);
+			var cvar=creturn.data();
 			_this.m_jsondata[cvar.m_strname]=cvar;
 			this._return();
 		})._elseif( function(){ return creturn.iserror(); }, function(){
@@ -102,6 +103,13 @@ var CMemory = new Class({
 		return creturn;
 	}, // end delete()
 	
+	batch : function( crudop, params ){
+		if( !this.m_strid || !crudop || !params )
+			return null;
+		var creturn = CEvent.fire( "oncmemory", { memid:this.m_strid, memcommand:crudop, membatch:true, memparams:params }); // update it remotely
+		creturn.formatfn(function(data){return jQuery.parseJSON(data[0].m_jsondata);});
+		return creturn;
+	}, // end batch()
 	
 	/*
 	save : function(){ 

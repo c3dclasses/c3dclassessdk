@@ -161,7 +161,11 @@ SCRIPT;
 		echo $ccontrols->label("group", "");
 		echo $ccontrols->form("group");
 		echo $ccontrols->select("colors", "RED", array( "RED"=>"red", "GREEN"=>"green", "BLUE"=>"blue"));
+		echo $ccontrols->textarea("name55", "");
 		echo $ccontrols->submit("hello","hello");
+		echo $ccontrols->radio("race", "black");
+		echo $ccontrols->radio("race", "white");
+		echo $ccontrols->radio("race", "other");
 		echo $ccontrols->endform();
 		echo $ccontrols->crud("group", "");
 		
