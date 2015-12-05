@@ -86,3 +86,7 @@ function ob_queue_dump( strid ){
 function ob_queue_dump2(strid) {
 	return CObqueue.dumpCObqueue( strid );
 }
+
+function ob_queue_dump3( strid ){
+	return CObqueue.dumpCObqueue( strid );
+} // end ob_queue_dump()
