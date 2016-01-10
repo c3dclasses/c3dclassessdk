@@ -32,7 +32,6 @@ class CFormWithCMemoryProgram extends CProgram{
 	
 	public function c_main(){
 return <<<SCRIPT
-	
 	printbr("cform-with-cmemory.js");
 	var cmemory = use_memory( "cjsonmemory" );
 	if( !cmemory ){
@@ -48,84 +47,12 @@ return <<<SCRIPT
 	})._endif();
 	
 	CControls.doCRUD(cmemory);
-
-/*
-	jQuery(".ccontrol-crud").click(function(){ 
-		var btn = jQuery(this);
-		var name = btn.attr("data-name");
-		var action = btn.attr("data-action");		
-		var ctrl = jQuery("#"+name); 	
-		
-		if (!ctrl || !action)
-			return;
-			
-		var type = ctrl.attr("type");
-		var tag = ctrl.prop("tagName");	
-		var data = ctrl.val();
-		
-		if(type == "checkbox") {
-			if(!ctrl.prop('checked')) {
-				alert("not check so dont save data point");
-				data = "";
-			}
-		} // end if()
-		else if(type=="radio") {
-			ctrl = jQuery('input[name='+name+']:checked'); // get the checked control
-		 	if(ctrl.length==0){
-		 		alert("not check so dont save data point");
-				data = "";
-			}
-		} // end else if
-		 
-		 
-		 /*
-		 || type == "radio") {
-			ctrl = jQuery('input[name='+name+']:checked');
-			if(ctrl) {
-				alert("
-				//alert("the control exist: " + ctrl.val() );
-				//ctrl.css("border","none");
-			}
-		}*/
-		
-		//if(!ctrl)
-		//	return;
-
-		//if(!data) 
-		//	data="";
-	/*			
-		var creturn = cmemory[action](name, data, "string");
-		if(!creturn)
-			return;
-		
-		_if(function(){ return creturn.isdone(); }, function(){ 
-			if(action == "retrieve"){
-				var data = creturn.data();
-				data = jQuery.parseJSON(data[0].m_jsondata);
-				if(type == "checkbox" || type == "radio") {
-					ctrl.prop("checked", data.m_value!=null);
-				} // end if
-				else ctrl.val(data.m_value);
-			} // end if
-			else if(action=="delete"){
-				if(type == "checkbox" || type == "radio")
-					ctrl.prop("checked",false);
-				else ctrl.val("");
-			} // end elseif
-			printbr(cmemory._toString());
-		})._endif();
-			
-			
-		
-	}); // jQuery(".ccontrol-crud").click()
-
-//alert(type);
-		//var type = btn.attr("data-type");
-*/
 SCRIPT;
 	} // end c_main()
 	
 	public function innerhtml(){	
+		ob_start();
+		
 		$ccontrols = $this->m_cform->getCControls();		
 		print("Enter your name: ");
 		

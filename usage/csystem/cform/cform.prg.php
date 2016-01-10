@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------
 
 // includes
-include_program( "CFormProgram" );
+include_program("CFormProgram");
 include_array_memory("mymemory", "session", $_SESSION );
 
 include_css("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css");
