@@ -26,4 +26,5 @@ error_reporting($prev);
 include_once("phpquery/phpQuery-onefile.php");
 include_once("other/other.php");
 include_once("clogger/clogger.php");
+include_once("cunittest/cunittest.php");
 ?>
