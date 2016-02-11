@@ -52,6 +52,15 @@ var CUnitTest = new Class ({
 		this.m_assert = assert;
 	}, // end setAssert()
 	
+	assertTrue : function(condition){
+		this.m_assert.ok(condition, "Passed!");
+	}, // end assertTrue()
+	
+	assertFalse : function(condition){
+		this.m_assert.ok(!condition, "Passed!");
+	}, // end assertTrue()
+	
+	
 	run: function() {
 		var obj=this;
 		for(var m in obj) {

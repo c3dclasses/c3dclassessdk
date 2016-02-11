@@ -136,7 +136,7 @@ class CBitArray{
 				$dec = $this->m_arribits[$i];
 			 	$str = $str . (($bhex == false) ? $dec : dechex($dec)) . " ";
 			} // end for
-		return $str;
+		return trim($str);
 	} // toString()
 	public function computeBitArray($ibit) { 
 		return ($this->m_arribits == NULL || $ibit < 0 || $ibit >= $this->m_inumofbits) ? -1 : CMath::floor($ibit * CBitArray::$BITTOINT); 

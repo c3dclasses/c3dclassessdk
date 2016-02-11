@@ -137,7 +137,7 @@ var CBitArray = new Class ({
 		var str="";
 		for (var ibit=this.m_inumofbits; ibit>-1; ibit--) 	
 			str += ((this.isBitSet(ibit)) ? "1" : "0");		
-		return str;
+		return str.trim();
 	}, // toBinaryString()
 	toHexString : function() { return this._toString(true); },
 	toDecimalString : function() { return this._toString(false); },
@@ -150,7 +150,7 @@ var CBitArray = new Class ({
 				else str += this.m_arribits[i].toString(16);
 				str += " ";
 			} // end for
-		return str;
+		return str.trim();
 	}, // toString()
 	computeBitArray : function(ibit) { 
 		return (this.m_arribits == null || ibit < 0 || ibit >= this.m_inumofbits) ? -1 : Math.floor(ibit * CBitArray.BITTOINT); 
