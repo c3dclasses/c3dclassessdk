@@ -19,22 +19,20 @@ class CJSONVarProgram extends CProgram{
 	
 	public function c_main(){
 return <<<SCRIPT
-	//printbr("<b>cjsonvar.js</b>");
-	//var cmemory = use_memory( "jsonmemory" );
-	/*
+	printbr("<b>cjsonvar.js</b>");
+	var cmemory = use_memory("jsonmemory");
 	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
 		printbr( "CJSONMemory Contents: " + cmemory._toString() );		
 		printbr();
-		var cjsonvar=null;
-		if((cjsonvar=getvar("jsonmemory","foo1"))==null){ 
+		var cvar=null;
+		if((cvar=getvar("jsonmemory","foo1"))==null){ 
 			printbr( "ERROR: couldn't delete cjsonvar. cjsonvar Doesn't exist!!"); 
 		} // end if
 		else 
-		printbr( "contents of var: " + cjsonvar._() );
-		cjsonvar._("Setting the Remote variable in javascript again!!");		
+		printbr( "contents of var: " + cvar._() );
+		cvar._("Setting the Remote variable in javascript again!!");		
 		this._return();
 	})._endif(); // end _if()
-	*/
 SCRIPT;
 	} // end load()
 	

@@ -71,6 +71,10 @@ class CElementAttributes{
 	public function		clearevent( $streventname ){}
 	public function		prop( $strname, $value="" ){ $ret = call_user_func_array(array($this->m_prop,"attr"), func_get_args()); if( func_num_args() == 1 ) return $ret; return $this; }
 	
+	public function		printbr($str){ printbr(str); }
+	public function		_echo($str){ print(str); }
+	
+	
 	//--------------------------------------------------------------
 	// name: other
 	// desc: sets related properites and behaviors of this element

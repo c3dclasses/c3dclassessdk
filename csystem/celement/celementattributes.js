@@ -63,6 +63,9 @@ var CElementAttributes = new Class({
 	clearevent : function(){},
 	prop : function(){},
 	
+	printbr : function(str){ this._echo(str + "</br>"); },
+	_echo : function(str){ this.m_jelement.append(str); },
+	
 	//---------------------------------------------------------------------
 	// name: other 
 	// desc: sets related properites and behaviors of this element

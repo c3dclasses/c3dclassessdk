@@ -23,6 +23,19 @@ class CDatabaseVarProgram extends CProgram{
 	public function c_main(){
 return <<<SCRIPT
 	printbr("<b>cdatabasevar.js</b>");
+	var cmemory = use_memory("databasememory");
+	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
+		printbr( "CDatabaseMemory Contents: " + cmemory._toString() );		
+		printbr();
+		var cvar=null;
+		if((cvar=getvar("databasememory","foo1"))==null){ 
+			printbr( "ERROR: couldn't delete cjsonvar. cjsonvar Doesn't exist!!"); 
+		} // end if
+		else 
+		printbr( "contents of var: " + cvar._() );
+		cvar._("Setting the Remote variable in javascript again!!");		
+		this._return();
+	})._endif(); // end _if()
 SCRIPT;
 	} // end load()
 	
@@ -47,9 +60,9 @@ ob_start();
 	
 	$memory = use_memory( "databasememory" );
 	if( $memory )
-		printbr( "Cdatabasememory Contents: " . $memory->toString() );
+		printbr( "CDatabasememory Contents: " . $memory->toString() );
 	else 
-		printbr( "Cdatabasememory Contents: no contents" );
+		printbr( "CDatabasememory Contents: no contents" );
 	
 	printbr();
 return ob_end();

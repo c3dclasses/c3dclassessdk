@@ -12,7 +12,7 @@ include_file( "foo", dirname(__FILE__) . "/foo.txt", "a" );
 // name: CFileProgram
 // desc: hello world program
 //---------------------------------------------------
-class FileProgram extends CProgram{
+class CFileProgram extends CProgram{
 	public function CFileProgram(){ 
 		parent :: CProgram();	
 	} // end CFileProgram()
@@ -27,11 +27,10 @@ SCRIPT;
 ob_start();
 	printbr("<b>cfile.php</b>");
 	printbr("look for this file: " .  dirname(__FILE__) . "/foo.txt" );
-	useiofile("foo")->println("writing to output file");
-	useiofile("foo")->println("writing to output file again");
-	useiofile("foo")->println("writing to output file again again");
-	useiofile("foo")->println("This is a resources object that write information to.");
-	
+	use_file("foo")->println("writing to output file");
+	use_file("foo")->println("writing to output file again");
+	use_file("foo")->println("writing to output file again again");
+	use_file("foo")->println("This is a resources object that write information to.");	
 return ob_end();
 	} // end innerhtml()
 } // end CFileProgram

@@ -103,6 +103,10 @@ var CMemory = new Class({
 		return creturn;
 	}, // end delete()
 	
+	get : function(strname) {
+		return ( !strname || !this.m_jsondata || !this.m_jsondata[strname] ) ? null : this.m_jsondata[strname];
+	}, // end get()
+	
 	batch : function( crudop, params ){
 		if( !this.m_strid || !crudop || !params )
 			return null;

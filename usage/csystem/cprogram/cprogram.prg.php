@@ -20,6 +20,7 @@ class CProgramProgram extends CProgram{
 	public function c_main(){ 
 return <<<JSCRIPT
 	printbr("<b>cprogram.js</b>");
+	alert("running CProgramProgram");
 JSCRIPT;
 	} // end c_main()
 	

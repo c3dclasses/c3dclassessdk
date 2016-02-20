@@ -36,8 +36,7 @@ return <<<SCRIPT
 	printbr(CMath.in(11,9,10));
 	printbr(CMath.in(9,8,10));
 	printbr(CMath.bound(7,8,10));
-	printbr(CMath.bound(11,9,10));
-	printbr(CMath.bound(9,8,10));
+	printbr(CMath.round(8.266)); 
 	printbr();	
 SCRIPT;
 	} // end load()

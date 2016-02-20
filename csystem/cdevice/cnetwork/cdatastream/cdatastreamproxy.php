@@ -22,7 +22,7 @@ class CDataStreamProxy extends CDataStreamServer{
 	public function open( $strurl, $strmethod, $strid="" ){
 		//if( parent::open( "", "", $strid ) == FALSE || $this->recieved() == FALSE )
 		//	return FALSE;
-		parent::open( "", "", $strid );
+		parent::open("", "", $strid);
 		$cds = new CDataStreamServer();		// the outgoing server	
 		if( !$cds || $cds->open( $strurl, $strmethod, $strid ) == FALSE ){
 			return FALSE;
@@ -43,22 +43,25 @@ class CDataStreamProxy extends CDataStreamServer{
 	
 	public function send( $options=NULL ){
 		$cds = $this->m_cdatastreamserver;
-		alert("1");
 		if( !$cds )
 			return FALSE;
 		$cds->setRequest( $_REQUEST );
-		alert("2");
-		if( !$cds->send( $options ) )
+		if( !$cds->send() )
 			return FALSE;	
-		alert("3");
-		if( !$cds->received() )
+		if( !$cds->received() ){
 			return FALSE;
-		//alert("4");
+		}
 		//$this->setRequest( $cds->request() );
 		//if( parent::send( $options ) == false )
 		//	return FALSE;
 		//alert("5");
 		return TRUE;
-	} // end send()	
+	} // end send()
+	
+	public function response($strname = NULL) {
+		$cdss = $this->m_cdatastreamserver;
+		return ($cdss) ? $cdss->response() : "";
+	} // end response()
+	
 } // end CDataStream_Proxy
 ?>

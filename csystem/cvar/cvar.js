@@ -16,39 +16,44 @@ var CVar = new Class({
 	// crud methods
 	create : function( strmemoryid, strname, value ){	
 		var cvar = { m_strtype:getTypeOf(value), m_strname:strname, m_value:value } ;
+		var creturn = null;
 		if( ( cmemory = use_memory( strmemoryid ) ) == null ||
-			( creturn=cmemory.create( cvar.m_strname, cvar.m_strvalue, cvar.m_strtype ) ) == null )
-			return false;
+			( creturn = cmemory.create( cvar.m_strname, cvar.m_strvalue, cvar.m_strtype ) ) == null )
+			return creturn;
 		this.init( cvar );
 		this.m_cmemory = cmemory;
-		return true;	
+		return creturn;	
 	}, // end create()
+	
 	retrieve : function( strmemoryid, strname ){	
-		alert( "hello1" );
 		var cmemory = null;
+		var creturn = null;
 		if( ( cmemory = use_memory( strmemoryid ) ) == null )
-			return false;
-		if( ( cvar=cmemory.retrieve( strname ) ) == null )
-			return false;
-		this.init( cvar );
+			return null;
+		if( ( creturn = cmemory.retrieve( strname ) ) == null )
+			return null;
+		this.init( cmemory.get(strname) );
 		this.m_cmemory = cmemory;
-		alert( "hello2" );
-		return true;	
+		return creturn;	
 	}, // end retrieve()
-	destroy : function(){ 
+	
+	destroy : function(){
+		var creturn = null; 
 		if( ( this.m_cmemory ) == null ) 
-			return false; 
-		this.m_cmemory.delete( this.m_strname ); 
+			return creturn; 
+		creturn = this.m_cmemory.delete( this.m_strname ); 
 		this.clear(); 
-		return true; 
+		return creturn; 
 	}, // end destroy() 
 	
 	get : function(){ 
-		return ( this.m_cmemory == null || this.m_strname == "" || this.init( this.m_cmemory.retrieve( this.m_strname ) ) == false ) ? undefined : this.m_value;
+		return ( this.m_cmemory == null || this.m_strname == "" || this.init( this.m_cmemory.get( this.m_strname ) ) == false ) ? undefined : this.m_value;
 	}, // end get()
+	
 	set : function( value ){ 
 		return ( this.m_cmemory == null || this.m_strname == "" || this.init( this.m_cmemory.update( this.m_strname, value, getTypeOf(value) ) ) == null ) ? "" : this.m_value; 
 	}, // end set()
+	
 	_ : function(){ 
 		return ( arguments.length > 0 ) ? this.set( arguments[0] ) : this.get(); 
 	}, // end _()

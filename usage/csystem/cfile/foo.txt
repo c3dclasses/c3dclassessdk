@@ -51,3 +51,11 @@ writing to output file
 writing to output file again
 writing to output file again again
 This is a resources object that write information to.
+writing to output file
+writing to output file again
+writing to output file again again
+This is a resources object that write information to.
+writing to output file
+writing to output file again
+writing to output file again again
+This is a resources object that write information to.

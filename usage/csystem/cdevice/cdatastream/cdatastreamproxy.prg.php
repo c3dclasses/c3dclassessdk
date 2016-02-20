@@ -31,7 +31,7 @@ ob_start();
 		return;
 	} // end if	
 		
-	if( $cdsp->open( "localhost", "get", "CDataStreamProxy" ) == FALSE ){
+	if( $cdsp->open( "http://www.google.com/logos/doodles/2016/valentines-day-2016-5699846440747008-5096695956242432-ror.gif", "get", "CDataStreamProxy" ) == FALSE ){
 		alert('ERROR: CDataStreamServer::open()');
 		return;
 	} // end if
@@ -59,7 +59,7 @@ ob_start();
 	print_r( $cdsp->response() );
 	
 	// close the stream
-	$cdss->close(); 
+	$cdsp->close(); 
 	alert('SUCCESS: CDataStreamServer....');	
 return ob_end();
 	} // end innerhtml()

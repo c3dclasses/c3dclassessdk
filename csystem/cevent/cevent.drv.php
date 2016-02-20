@@ -35,7 +35,7 @@ function CEvent_doSMain(){
 function CEvent_doInit(){ 
 } // end CEvent_doSMain()
 
-// add this methods to the kernal when it initializes and runs smain
+// add this methods to the kernal when it initializes and runs s_main
 CHook :: add("init", "CEvent_doInit");
 CHook :: add("s_main", "CEvent_doSMain");
 ?>

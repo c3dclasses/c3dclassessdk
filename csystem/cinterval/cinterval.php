@@ -6,8 +6,8 @@
 
 // headers
 include_json_memory( "cinterval", dirname(__FILE__) . "/cinterval.json" );
-include_event( "oncinterval", "CInterval::onCInterval" );
-include_file( "cfile", dirname(__FILE__) . "/cfile.txt", "w" );
+//include_event( "oncinterval", "CInterval::onCInterval" );
+//include_file( "cfile", dirname(__FILE__) . "/cfile.txt", "w" );
 //include_database_memory( "cinterval" );
 
 //----------------------------------------------------------

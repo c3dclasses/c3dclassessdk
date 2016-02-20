@@ -42,7 +42,7 @@ function CKernal_doFoot($ckernal) {
 
 //----------------------------------------------------
 // name: CKernal_doBody()
-// desc:
+// desc: renders the body html of the document
 //----------------------------------------------------
 function CKernal_doBody($ckernal) {
 	return ($ckernal->m_strbody) ? $ckernal->m_strbody : (CHook :: fire("body") . ob_queue_dump("body"));
