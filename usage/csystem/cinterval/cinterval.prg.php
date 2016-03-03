@@ -1,18 +1,18 @@
 <?php
 //---------------------------------------------------------------------------
-// name: cconstants.prg.php
-// desc: demonstrates how to use constants
+// name: csetinterval.prg.php
+// desc: demonstrates how to use setinterval
 //---------------------------------------------------------------------------
 
 // includes
-include_program("CIntervalProgram");
+include_program("CSetIntervalProgram");
 
 //---------------------------------------------------
 // name:CIntervalProgram
 // desc: hello world program
 //---------------------------------------------------
-class CIntervalProgram extends CProgram{
-	public function CIntervalProgram(){ 
+class CSetIntervalProgram extends CProgram{
+	public function CSetIntervalProgram(){ 
 		parent :: CProgram();	
 	} // endCIntervalProgram()
 	
@@ -20,8 +20,12 @@ class CIntervalProgram extends CProgram{
 return <<<SCRIPT
 	var _this = this;
 	printbr("<b>cinterval.js</b>", _this.getElement());
-	setTimeout( function(){ printbr("callback1 - in js()", _this.getElement()); }, 2000);	
-	setTimeout( function(){ printbr("callback2 - in js()", _this.getElement()); }, 200);	
+	setTimeout( function(){ printbr("callback1 - in js()", _this.getElement()); }, 500);
+	setTimeout( function(){ printbr("callback2 - in js()", _this.getElement()); }, 2000);	
+	setTimeout( function(){ printbr("callback3 - in js()", _this.getElement()); }, 200);
+	setTimeout( function(){ printbr("callback4 - in js()", _this.getElement()); }, 20);
+	
+		
 SCRIPT;
 	} // end c_main()
 	
@@ -29,32 +33,17 @@ SCRIPT;
 	public function innerhtml(){
 ob_start();
 	printbr("<b>cinterval.php</b>");
-	//setTimeout('callback1', 50);
-	//setTimeout('callback2', 50);
-	//setTimeout('callback3', 100);
-	printbr("hello, world");
+	setTimeout("callback1", 500);
+	setTimeout("callback2", 2000);
+	setTimeout("callback3", 200);
+	setTimeout("callback4", 20);
+	
 return ob_end();
 	} // end innerhtml()
 } // end CIntervalProgram
-
-///////////////////////////
-// callbacks
-function callback1(){
-	$infile = fopen( dirname(__FILE__) . "/cinterval.prg.out.txt", "a");
-	fwrite( $infile, "callback1 - in php()\n" );
-	fclose( $infile );
-} // end callback1()
-
-function callback2(){
-	$infile = fopen( dirname(__FILE__) . "/cinterval.prg.out.txt", "a");
-	fwrite( $infile, "callback2 - in php()\n" );
-	fclose( $infile );
-} // end callback2()
-
-function callback3(){
-	$infile = fopen( dirname(__FILE__) . "/cinterval.prg.out.txt", "a");
-	fwrite( $infile, "callback3 - in php()\n" );
-	fclose( $infile );
-} // end callback2()
-
+function callback1(){printbr("callback1 - in php()");}
+function callback2(){printbr("callback2 - in php()");}
+function callback3(){printbr("callback3 - in php()");}
+function callback4(){printbr("callback4 - in php()");}
+	
 ?>

@@ -54,6 +54,7 @@ class CKernal {
 	} // end createCKernal()
 	
 	static public function destroyCKernal($ckernal) { 
+		CConcurrentEvent :: doEventLoop();
 		if($ckernal) 
 			echo $ckernal->destroy(); 
 	} // end destroyCKernal()

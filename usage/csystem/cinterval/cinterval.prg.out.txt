@@ -1,3 +1,0 @@
-callback1 - in php()
-callback2 - in php()
-callback3 - in php()
