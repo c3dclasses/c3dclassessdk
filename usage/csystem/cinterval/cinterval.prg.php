@@ -8,24 +8,38 @@
 include_program("CSetIntervalProgram");
 
 //---------------------------------------------------
-// name:CIntervalProgram
-// desc: hello world program
+// name:CSetIntervalProgram
+// desc: test the setinterval/timeout functionality
 //---------------------------------------------------
 class CSetIntervalProgram extends CProgram{
 	public function CSetIntervalProgram(){ 
 		parent :: CProgram();	
-	} // endCIntervalProgram()
+	} // end CSetIntervalProgram()
 	
 	public function c_main(){
 return <<<SCRIPT
-	var _this = this;
-	printbr("<b>cinterval.js</b>", _this.getElement());
-	setTimeout( function(){ printbr("callback1 - in js()", _this.getElement()); }, 500);
-	setTimeout( function(){ printbr("callback2 - in js()", _this.getElement()); }, 2000);	
-	setTimeout( function(){ printbr("callback3 - in js()", _this.getElement()); }, 200);
-	setTimeout( function(){ printbr("callback4 - in js()", _this.getElement()); }, 20);
+	printbr("<b>cinterval.js</b>");	
+	var i1=0;
+	var interval1 = setInterval(function(){
+		printbr("setInterval - callback1 - in js() - " + i1);
+		if(i1>1) {
+			clearInterval(interval1);
+			printbr("clearInterval - callback1 - in js()");
+			printbr();
+		} // end if()
+		i1++;
+	}, 100); // end setInterval()
 	
-		
+	var i2=0;
+	var interval2 = setInterval(function(){
+		printbr("setInterval - callback2 - in js() - " + i2);
+		if(i2>1) {
+			clearInterval(interval2);
+			printbr("clearInterval - callback2 - in js()");
+			printbr();
+		} // end if()
+		i2++;
+	}, 500); // end setInterval()
 SCRIPT;
 	} // end c_main()
 	
@@ -33,17 +47,31 @@ SCRIPT;
 	public function innerhtml(){
 ob_start();
 	printbr("<b>cinterval.php</b>");
-	setTimeout("callback1", 500);
-	setTimeout("callback2", 2000);
-	setTimeout("callback3", 200);
-	setTimeout("callback4", 20);
+	$i1=0;
+	$interval1=NULL;
+	$interval1 = setInterval(function() use(&$interval1, &$i1){
+		printbr("setInterval - callback1 - in php() - " . $i1);
+		if($i1>1) {
+			clearInterval($interval1);
+			printbr("clearInterval - callback1 - in php()");
+			printbr();
+		} // end if()
+		$i1++;
+	}, 100); // end setInterval()
+	
+	$i2=0;
+	$interval2=NULL;
+	$interval2 = setInterval(function() use(&$interval2, &$i2){
+		printbr("setInterval - callback2 - in php() - " . $i2);
+		if($i2>1) {
+			clearInterval($interval2);
+			printbr("clearInterval - callback2 - in php()");
+			printbr();
+		} // end if()
+		$i2++;
+	}, 500); // end setInterval()
 	
 return ob_end();
 	} // end innerhtml()
-} // end CIntervalProgram
-function callback1(){printbr("callback1 - in php()");}
-function callback2(){printbr("callback2 - in php()");}
-function callback3(){printbr("callback3 - in php()");}
-function callback4(){printbr("callback4 - in php()");}
-	
+} // end CSetIntervalProgram
 ?>

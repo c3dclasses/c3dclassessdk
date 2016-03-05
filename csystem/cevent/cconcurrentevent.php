@@ -22,14 +22,6 @@ class CConcurrentEvent {
 		$this->m_bqueued=false;	
 	} // end CConcurrentEvent()
 	
-	public function create($params) {
-		// check incoming params
-		if($params == NULL )
-			return false;
-		$this->m_params = $params;
-		return CConcurrentEvent :: addCConcurentEvent($this);
-	} // end create()
-	
 	public function destroy() {
 		CConcurrentEvent :: removeCConcurrentEvent($this);
 	} // end destroy()
@@ -51,6 +43,14 @@ class CConcurrentEvent {
 	protected function consumeEvent() {	
 		return true;
 	} // end consumeEvent()
+	
+	protected function init($params) {
+		// check incoming params
+		if($params == NULL )
+			return false;
+		$this->m_params = $params;
+		return CConcurrentEvent :: addCConcurentEvent($this);
+	} // end create()
 	
 	//////////////////////
 	// static methods
@@ -81,15 +81,11 @@ class CConcurrentEvent {
 		if(!CConcurrentEvent :: $m_cconcurrentevents || empty(CConcurrentEvent :: $m_cconcurrentevents))
 			return false;
 		foreach(CConcurrentEvent :: $m_cconcurrentevents as $id=>$cconcurrentevent) {
-			//if($cconcurrentevent->m_bqueued){ // skip event
-				//printbr("skipping already produced: " . $cconcurrentevent->m_id);
-				//continue;
-			//}
 			if($cconcurrentevent->produceEvent()){
 				if(!CConcurrentEvent :: $m_cconcurrenteventsqueue || empty(CConcurrentEvent :: $m_cconcurrenteventsqueue))
 					CConcurrentEvent :: $m_cconcurrenteventsqueue=array();
 				array_push(CConcurrentEvent :: $m_cconcurrenteventsqueue, $cconcurrentevent);
-				printbr("produced: " . $cconcurrentevent->m_id);
+				//printbr("produced: " . $cconcurrentevent->m_id);
 				$cconcurrentevent->m_bqueued=true;
 			} // end if()
 		} // end foreach()
@@ -102,7 +98,7 @@ class CConcurrentEvent {
 			return false;
 		//print_r(CConcurrentEvent :: $m_cconcurrenteventsqueue);
 		while(($cconcurrentevent = array_shift(CConcurrentEvent :: $m_cconcurrenteventsqueue)) != NULL) {
-			printbr("consumed: " . $cconcurrentevent->m_id);
+			//printbr("consumed: " . $cconcurrentevent->m_id);
 			$cconcurrentevent->consumeEvent();
 			$cconcurrentevent->m_bqueued=false;
 		}
