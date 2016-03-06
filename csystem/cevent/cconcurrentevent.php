@@ -14,12 +14,10 @@ class CConcurrentEvent {
 	protected static $m_counter = 0;					
 	protected $m_params;
 	protected $m_id;
-	protected $m_bqueued;
 	
 	public function CConcurrentEvent() {
 		$this->m_params = NULL;
 		$this->m_id=-1;	
-		$this->m_bqueued=false;	
 	} // end CConcurrentEvent()
 	
 	public function destroy() {
@@ -73,7 +71,6 @@ class CConcurrentEvent {
 		unset(CConcurrentEvent :: $m_cconcurrentevents[$id]);
 		unset(CConcurrentEvent :: $m_cconcurrenteventsqueue[$id]);
 		$cconcurrentevent->m_id = -1;
-		$cconcurrentevent->m_bqueued = false;	
 	} // removeCConcurrentEvent()
 	
 	// produces an event an stores it on the Queue
@@ -85,43 +82,44 @@ class CConcurrentEvent {
 				if(!CConcurrentEvent :: $m_cconcurrenteventsqueue || empty(CConcurrentEvent :: $m_cconcurrenteventsqueue))
 					CConcurrentEvent :: $m_cconcurrenteventsqueue=array();
 				array_push(CConcurrentEvent :: $m_cconcurrenteventsqueue, $cconcurrentevent);
-				//printbr("produced: " . $cconcurrentevent->m_id);
-				$cconcurrentevent->m_bqueued=true;
 			} // end if()
 		} // end foreach()
 		return true;
 	} // end produceEventToQueue()
 	
 	// consumes the event from the Queue and handles it
-	static protected function consumeEventFromQueue() {
+	static protected function consumeEventFromQueue($numtoconsume=-1) {
 		if(!CConcurrentEvent :: $m_cconcurrenteventsqueue)
 			return false;
-		//print_r(CConcurrentEvent :: $m_cconcurrenteventsqueue);
+		$consumedcount=0;
 		while(($cconcurrentevent = array_shift(CConcurrentEvent :: $m_cconcurrenteventsqueue)) != NULL) {
-			//printbr("consumed: " . $cconcurrentevent->m_id);
 			$cconcurrentevent->consumeEvent();
-			$cconcurrentevent->m_bqueued=false;
-		}
+			$consumedcount++;
+			if($numtoconsume>1 && $consumedcount==$numtoconsume)
+				break;
+		} // end while
 		return true;
 	} // end consumeEventFromQueue()
 	
-	static public function doEventLoop() {
+	static public function doEventLoop($numtoconsume=-1) {
 		while(true) {
 			if(empty(CConcurrentEvent :: $m_cconcurrentevents)==true) {
 				return false;
-			}
-			//print_r(CConcurrentEvent :: $m_cconcurrentevents);
+			} // end if
 			CConcurrentEvent :: produceEventToQueue();
-			CConcurrentEvent :: consumeEventFromQueue();
+			CConcurrentEvent :: consumeEventFromQueue($numtoconsume);
 		} // end while()
 		return true;
 	} // end doEventLoop()
 } // end CConcurrentEvent
 
+//------------------------------------------------------
+// name: CConcurrentEvent_doEventLoop()
+// desc: runs the event loop in the foot area of kernal
+//------------------------------------------------------
 function CConcurrentEvent_doEventLoop() {
 	CConcurrentEvent :: doEventLoop();
 	return "";
-} // end eventLoop()
-
-CHook :: add( "foot", CConcurrentEvent_doEventLoop() );
+} // end CConcurrentEvent_doEventLoop()
+CHook :: add("foot", "CConcurrentEvent_doEventLoop");
 ?>

@@ -33,6 +33,7 @@ return <<<SCRIPT
     printbr(a.toString());
     printbr(a.reverse().toString());
 	printbr(a.valueOf());
+	printbr();
 	printbr(a.splice(0, 3).toString());
     printbr(a.toString());
 	a.push(10, 20, 30, 40, 50, 60, 70, 80, 200, 210, 220);
@@ -56,6 +57,9 @@ return <<<SCRIPT
 	printbr(a.toString());
 	a.shuffle();
 	printbr("a.shuffle():" + a.toString());
+	a.insertAt(0, 5599);
+	printbr("a.insertAt(0,5599): " + a.toString());
+	printbr();
 SCRIPT;
 	} // end load()
 	

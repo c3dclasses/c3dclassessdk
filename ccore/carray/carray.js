@@ -9,6 +9,7 @@ Array.prototype.visit = function(fnvisit) { if(!fnvisit) return; for (var i=0; i
 Array.prototype.remove = function(value) { var i = this.indexOf(value); this.splice(i,1); return i > -1; }
 Array.prototype.removeAt = function(index) { this.splice(index,index); }
 Array.prototype.removeAll = function(value) { while(this.remove(value)) {} }
+Array.prototype.insertAt = function(index, value) { this.splice(index,1,value); return this.length; }
 Array.prototype.shuffle = function() {
    if(this.length < 1)
     	return false;

@@ -12,7 +12,6 @@ include_font( "mynewfont333", array( font_uri( "http://themes.googleusercontent.
 								  font_uri( "Graublauweb3.eot", "eot" ),
 								  font_uri( "Graublauweb4.eot", "eot" ) ) );
 								  
-								  
 //---------------------------------------------------
 // name: CIncludeFilesProgram
 // desc: demonstatrates how to use cfiles functions
