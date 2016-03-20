@@ -23,7 +23,7 @@ return <<<SCRIPT
 	var i=1;
 	
 	// while
-	_while( 10000, function(){
+	_while( 2000, function(){
 		if( this.getIteration() == 3 ){
 			printbr( "_while(10000): ended on 3th iteration.", _this.getElement() );
 			this._return();
@@ -32,7 +32,7 @@ return <<<SCRIPT
 	}); // end _while()
 	
 	// for
-	_for( 2000, function(){
+	_for( 500, function(){
 		if( this.getIteration() == 4 ){
 			printbr( "_for(2000): ended on 4th iteration.", _this.getElement() );
 			this._return();
@@ -56,7 +56,27 @@ return <<<SCRIPT
 			printbr( "_do_while(5000): ended on 5th iteration.", _this.getElement() );
 			this._return();
 		}
-	})._while(5000, function(){ return true; });
+	})._while(1000, function(){ return true; });
+	
+	// switch statement
+	_switch(function(){return 60;})
+	._case(90,function(){ 
+		alert("case1 - 90"); 
+		this._return(); 
+	})
+	._case(80,function(){ 
+		alert("case2 - 80"); 
+		this._return(); 
+	})
+	._case(70,function(){ 
+		alert("case3 - 70"); 
+		this._return(); 
+	})
+	._default(function(){
+		alert("default");
+		this._return();
+	})
+	._endswitch();
 SCRIPT;
 	} // end load()
 	

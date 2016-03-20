@@ -4,6 +4,8 @@
 // desc: opens input and/or output files that can be used globally throughout the SDK
 //------------------------------------------------------------------------------------
 
+include_js(relname(__FILE__) . "/cresource.js");
+
 //-------------------------------------------------------
 // name: CResource
 // desc: input and output file resource
@@ -66,7 +68,7 @@ class CResource {
 	
 	public static function _getByID( $strid ){
 		return (CResource :: $m_hashidtoresource) ? CResource :: $m_hashidtoresource->get( $strid ) : NULL;
-	} // end _getByPath()
+	} // end _getByID()
 	
 	protected static function _addByID( $strid, $cresource ){
 		if( CResource :: $m_hashidtoresource == NULL )

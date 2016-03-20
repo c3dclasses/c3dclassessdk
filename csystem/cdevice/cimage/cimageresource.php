@@ -4,6 +4,8 @@
 // desc: defines image resource object
 //---------------------------------------------------------
 
+include_js( relname(__FILE__) . "/cimageresource.js");
+
 //---------------------------------------------------------
 // file: CImageResource
 // desc: defines image resource object

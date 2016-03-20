@@ -4,6 +4,12 @@
 // desc: defines image object
 //---------------------------------------------------------
 
+include_js( relname(__FILE__) . "/cimage.js");
+
+//---------------------------------------------------------
+// class: CImage
+// desc: defines an image object
+//---------------------------------------------------------
 class CImage{
 	// members
 	protected $m_image;
@@ -32,6 +38,10 @@ class CImage{
 	} // end saveToFile()	
 } // end CImage
 
+//---------------------------------------------------------
+// class: CJPEGImage
+// desc: defines an jpeg image object
+//---------------------------------------------------------
 class CJPEGImage extends CImage{	
 	public function create( $strfilename ){		
 		// make this generic
@@ -49,8 +59,10 @@ class CJPEGImage extends CImage{
 	} // end saveToFile()	
 } // end CJPEGImage
 
+//---------------------------------------------------------
+// class: CPNGImage
+// desc: defines an png image object
+//---------------------------------------------------------
 class CPNGImage extends CImage{	
 } // end CPNGImage
-
-
 ?>

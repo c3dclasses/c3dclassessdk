@@ -69,4 +69,6 @@ function use_memory( $strid ){
 include_once("cdatabasememory.php");
 include_once("cjsonmemory.php");
 include_once("carraymemory.php");
+include_once("ctablememory.php");
+
 ?>

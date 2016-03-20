@@ -85,6 +85,45 @@ var CDoWhile = new Class({
 	} // end _while()
 }); // end CDoWhile()
 
+//---------------------------------------------------
+// name: CSwitch
+// desc: defines a switch construct
+//---------------------------------------------------
+var CSwitch = new Class({	
+	initialize : function(){ 
+		this.m_fnValue = null;	// the function to containing the value to compare case values to  
+		this.m_if = null;
+	}, // end CSwitch()
+	
+	create : function( fnvalue ) { 
+		if(!fnvalue)
+			return false;
+		var _if = new CIf();
+		this.m_if = _if;
+		this.m_fnValue = fnvalue;
+		return true; 
+	}, // end create()
+	
+	_case : function( value, fnbody ) {	
+		if( !fnbody ) 
+			return this;
+		var _this = this;		
+		this.m_if.add( function(){ return _this.m_fnValue() == value }, fnbody);
+		return this;
+	}, // end _case()
+	
+	_default : function(fnbody) {
+		this.m_if._else(fnbody);
+		return this;
+	}, // end _default()
+
+	_endswitch : function(){
+		this.m_if._endif();
+	} // end _endswitch()
+}); // end CSwitch
+
+
+
 //--------------------------------------------------------------------------------
 // name: CReturn
 // desc: defines a return contruct or statement for asynchonous methods
@@ -198,3 +237,16 @@ function _do( fnbody ){
 		return null;
 	return __dowhile;	
 } // end _do()
+
+//--------------------------------------------------
+// name: _switch()
+// desc: sets up an asynchronous switch construct
+//--------------------------------------------------
+function _switch(fnValue){
+	var __switch = new CSwitch();
+	if(!__switch)
+		return null;
+	if(__switch.create(fnValue)==false)
+		return null;
+	return __switch;
+} // end _switch()
