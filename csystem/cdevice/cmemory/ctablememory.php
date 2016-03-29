@@ -20,7 +20,7 @@ class CTableMemory extends CMemory{
 	
 	public function open( $strpath="", $params=NULL ){
 		
-		alert("open CTableMemory");
+		//alert("open CTableMemory");
 		//alert("PK: " . $strprimarykey );
 		
 		$pathpattern = '/(?P<host>\w+)\/(?P<database>\w+)\/(?P<table>\w+)/';
