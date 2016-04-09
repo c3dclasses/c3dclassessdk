@@ -39,9 +39,11 @@ class CForm {
 		$this->m_strname = $strname;
 		return true;
 	} // end create()
+	
 	public function setName($strname) {
 		$this->m_strname = $strname;
 	}
+	
 	public function getName() { 
 		return $this->m_strname;
 	} // end getName()
@@ -59,7 +61,9 @@ class CForm {
 	} // end getNameWithSuffix()
 	
 	public function getCOptions() { return $this->m_coptions; }
+	
 	public function getCControls() { return $this->m_ccontrols; }
+	
 	public function getCForm($strname="", $params=NULL, $CFormType="CForm", $COptionsType="COptions", $CControlsType="CControls") {	
 		if (!$strname || $strname=="")
 			return NULL;		
@@ -68,6 +72,7 @@ class CForm {
 		$cform->create($strname, $params);
 		return $cform;
 	} // end getCForm()
+	
 	public function getParams() { return $this->m_params; }
 } // end class CForm
 ?>
