@@ -69,7 +69,7 @@ class CForm {
 			return NULL;		
 		$cform = new $CFormType($COptionsType,$CControlsType);
 		$strname = $this->getNameWithSuffix($strname);		
-		$cform->create($strname, $params);
+		$cform->create($strname,$params);
 		return $cform;
 	} // end getCForm()
 	
