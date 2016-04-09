@@ -123,7 +123,7 @@ function toJSString( $params ){
 
 function toCSSString( $params ){
 	$strfilename = $params["filename"];
-	return "<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"{$strfilename}\" />";
+	return "<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"{$strfilename}\" />\n";
 } // end toCSSString()
 
 function toHTMLString( $str, $label ){

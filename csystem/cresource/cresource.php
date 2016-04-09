@@ -21,12 +21,12 @@ class CResource {
 		$this->m_hashparams = NULL;
 	} // end CResource()
 	
-	public function open( $strpath, $params ){
+	public function open($strpath, $params){
 		$this->m_hashparams = new CHash();
-		if( !$this->m_hashparams )
+		if(!$this->m_hashparams)
 			return false;
-		$this->m_hashparams->create( $params );
-		$this->m_hashparams->set( "cresource_path", $strpath );
+		$this->m_hashparams->create($params);
+		$this->m_hashparams->set("cresource_path", $strpath);
 		return true;
 	} // end create()
 	
