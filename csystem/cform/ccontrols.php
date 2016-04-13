@@ -14,23 +14,20 @@ include_js(relname(__FILE__) . "/ccontrols.js");
 class CControls extends CHash {		
 	protected $m_cform;
 	public function CControls(){}	
-	
 	public function create($cform){ $this->m_cform = $cform; return true; }
 	public function form($strname, $value=NULL, $params=NULL){ return $this->control("form", $strname, $value, $params);}
 	public function endform(){ return $this->control("endform",NULL,NULL,NULL); }
 	public function section($strname, $strlabel, $params=NULL){ return $this->control("section", $strname, $strlabel, $params);}
 	public function label($strname, $value, $params=NULL){ return $this->control("label", $strname, $value, $params);}
-	
 	public function hidden($strname, $value, $params=NULL){ return $this->control("hidden", $strname, $value, $params);}
 	public function text($strname, $value, $params=NULL){ return $this->control("text", $strname, $value, $params);}
 	public function	textarea($strname, $value, $params=NULL){ return $this->control("textarea", $strname, $value, $params);}
 	public function select($strname, $value, $options=NULL, $params=NULL){return $this->control_choices("select", $strname, $value, $options, $params);}
 	public function checkbox($strname, $value, $params=NULL){ return $this->control("checkbox", $strname, $value, $params);}
 	public function radio($strname, $value, $params=NULL){return $this->control("radio", $strname, $value, $params);}
-	
 	public function button($strname, $value, $params=NULL){ return $this->control("button", $strname, $value, $params);} 
 	public function submit($strname, $value, $params=NULL){ return $this->control("submit", $strname, $value, $params);} 
-	public function dropDownPages($strname, $value, $params=NULL){ return $this->control("dropdown-pages", $strname, $value, $params); }
+	public function dropDownPages($strname, $value, $params=NULL){ return $this->control("dropdown-pages", $strname, $value,$params); }
 	public function colorpicker($strname, $value, $params=NULL){ return $this->control("color", $strname, $value, $params); }
 	public function image($strname, $value, $params=NULL){ return $this->control("image", $strname, $value, $params); }
 	public function fileupload($strname, $value, $params=NULL){ return $this->control("fileupload", $strname, $value,$params); }

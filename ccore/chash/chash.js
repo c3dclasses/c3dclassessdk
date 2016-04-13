@@ -9,7 +9,7 @@
 //-------------------------------------------
 var CHash = new Class({
 	initialize : function(){ this.clear(); },
-	create : function( hash ){ this.m_hash=hash; },
+	create : function( hash ){ this.m_hash=hash||{}; },
 	merge : function( hash ){ jQuery.extend( this.m_hash, hash ); }, 
 	clear : function(){ this.m_hash={}; },
 	get : function( key ){ return (this.m_hash.hasOwnProperty(key)) ? this.m_hash[key] : null; },

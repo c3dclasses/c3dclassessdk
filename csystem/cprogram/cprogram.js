@@ -31,7 +31,7 @@ var CProgram = new Class({
 				return;
 			var cprograms = CProgram.m_cprograms._();
 			for( var name in cprograms ){	
-				CThread.loadContext( cprograms[name], cprograms[name].main() );
+				CThread.loadContext(cprograms[name], cprograms[name].main);
 				//alert("programs");
 			} // end for
 		} // end mainPrograms()

@@ -1,50 +1,66 @@
 //---------------------------------------------------------
 // file: cform.js
-// desc: defines a control used in the theme
+// desc: defines the form used in the application
 //---------------------------------------------------------
 
 //---------------------------------------------------------
 // class: CForm
-// desc: defines the form object
+// desc: defines the form used in the application
 //---------------------------------------------------------
-if( typeof(CForm) !== "undefined" )
-CForm.implement({
-	initialize : function(){
-		this.parent();
-		this.m_coptions = null;
-		this.m_ccontrols = null;	
-		this.m_strbody = "";
-		this.m_tag = "form";
-		//alert("CForm()");
+var CForm = new Class({ 
+	// constructing
+	initialize : function(COptionsType, CControlsType){
+		COptionsType = COptionsType || "COptions";
+		CControlsType = CControlsType || "CControls";
+		// members
+		this.m_coptions = new window[COptionsType]();
+		this.m_ccontrols = new window[CControlsType]();	
+		this.m_params = null;
+		this.m_strname = "";
 	}, // end initialize()
-	create: function( params ){
-		if( this.parent( params ) == false || this.tag().toLowerCase() != "form" )
-			return false;	
-		this.m_coptions = new COptions();
-		this.m_coptions.create( this );
-		this.m_ccontrols = new CControls();
-		this.m_ccontrols.create( this );
+	
+	create : function(strname, params) {
+		this.m_params = params;
+		this.m_strname = strname;
+		this.m_ccontrols.create(this);
+		this.m_coptions.create(this);
 		return true;
 	}, // end create()
-	getCOptions: function(){
-    	return this.m_coptions; 
-	}, // end getCOptions()
-	getCControls: function(){
-	 	return this.m_ccontrols; 	
-    }, // end getCControls()
-	begin: function(){
-		this.m_strbody=""; // get the current body 
-		return this.getCControls();
-	}, // end begin()
-	end: function(){
-		this.m_strbody;
-	}, // end end()
-	body: function(){
-	}, // end body()
-	load: function(){
-		alert( "CForm.load()" );
-	}, // end load()
-	unload: function(){
-		//alert( "CForm.unload()" );
-	} // end load()
-}); // end CForm.implement()
+	
+	setName : function(strname) {
+		this.m_strname = strname;
+	}, // end setName()
+	
+	getName : function() { 
+		return this.m_strname;
+	}, // end getName()
+	
+	getParams : function() { 
+		return this.m_params; 
+	}, // end getParams()
+
+	getNameWithSuffix : function(strsuffix, strdelimiter) {
+		strdelimiter = strdelimiter || "_";
+		return ( this.m_strname ) ?  (this.m_strname + strdelimiter + strsuffix) : strsuffix;
+	}, // end getNameWithSuffix()
+	
+	getCOptions : function() { 
+		return this.m_coptions; 
+	}, // end getCOtions()
+	
+	getCControls : function() { 
+		return this.m_ccontrols; 
+	}, // end getCControls()
+	
+	getCForm : function(strname, params, CFormType, COptionsType, CControlsType) {	
+		if (!strname || strname=="")
+			return NULL;		
+		CFormType = CFormType | "COptions";
+		COptionsType = COptionsType | "COptions";
+		CControlsType = CControlsType | "CControls";
+		var cform = new CFormType(COptionsType,CControlsType);
+		strname = this.getNameWithSuffix(strname);		
+		cform.create(strname, params);
+		return cform;
+	}, // end getCForm()	
+}); // end CForm

@@ -89,6 +89,7 @@ var CThread = new Class({
 	createContext : function( cthread ){
 		if( !cthread )
 			return false;
+			alert("create context");
 		cthread.m_iid = CThread.m_icthread_count;
 		CThread.m_icthread_count++;
 		var objcontext=null; // get the current object context - what object does this thread belong to?
@@ -101,7 +102,7 @@ var CThread = new Class({
 		this.m_objcontext.m_icthread_count++; // update the context
 		cthread.m_objcontext = objcontext;		
 		return true;
-	}, // end createCreate()
+	}, // end createContext()
 	
 	getCurrentCThread : function(){ return CThread.m_cthread_cur; },
 	

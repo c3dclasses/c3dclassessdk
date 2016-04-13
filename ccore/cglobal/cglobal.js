@@ -20,7 +20,7 @@ function docroot(){
 } // end docroot()
 
 function dirname( path ){
-	return path.replace(/\\/g, '/').replace(/\/[^\/]*\/?$/, '');;
+	return path.replace(/\\/g, '/').replace(/\/[^\/]*\/?/, '');;
 } // end dirname()
 
 // returns the path of the c3dclassessdk path
@@ -83,6 +83,9 @@ function _print( str, dst ){
 		//document.write( document.body.innerHTML + str ); 
 		//document.body.innerHTML += str; 
 		dst = "#ckernal-output";
+		console.log(CThread.m_objcontext_cur);
+		if(CThread.m_objcontext_cur);
+			dst = CThread.m_objcontext_cur.jq();
 		//return; 
 	} // end if	
 	
@@ -102,6 +105,10 @@ function print_r( mixed, btostring, dst ){
 		return str;
 	return _print( str, dst );
 } // end print_r()
+
+function echo( str, dst ) {
+	_print(str,dst);
+} // end echo()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -150,5 +157,37 @@ function isFunction( mixed ){
 } // end isFunction()
 
 function callFunction( mixed ){
-	if( isFunction( $mixed ) );
+	if( isFunction( mixed ) );
 } // end callFunction()
+
+
+
+//-----------------------------------------------------------------
+// name: buildHTMLTag*()
+// desc: helper functions
+//-----------------------------------------------------------------
+function buildHTMLTag( strtagname, attributes, bmultitag, strbody ){
+	var strattributes="";
+	if( attributes != null )
+		for(name in attributes) {
+			var value = attributes[name];
+			strattributes += name + '="' + value + '" ';
+		} // end for
+	var str = "<"+strtagname+" "+strattributes; 
+	str += ( bmultitag ) ? ">"+strbody+"</"+strtagname+">" : "/>";
+	return str;
+} // end buildHTMLTag()
+
+function buildHTMLOpenTag( strtagname, attributes ){
+	var strattributes="";
+	for( name in attributes ) {
+		var value = attributes[name];
+		strattributes += name + '="' + value + '" ';
+	} // end for
+	var str = "<"+strtagname+" "+strattributes+">"; 
+	return str;	
+} // end buildHTMLOpenTag()
+
+function buildHTMLCloseTag( strtagname ){
+	return "</"+strtagname+ ">";
+} // buildHTMLClosingTag()
