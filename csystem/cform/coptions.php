@@ -15,6 +15,8 @@ class COptions {
 	public $m_cform;
 	public function COptions(){ $this->m_cform=NULL; } 
 	public function create($cform){ $this->m_cform=$cform; }
+	public function bound(){ CForm_boundFieldName(true); return $this; }
+	public function unbound(){ CForm_boundFieldName(false); return $this; }
 	public function optionExists($strname){ return ($this->processOption("get",$strname) != NULL); } 
 	public function removeOption($strname){ $this->processOption("remove", $strname); }
 	public function option(){ 

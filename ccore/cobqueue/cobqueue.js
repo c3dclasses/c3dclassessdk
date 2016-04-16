@@ -2,7 +2,7 @@
 // file: cobqueue.js
 // desc: defines a queue object
 //-----------------------------------------------------------------------------------------
-
+/*
 //-----------------------------------------------------------
 // name: CObqueue
 // desc: defines a queue object
@@ -82,3 +82,4 @@ function ob_end_queue( strid, params ){
 function ob_queue_dump( strid ){
 	return CObqueue.dumpCObqueue( strid );
 } // end ob_queue_dump()
+*/

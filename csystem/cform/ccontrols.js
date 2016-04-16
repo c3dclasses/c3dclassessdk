@@ -9,10 +9,12 @@
 //-----------------------------------------------------------------
 var CControls = new Class({		
 	Extends : CHash,	
-	initialize : function(){ this.m_cform=null; this.parent(); },	
+	initialize : function(){ this.m_cform=null; this.parent();},	
 	create : function(cform){ this.m_cform = cform; this.parent(); return true; },
-	form : function(strname, value, params){ return this.control("form", strname, value, params);},
-	endform : function(){ return this.control("endform",null,null,null); },
+	bound : function(){ CForm_boundFieldName(true); return this; },
+	unbound : function(){ CForm_boundFieldName(false); return this; },
+	form : function(strname, value, params) { ob_start(); echo(this.control("form", strname, value, params)); },
+	endform : function(){ echo(this.control("endform",null,null,null)); return ob_end(); }, // end endform()
 	section : function(strname, strlabel, params){ return this.control("section", strname, strlabel, params);},
 	label : function(strname, value, params){ return this.control("label", strname, value, params);},
 	hidden : function(strname, value, params){ return this.control("hidden", strname, value, params);},
@@ -67,8 +69,7 @@ var CControls = new Class({
 		_params["ccontrol-value"]=value;
 		_params["ccontrol-params"]=params;
 		_params["ccontrol-attributes"]=this._();	
-		var ret = this.processParams(_params);
-		return ret;
+		return this.processParams(_params);
 	}, // end control()
 	processParams : function(params){ return CControls_processParams(params); } 
 }); // end class CControls

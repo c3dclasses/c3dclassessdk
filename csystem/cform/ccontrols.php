@@ -13,9 +13,11 @@ include_js(relname(__FILE__) . "/ccontrols.js");
 //-----------------------------------------------------------------
 class CControls extends CHash {		
 	protected $m_cform;
-	public function CControls(){}	
+	public function CControls(){ $this->m_cform=NULL; }	
 	public function create($cform){ $this->m_cform = $cform; return true; }
-	public function form($strname, $value=NULL, $params=NULL){ return $this->control("form", $strname, $value, $params);}
+	public function bound(){ CForm_boundFieldName(true); return $this; }
+	public function unbound(){ CForm_boundFieldName(false); return $this; }
+	public function form($strname, $value=NULL, $params=NULL){ return $this->control("form", $strname, $value, $params); }
 	public function endform(){ return $this->control("endform",NULL,NULL,NULL); }
 	public function section($strname, $strlabel, $params=NULL){ return $this->control("section", $strname, $strlabel, $params);}
 	public function label($strname, $value, $params=NULL){ return $this->control("label", $strname, $value, $params);}
@@ -54,10 +56,15 @@ class CControls extends CHash {
 	public function control($strtype, $strname, $value, $params){
 		if($this->m_cform && ($coptions = $this->m_cform->getCOptions()) && $strtype != "label") {
 			$ovalue = ($coptions->optionExists($strname)) ? $coptions->option($strname) : "";
-			if($strtype == "radio" || $strtype == "checkbox") {
+			if(($strtype == "radio" || $strtype == "checkbox")) {
+				
+				if($ovalue != "") {
+					alert("option value: " . $ovalue );
 				if($ovalue == $value) // optionvalue == attribute-value
 					$this->set("checked","");
 				else $this->remove("checked");
+				}
+				else alert("no option value");
 				$value = $value;
 			} // end if
 			else $value = ($ovalue) ? $ovalue : $value;
@@ -67,10 +74,10 @@ class CControls extends CHash {
 		$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
 		$_params["ccontrol-value"]=$value;
 		$_params["ccontrol-params"]=$params;
-		$_params["ccontrol-attributes"]=$this->valueOf();
+		$_params["ccontrol-attributes"]=$this->_();
 		$ret = $this->processParams($_params);
 		return $ret;
 	} // end control()
-	public function processParams($params){ return CControls_processParams($params); } 
+	public function processParams($params){ return CControls_processParams($params); }
 } // end class CControls
 ?>

@@ -10,6 +10,8 @@
 var COptions = new Class({
  	initialize : function(){ this.m_cform = null; },
 	create : function(cform){ this.m_cform = cform; },
+	bound : function(){ CForm_boundFieldName(true); return this; },
+	unbound : function(){ CForm_boundFieldName(false); return this; },
 	optionExists : function(strname) { return (this.processOption("get",strname) != null); }, 
 	removeOption : function(strname){ this.processOption("remove", strname); },
 	option : function() { 

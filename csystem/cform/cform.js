@@ -40,8 +40,11 @@ var CForm = new Class({
 	}, // end getParams()
 
 	getNameWithSuffix : function(strsuffix, strdelimiter) {
-		strdelimiter = strdelimiter || "_";
-		return ( this.m_strname ) ?  (this.m_strname + strdelimiter + strsuffix) : strsuffix;
+		var fieldname = strsuffix;
+		strdelimiter = strdelimiter || "";
+		if(this.m_strname && CForm_isFieldNameBounded())
+			fieldname = this.m_strname + strdelimiter + strsuffix;
+		return fieldname;
 	}, // end getNameWithSuffix()
 	
 	getCOptions : function() { 

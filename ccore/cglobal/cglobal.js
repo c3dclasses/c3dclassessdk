@@ -79,6 +79,12 @@ function println( str, dst ){
 function _print( str, dst ){ 
 	if( !str && isNaN( str ) ) 
 		str=""; 
+	
+	if(ob_started) {
+		ob_output += str;
+		return;
+	} // end if
+	
 	if( !dst ){ 
 		//document.write( document.body.innerHTML + str ); 
 		//document.body.innerHTML += str; 
@@ -89,10 +95,12 @@ function _print( str, dst ){
 		//return; 
 	} // end if	
 	
+	/*
 	if( CObqueue != null && CObqueue.m_bstart == true ){
 		CObqueue.m_buffer += str
 		return;
 	} // end if
+	*/
 	
 	var node = jQuery(dst);
 	node.html(node.html()+str); 
@@ -191,3 +199,31 @@ function buildHTMLOpenTag( strtagname, attributes ){
 function buildHTMLCloseTag( strtagname ){
 	return "</"+strtagname+ ">";
 } // buildHTMLClosingTag()
+
+//------------------------------------
+// name: ob_start()
+// desc: 
+//------------------------------------
+var ob_start_stack = [];
+var ob_output = "";
+var ob_started = false;
+function ob_start() {
+	if(ob_output) {
+		ob_start_stack.push(ob_output);
+		ob_output="";
+	} // end if
+	ob_started = true;
+	return;
+} // end ob_start()
+
+//------------------------------------
+// name: ob_end()
+// desc: 
+//------------------------------------
+function ob_end() {
+	var ret = ob_output;
+	if(ob_start_stack.length > 0)
+		ob_output=ob_start_stack.pop();
+	else ob_started = false;
+	return ret;
+} // end ob_end()

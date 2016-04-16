@@ -40,13 +40,15 @@ class CForm {
 		$this->m_strname = $strname;
 	} // end setName()
 	
-	
 	public function getName() { 
 		return $this->m_strname;
 	} // end getName()
 	
 	public function getNameWithSuffix($strsuffix, $strdelimiter="_") {
-		return ($this->m_strname) ? ($this->m_strname . $strdelimiter . $strsuffix) : $strsuffix;
+		$fieldname = $strsuffix;
+		if($this->m_strname && CForm_isFieldNameBounded())
+			$fieldname = $this->m_strname . $strdelimiter . $strsuffix;
+		return $fieldname;
 	} // end getNameWithSuffix()
 
 	public function getParams() { 
@@ -60,7 +62,6 @@ class CForm {
 	public function getCControls() { 
 		return $this->m_ccontrols; 
 	} // end getCControls()
-	
 	
 	public function getCForm($strname="", $params=NULL, $CFormType="CForm", $COptionsType="COptions", $CControlsType="CControls") {	
 		if (!$strname || $strname=="")
