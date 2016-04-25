@@ -20,10 +20,10 @@ var CForm = new Class({
 	}, // end initialize()
 	
 	create : function(strname, params) {
-		this.m_params = params;
-		this.m_strname = strname;
 		this.m_ccontrols.create(this);
 		this.m_coptions.create(this);
+		this.m_params = params;
+		this.m_strname = strname;
 		return true;
 	}, // end create()
 	

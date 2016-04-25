@@ -57,7 +57,6 @@ class CControls extends CHash {
 		if($this->m_cform && ($coptions = $this->m_cform->getCOptions()) && $strtype != "label") {
 			$ovalue = ($coptions->optionExists($strname)) ? $coptions->option($strname) : "";
 			if(($strtype == "radio" || $strtype == "checkbox")) {
-				
 				if($ovalue != "") {
 					alert("option value: " . $ovalue );
 				if($ovalue == $value) // optionvalue == attribute-value
@@ -74,7 +73,7 @@ class CControls extends CHash {
 		$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
 		$_params["ccontrol-value"]=$value;
 		$_params["ccontrol-params"]=$params;
-		$_params["ccontrol-attributes"]=$this->_();
+		$_params["ccontrol-attributes"]=$this->valueOf();
 		$ret = $this->processParams($_params);
 		return $ret;
 	} // end control()

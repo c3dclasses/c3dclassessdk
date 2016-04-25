@@ -32,7 +32,5 @@ var COptions = new Class({
 		_params["coption-params"]=params;
 		return this.processParams(_params);
 	}, // end processOption()
-	processParams : function(params){ 
-		return COptions_processParams(params); 
-	} // end processParams()
-}); // end COption
+	processParams : function(params){ return COptions_processParams(params); } 
+}); // end COptions

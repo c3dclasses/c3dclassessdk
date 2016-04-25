@@ -19,6 +19,21 @@ class CObqueueProgram extends CProgram{
 	
 		public function c_main(){
 return <<<SCRIPT
+
+		/*
+	ob_start();
+		printbr("outer-hello1");
+		printbr("outer-hello2");
+		ob_start();
+			printbr("inner-hello1");
+			printbr("inner-hello2");
+		_print(ob_end());
+		printbr("outer-hello3");
+		printbr("outer-hello4");
+	_print(ob_end());
+	*/
+	
+
 		ob_start();
 		printbr("this is the queued contents1");
 		ob_end_queue("foo");

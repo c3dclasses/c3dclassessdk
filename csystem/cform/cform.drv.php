@@ -27,14 +27,12 @@ function CForm_isFieldNameBounded(){
 // desc: method used to do default crud on the incoming params
 //--------------------------------------------------------------------
 function COptions_processParams($params){
-	global $_OPTIONS;
 	if($params && !isset($params["coption-operator"]))
 		return;
+	
 	$op = $params["coption-operator"];
 	$name = $params["coption-name"];
 	$name = $params["coption-id"];
-	
-	$bBoundFeildToCForm = true; // reset the flag
 	
 	if($op=="get")
 		return isset($_REQUEST[$name]) ? $_REQUEST[$name] : "";

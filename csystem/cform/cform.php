@@ -22,9 +22,9 @@ class CForm {
 	protected $m_ccontrols;		// stores the controls of the form 
 	
 	public function CForm($COptionsType="COptions", $CControlsType="CControls") {	
-		$this->m_params = NULL;
 		$this->m_ccontrols = new $CControlsType();
 		$this->m_coptions = new $COptionsType();
+		$this->m_params = NULL;
 		$this->m_strname = "";
 	} // end CForm()
 	
@@ -44,17 +44,17 @@ class CForm {
 		return $this->m_strname;
 	} // end getName()
 	
+	public function getParams() { 
+		return $this->m_params; 
+	} // end getParams()
+
 	public function getNameWithSuffix($strsuffix, $strdelimiter="_") {
 		$fieldname = $strsuffix;
 		if($this->m_strname && CForm_isFieldNameBounded())
 			$fieldname = $this->m_strname . $strdelimiter . $strsuffix;
 		return $fieldname;
 	} // end getNameWithSuffix()
-
-	public function getParams() { 
-		return $this->m_params; 
-	} // end getParams()
-
+	
 	public function getCOptions() { 
 		return $this->m_coptions; 
 	} // end getCOptions()

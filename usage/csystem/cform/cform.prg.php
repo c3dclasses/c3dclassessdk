@@ -19,29 +19,31 @@ class CFormProgram extends CProgram{
 	
 	public function c_main(){
 return <<<SCRIPT
-	/*
-	ob_start();
-		printbr("outer-hello1");
-		printbr("outer-hello2");
-		ob_start();
-			printbr("inner-hello1");
-			printbr("inner-hello2");
-		_print(ob_end());
-		printbr("outer-hello3");
-		printbr("outer-hello4");
-	_print(ob_end());
-	*/
-	
 	printbr( "<b>cform.js</b>" );
 	var cform = new CForm();
 	cform.create("cformprogram-js");	
 	printbr(cform.getName());
+	
+	// using coptions
+	printbr("COptions");
+	coptions = cform.getCOptions();
+	printbr(coptions.option("control1"));
+	printbr(coptions.option("control2"));
+	printbr(coptions.option("control3"));
+	printbr(coptions.option("control4"));
+	printbr(coptions.option("control5"));
+	printbr(coptions.option("control6"));
+	printbr();
+	
+	// using ccontrols
+	printbr("CControls");
 	var ccontrols = cform.getCControls();	
 	echo(ccontrols.form("form", "myform"));	
 	echo(ccontrols.label("control1", "Control1: "));
 	echo(ccontrols.text("control1", "This is my Text Control"));
 	printbr();
-	echo(ccontrols.unbound().hidden("cprogramtype","CFormProgram"));
+	ccontrols.unbound();
+	echo(ccontrols.hidden("cprogramtype","CFormProgram"));
 	ccontrols.bound();
 	echo(ccontrols.label("control2", "Control2 with attributes: "));
 	ccontrols.set("data-attr1", "value1");
@@ -66,7 +68,6 @@ return <<<SCRIPT
 	echo(ccontrols.endform());
 	printbr();
 	printbr("COptions");
-	printbr(COptions_option("cformprogram-js_control3"));
 SCRIPT;
 	} // end c_main()
 	
@@ -76,11 +77,10 @@ ob_start();
 	$cform = new CForm();
 	$cform->create("cformprogram-php");	
 	printbr($cform->getName());
-	printbr();
-	
+
 	// using options
-	$coptions = $cform->getCOptions();
 	printbr("COptions");
+	$coptions = $cform->getCOptions();
 	printbr($coptions->option("control1"));
 	printbr($coptions->option("control2"));
 	printbr($coptions->option("control3"));
@@ -90,15 +90,15 @@ ob_start();
 	printbr();
 	
 	// using controls
-	$ccontrols = $cform->getCControls();		
 	printbr("CControls");
+	$ccontrols = $cform->getCControls();		
 	echo $ccontrols->form("form", "myform");
 	echo $ccontrols->label("control1", "Control1: ");
 	echo $ccontrols->text("control1", "This is my Text Control");
-	printbr();			
-	echo $ccontrols->unbound()->hidden("cprogramtype","CFormProgram");
+	printbr();
+	$ccontrols->unbound();			
+	echo $ccontrols->hidden("cprogramtype","CFormProgram");
 	$ccontrols->bound();
-	
 	echo $ccontrols->label("control2", "Control2 with attributes: ");
 	$ccontrols->set("data-attr1", "value1");
 	$ccontrols->set("data-attr2", "value2");
@@ -111,6 +111,7 @@ ob_start();
 	echo $ccontrols->radio("control3","green");
 	$ccontrols->set("checked", "checked");
 	echo $ccontrols->radio("control3","blue");
+	$ccontrols->clear();
 	printbr();
 	echo $ccontrols->label("control4","Control4 select control: ");
 	echo $ccontrols->select("control4","HELLO3",array("HELLO5"=>"WORLD5","HELLO1"=>"WORLD1","HELLO2"=>"WORLD2","HELLO3"=>"WORLD3") );
