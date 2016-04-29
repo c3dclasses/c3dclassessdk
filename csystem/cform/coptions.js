@@ -8,8 +8,10 @@
 // desc: defines the options of a form
 //-----------------------------------------------------------------
 var COptions = new Class({
- 	initialize : function(){ this.m_cform = null; },
-	create : function(cform){ this.m_cform = cform; },
+ 	initialize : function(){ this.m_cform = null; this.m_cmemoryid=""; },
+	create : function(cform){ this.m_cform = cform; return true; },
+	use_memory : function (strcmemoryid){ this.m_cmemoryid = strcmemoryid; },
+	getCMemoryID : function () { return this.m_cmemoryid; },
 	bound : function(){ CForm_boundFieldName(true); return this; },
 	unbound : function(){ CForm_boundFieldName(false); return this; },
 	optionExists : function(strname) { return (this.processOption("get",strname) != null); }, 

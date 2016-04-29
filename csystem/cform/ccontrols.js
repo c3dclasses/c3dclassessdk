@@ -9,12 +9,14 @@
 //-----------------------------------------------------------------
 var CControls = new Class({		
 	Extends : CHash,	
-	initialize : function(){ this.m_cform=null; this.parent();},	
+	initialize : function(){ this.m_cform=null; this.m_cmemoryid=""; this.parent();},	
 	create : function(cform){ this.m_cform = cform; this.parent(); return true; },
+	use_memory : function (strcmemoryid){ this.m_cmemoryid = strcmemoryid; },
+	getCMemoryID : function () { return this.m_cmemoryid; },
 	bound : function(){ CForm_boundFieldName(true); return this; },
 	unbound : function(){ CForm_boundFieldName(false); return this; },
 	form : function(strname, value, params) { ob_start(); echo(this.control("form", strname, value, params)); },
-	endform : function(){ echo(this.control("endform",null,null,null)); return ob_end(); }, // end endform()
+	endform : function(){ echo(this.control("endform",null,null,null)); return ob_end(); },
 	section : function(strname, strlabel, params){ return this.control("section", strname, strlabel, params);},
 	label : function(strname, value, params){ return this.control("label", strname, value, params);},
 	hidden : function(strname, value, params){ return this.control("hidden", strname, value, params);},

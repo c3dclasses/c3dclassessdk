@@ -13,7 +13,10 @@ include_js(relname(__FILE__) . "/coptions.js");
 //-----------------------------------------------------------------
 class COptions {	
 	public $m_cform;
-	public function COptions(){ $this->m_cform=NULL; } 
+	protected $m_cmemoryid;
+	public function COptions(){ $this->m_cform=NULL; $this->m_cmemoryid = "";}	
+	public function use_memory($strcmemoryid){ $this->m_cmemoryid = $strcmemoryid; } 
+	public function getCMemoryID() { return $this->m_cmemoryid; }
 	public function create($cform){ $this->m_cform=$cform; }
 	public function bound(){ CForm_boundFieldName(true); return $this; }
 	public function unbound(){ CForm_boundFieldName(false); return $this; }
@@ -34,6 +37,7 @@ class COptions {
 		$_params["coption-id"]=$this->m_cform->getNameWithSuffix($strname); 
 		$_params["coption-value"]=$strvalue;
 		$_params["coption-params"]=$params;
+		$_params["cmemory-id"]=$this->getCMemoryID();
 		return $this->processParams($_params);
 	} // end processOption()
 	// override this behavior to process the option

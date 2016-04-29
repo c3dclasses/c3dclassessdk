@@ -17,6 +17,7 @@ var CForm = new Class({
 		this.m_ccontrols = new window[CControlsType]();	
 		this.m_params = null;
 		this.m_strname = "";
+		this.m_cmemoryid = "";
 	}, // end initialize()
 	
 	create : function(strname, params) {
@@ -26,6 +27,14 @@ var CForm = new Class({
 		this.m_strname = strname;
 		return true;
 	}, // end create()
+	
+	use_memory : function (strcmemoryid){
+		this.m_cmemoryid = strcmemoryid;
+	}, // end use_memory()
+	
+	getCMemoryID : function () {
+		return this.m_cmemoryid;
+	}, // end getCMemoryID()
 	
 	setName : function(strname) {
 		this.m_strname = strname;
@@ -41,7 +50,7 @@ var CForm = new Class({
 
 	getNameWithSuffix : function(strsuffix, strdelimiter) {
 		var fieldname = strsuffix;
-		strdelimiter = strdelimiter || "";
+		strdelimiter = strdelimiter || "_";
 		if(this.m_strname && CForm_isFieldNameBounded())
 			fieldname = this.m_strname + strdelimiter + strsuffix;
 		return fieldname;

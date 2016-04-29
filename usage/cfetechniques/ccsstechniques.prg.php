@@ -6,10 +6,10 @@
 
 // includes
 include_program( "CCSSTechniquesProgram" );
-include_css(relname(__FILE__) . "/ccsstechniques.css");
-include_sass(dirname(__FILE__ ) . "/ccsstechniques2.scss");
-include_css(relname(__FILE__) . "/ccsstechniques.css");
-include_css("http://fonts.googleapis.com/css?family=Average|Courgette");
+//include_css(relname(__FILE__) . "/ccsstechniques.css");
+//include_sass(dirname(__FILE__ ) . "/ccsstechniques2.scss");
+//include_css(relname(__FILE__) . "/ccsstechniques.css");
+//include_css("http://fonts.googleapis.com/css?family=Average|Courgette");
 
 
 //---------------------------------------------------

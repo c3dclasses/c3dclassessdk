@@ -13,7 +13,10 @@ include_js(relname(__FILE__) . "/ccontrols.js");
 //-----------------------------------------------------------------
 class CControls extends CHash {		
 	protected $m_cform;
-	public function CControls(){ $this->m_cform=NULL; }	
+	protected $m_cmemoryid = "";
+	public function CControls(){ $this->m_cform=NULL; $this->m_cmemoryid = "";}	
+	public function use_memory($strcmemoryid){ $this->m_cmemoryid = $strcmemoryid; return $this; } 
+	public function getCMemoryID() { return $this->m_cmemoryid; }
 	public function create($cform){ $this->m_cform = $cform; return true; }
 	public function bound(){ CForm_boundFieldName(true); return $this; }
 	public function unbound(){ CForm_boundFieldName(false); return $this; }
@@ -58,7 +61,7 @@ class CControls extends CHash {
 			$ovalue = ($coptions->optionExists($strname)) ? $coptions->option($strname) : "";
 			if(($strtype == "radio" || $strtype == "checkbox")) {
 				if($ovalue != "") {
-					alert("option value: " . $ovalue );
+					//alert("option value: " . $ovalue );
 				if($ovalue == $value) // optionvalue == attribute-value
 					$this->set("checked","");
 				else $this->remove("checked");
@@ -69,11 +72,13 @@ class CControls extends CHash {
 			else $value = ($ovalue) ? $ovalue : $value;
 		} // end if
 		$_params["ccontrol-type"]=$strtype;
-		$_params["ccontrol-name"]=$strname; 
-		$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
+		$_params["ccontrol-id"]=$_params["ccontrol-name"]=$strname; 
 		$_params["ccontrol-value"]=$value;
 		$_params["ccontrol-params"]=$params;
 		$_params["ccontrol-attributes"]=$this->valueOf();
+		$_params["cmemory-id"]=$this->getCMemoryID();
+		if($this->m_cmemoryid == "")
+			$_params["ccontrol-id"]=$this->m_cform->getNameWithSuffix($strname);
 		$ret = $this->processParams($_params);
 		return $ret;
 	} // end control()

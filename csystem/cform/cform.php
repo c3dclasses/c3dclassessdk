@@ -20,12 +20,14 @@ class CForm {
 	protected $m_params;		// stores the parameters of the form
 	protected $m_coptions;		// stores the options of the form 
 	protected $m_ccontrols;		// stores the controls of the form 
+//	protected $m_cmemoryid;		// stores the memory id of the form
 	
 	public function CForm($COptionsType="COptions", $CControlsType="CControls") {	
 		$this->m_ccontrols = new $CControlsType();
 		$this->m_coptions = new $COptionsType();
 		$this->m_params = NULL;
 		$this->m_strname = "";
+//		$this->m_cmemoryid = "";
 	} // end CForm()
 	
 	public function create($strname="", $params=NULL) {
@@ -35,7 +37,15 @@ class CForm {
 		$this->m_strname = $strname;
 		return true;
 	} // end create()
+/*
+	public function use_memory($strcmemoryid){
+		$this->m_cmemoryid = $strcmemoryid;
+	} // end use_memory()
 	
+	public function getCMemoryID() {
+		return $this->m_cmemoryid;
+	} // end getCMemoryID()
+*/	
 	public function setName($strname) {
 		$this->m_strname = $strname;
 	} // end setName()

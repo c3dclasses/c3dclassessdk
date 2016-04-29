@@ -21,7 +21,7 @@ class CFormProgram extends CProgram{
 return <<<SCRIPT
 	printbr( "<b>cform.js</b>" );
 	var cform = new CForm();
-	cform.create("cformprogram-js");	
+	cform.create("cformprogram-php");	
 	printbr(cform.getName());
 	
 	// using coptions
@@ -35,6 +35,7 @@ return <<<SCRIPT
 	printbr(coptions.option("control6"));
 	printbr();
 	
+	/*
 	// using ccontrols
 	printbr("CControls");
 	var ccontrols = cform.getCControls();	
@@ -68,6 +69,7 @@ return <<<SCRIPT
 	echo(ccontrols.endform());
 	printbr();
 	printbr("COptions");
+	*/
 SCRIPT;
 	} // end c_main()
 	

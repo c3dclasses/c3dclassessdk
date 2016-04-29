@@ -71,5 +71,15 @@ function CMemory_preLoad_toString( $id, $cresource ){
 
 // add a hook to preload memory 
 function cmemory_preload(){ return CResource :: toStringVisit( "CMemory_preLoad_toString" ); }  
-CHook :: add( "script", "cmemory_preload" ); 
+CHook :: add( "script", "cmemory_preload" );
+
+//-------------------------------------------------------
+// name: CMemory_updateFromREQUEST()
+// desc: updates the memory from the request object
+//------------------------------------------------------- 
+function CMemory_updateFromREQUEST() {
+	alert("update memory");
+	return "update memory";
+} // end CMemory_updateFromREQUEST()
+CHook :: add( "init", "CMemory_updateFromREQUEST" );
 ?>
