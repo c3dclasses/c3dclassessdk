@@ -1,0 +1,1509 @@
+<!doctype html>
+<!-- Server: sfs-consume-19 -->
+
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]>--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        
+        <meta id="project_name" name="project_name" content="getid3">
+    <meta name="description" content="getID3() download. getID3() 2016-03-02 13:22:14 free download. getID3() getID3() is a PHP script that extracts useful information (such as ID3 tags, bitrate, playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, " />
+
+
+
+<meta property="og:title" content="getID3()"/>
+<meta property="og:type" content="product"/>
+<meta property="og:url" content="https://sourceforge.net/projects/getid3/"/>
+<meta property="og:site_name" content="SourceForge"/>
+<meta property="og:description" content="getID3() download. getID3() 2016-03-02 13:22:14 free download. getID3() getID3() is a PHP script that extracts useful information (such as ID3 tags, bitrate, playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, "/>
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>getID3() download | SourceForge.net</title>
+        <link rel="shortcut icon" href="//a.fsdn.com/con/img/sftheme/favicon.ico">
+        
+<!-- CCM Tag -->
+<script type="text/javascript">
+  (function () {
+    /*global _ml:true, window */
+    _ml = window._ml || {};
+    _ml.eid = '771';
+
+    var s = document.getElementsByTagName('script')[0], cd = new Date(), mltag = document.createElement('script');
+    mltag.type = 'text/javascript'; mltag.async = true;
+    mltag.src = '//ml314.com/tag.aspx?' + cd.getDate() + cd.getMonth() + cd.getFullYear();
+    s.parentNode.insertBefore(mltag, s);
+  })();
+</script>
+<!-- End CCM Tag -->
+
+        
+        <script type="text/javascript">
+            /*global unescape, window, console, jQuery, $, net, SF, DD_belatedPNG, ga */
+            // Setup our namespace
+            if (!window.SF) { window.SF = {}; }
+            if (!window.net) { window.net = {}; }
+            if (!window.net.sf) { window.net.sf = {}; }
+            SF.Ads = {};
+            SF.cdn = '//a.fsdn.com/con';
+            SF.deploy_time = '1464287901';
+            SF.ad_block_measurement = true;
+        </script>
+        <script src="//a.fsdn.com/con/js/min/sf.head.js?1464287901" type="text/javascript"></script>
+        
+<!--[if lt IE 7 ]>
+  <script src="//a.fsdn.com/con/js/sftheme/vendor/dd_belatedpng.js"></script>
+  <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
+<![endif]-->
+
+<link href='//fonts.googleapis.com/css?family=Ubuntu:regular' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    @font-face {
+        font-family: "Pictos";
+        src: url('//a.fsdn.com/con/css/fonts/sftheme/pictos-web.eot');
+        src: local("☺"), url('//a.fsdn.com/con/css/fonts/sftheme/pictos-web.woff') format('woff'), url('//a.fsdn.com/con/css/fonts/sftheme/pictos-web.ttf') format('truetype'), url('//a.fsdn.com/con/css/fonts/sftheme/pictos-web.svg') format('svg');
+    }
+</style>
+ <link rel="stylesheet" href="//a.fsdn.com/con/css/sf.css?1464287901" type="text/css">
+
+
+    <style type="text/css" >.sfdl { width:250px;height:48px;padding:0;position:relative;font:bold 12px/1.17 sans-serif !important; border:1px solid #aaa;display:inline;float:left;text-decoration:none;-moz-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-webkit-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-o-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-moz-border-radius:4px;-webkit-border-radius:4px;-o-border-radius:4px;-ms-border-radius:4px;-khtml-border-radius:4px;border-radius:4px;background:no-repeat #e5e5e5 8px center url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC);background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC), -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff), color-stop(100%, #ccc));background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC), -moz-linear-gradient(top, #fff 0%, #ccc 100%);background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC), linear-gradient(top, #fff 0%, #ccc 100%);background-position:8px center, 0 0;margin:0 10px 0px 0;overflow:hidden;color:#555 !important;}.sfdl:hover { cursor:pointer;text-decoration:none;background:8px center no-repeat #eee url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC);}.sfdl-lite { background:0 center no-repeat #337733 none;color:white !important;height:auto;padding:0.5em 1em;text-align:center;-moz-border-radius:4px;-webkit-border-radius:4px;-o-border-radius:4px;-ms-border-radius:4px;-khtml-border-radius:4px;border-radius:4px;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #339933), color-stop(100%, #337733));background-image:-moz-linear-gradient(top, #339933 0%, #337733 100%);background-image:linear-gradient(top, #339933 0%, #337733 100%);}.sfdl-lite:hover { background:0 center no-repeat #339933;}.sfdl span { border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;margin:3px;margin-left:35px;padding:4px;text-align:left;color:#FFF;background:#363;background-image:-moz-linear-gradient(center top, #393 0%, #373 100%);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #393),color-stop(1, #373));background-image:linear-gradient(top, #393 0%, #373 100%);overflow:hidden;height:34px;}.sfdl b { display:block;line-height:17.0px;}.sfdl small { display:block;line-height:17.0px;color:#ADC2AD; font-weight:normal;white-space:nowrap;overflow:hidden;font-size:77%;}.info-circle{ right:10px;bottom:16px;}.direct-dl{ font-size:10px;text-align:right;display:inline-block;width:100%;}</style>
+
+
+        <style type="text/css">.i1f4078b526084d14514b91f5cf86f2530eaf43a9 { display: none !important; }</style>
+    <link rel="alternate" type="application/rss+xml" title="getID3()&#8230;File Releases" href="/projects/getid3/rss?path=/" />
+    <link rel="canonical" href="https://sourceforge.net/projects/getid3/">
+
+        
+<script type="text/javascript">
+    SF.adblock = true;
+</script>
+  <script type='text/javascript'>
+
+  var googletag = window.googletag || {};
+   googletag.cmd = googletag.cmd || [];
+   (function() {
+     var gads = document.createElement('script');
+     gads.async = true;
+     gads.type = 'text/javascript';
+     gads.src = 'https://www.googletagservices.com/tag/js/gpt.js';
+
+     
+     SF.Ads.gpt_loaded = false;
+     function gpt_callback(){
+         SF.Ads.gpt_loaded = true;
+     }
+     function gpt_onerror(){
+         SF.Ads.gpt_blocked = true;
+     }
+     gads.onload=gpt_callback;
+     gads.onerror=gpt_onerror;
+
+     var node = document.getElementsByTagName('script')[0];
+     node.parentNode.insertBefore(gads, node);
+   })();
+   </script>
+
+   <!-- GPT Slot Definitions -->
+   <script type='text/javascript'>
+       /*global googletag */
+       var gptadslots=[];
+       var gptadHandlers={};
+       googletag.cmd.push(function() {
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_728x90_A', [728, 90], 'div-gpt-ad-1394209358853-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '728x90')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_HubIcon_200x90_A', [200, 90], 'div-gpt-ad-1394209358854-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '200x90')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_300x250_A', [[300, 250], [300, 600], [300, 1050]], 'div-gpt-ad-1394209358855-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x250,300x600,300x1050')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_300x250_B', [300, 250], 'div-gpt-ad-1394209358856-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x250')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_300x250_C', [300, 250], 'div-gpt-ad-1394209358857-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x250')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_ProjectSum_728x90_B', [728, 90], 'div-gpt-ad-1392148208790-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '728x90')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_RWPSP_300x87_A', [300, 87], 'div-gpt-ad-1392148208791-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x87')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadHandlers['/41014381/Sourceforge/SF_RWPSP_300x87_A'] =  'revealIfDelivers';
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_RWPSP_300x87_B', [300, 87], 'div-gpt-ad-1392148208792-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x87')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadHandlers['/41014381/Sourceforge/SF_RWPSP_300x87_B'] =  'revealIfDelivers';
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_RWEVPSP_300x87_A', [300, 87], 'div-gpt-ad-1392148208793-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x87')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadHandlers['/41014381/Sourceforge/SF_RWEVPSP_300x87_A'] =  'revealIfDelivers';
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_RWEVPSP_300x87_B', [300, 87], 'div-gpt-ad-1392148208794-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x87')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadHandlers['/41014381/Sourceforge/SF_RWEVPSP_300x87_B'] =  'revealIfDelivers';
+            gptadslots.push(googletag.defineSlot('/7346874/SF-300x250', [300, 250], 'div-gpt-ad-1392148208795-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x250')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_Mobile_PSP_300x50_A', [300, 50], 'div-gpt-ad-2392148208795-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x50')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_Mobile_PSP_300x50_B', [300, 50], 'div-gpt-ad-2392148208796-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x50')
+                                                        .setTargeting('page_type', 'pg_project'));
+            gptadslots.push(googletag.defineSlot('/41014381/Sourceforge/SF_Mobile_PSP_300x250_A', [300, 250], 'div-gpt-ad-2392148208797-0')
+                                                    .addService(googletag.pubads())
+                                                        .setTargeting('tpc', ['getid3', 'sound', 'multimedia', 'php', 'analysis'])
+                                                        .setTargeting('shortname', 'getid3')
+                                                        .setTargeting('aud', ['developers'])
+                                                        .setTargeting('mirror', 'False')
+                                                        .setTargeting('dc_ref', 'https://sourceforge.net/projects/getid3/')
+                                                        .setTargeting('sz', '300x250')
+                                                        .setTargeting('page_type', 'pg_project'));
+            
+            googletag.pubads().enableAsyncRendering();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+                var unitName = event.slot.getName();
+                if ( unitName in gptadHandlers ) {
+                   try {
+                       SF.Ads.RenderHandlers[gptadHandlers[unitName]].call(this, event);
+                   } catch (e) {
+                   }
+                }
+            });
+            googletag.pubads().addEventListener('impressionViewable', SF.Ads.RenderHandlers.viewabilityInstrumentation);
+
+            
+            googletag.enableServices();
+        });
+   </script>
+
+        
+
+        
+        <script type="text/javascript" src="//a.fsdn.com/con/js/adframe.js?1464287901"></script>
+        <script type="text/javascript">
+
+            /*jshint ignore:start*/
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            /*jshint ignore:end*/
+
+            //var $ = jQuery.noConflict(); // jshint ignore:line
+        </script>
+        <script type="text/javascript">
+                ga('create', 'UA-36130941-1', {'name': '1'});
+                ga('create', 'UA-36130941-1', 'auto');
+            if (typeof _ml !== 'undefined' && _ml.us) {
+                if (_ml.us.tp && _ml.us.tp.length > 0) {
+                    ga('set', 'dimension2', _ml.us.tp[0]);
+                }
+                if (_ml.us.pc && _ml.us.pc.length > 0) {
+                    ga('set', 'dimension7', _ml.us.pc[0]);
+                }
+                ga('set', 'dimension3', _ml.us.ind);
+                ga('set', 'dimension4', _ml.us.cr);
+                ga('set', 'dimension5', _ml.us.cs);
+                ga('set', 'dimension6', _ml.us.dm);
+                ga('set', 'dimension8', _ml.us.sn);
+            }
+
+            
+                ga('set', 'dimension9', 'getid3');
+                ga('set', 'dimension10', 'pg_project');
+                ga('set', 'dimension12', 'psp_normal');
+                    
+                ga('set', 'dimension13', 'Logged Out');
+                ga('set', 'dimension14', 'No');  
+                ga('set', 'dimension15', 'desktop');
+                ga('send', 'pageview');
+
+            
+        </script>
+        <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//analytics.slashdotmedia.com/";
+            _paq.push(['setTrackerUrl', u+'sf.php']);
+            _paq.push(['setSiteId', 39]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'sf.js'; s.parentNode.insertBefore(g,s);
+        })();
+        </script>
+
+        <script type="text/javascript"> try{(function(){ var cb = new Date().getTime(); var s = document.createElement("script"); s.defer = true; s.src = "//tag.crsspxl.com/s1.js?d=2396&cb="+cb; var s0 = document.getElementsByTagName('script')[0]; s0.parentNode.insertBefore(s, s0); })();}catch(e){} </script>
+<script type="text/javascript">
+/* Version: 0.7 */
+/* <![CDATA[ */
+try {
+    var _mag = _mag || {};
+    _mag.kw = 'Analysis';
+    _mag.kw_encoded = 0;
+    _mag.shortName = 'sourceforgemedia-computing';
+    _mag.default_protocol = ('https:' === document.location.protocol ? 'https:' : 'http:');
+    _mag.startTime = (new Date()).getTime();
+    (function(d,t) {
+        var mag = d.createElement('script'); mag.type = 'text/javascript'; mag.async = true; mag.src = t;
+        var head = d.getElementsByTagName('head')[0] || d.documentElement; head.insertBefore(mag, head.firstChild);
+    })(document,  _mag.default_protocol + '//d3ezl4ajpp2zy8.cloudfront.net/sourceforgemedia-computing_tag.js');
+} catch (e) {}
+/* ]]> */
+</script>
+
+        <script type="text/javascript" src="//ads.pro-market.net/ads/scripts/site-143572.js"></script></head>
+    <body id="pg_project" class="bluesteel user anonymous">
+        
+        
+
+        <div id="busy-spinner"></div>
+        
+<header id="site-header">
+    <div class="wrapper">
+        <a href="/" class="logo">
+            <span>SourceForge</span>
+        </a>
+        <form method="get" action="/directory/">
+            <input type="text" id="words" name="q" placeholder="Search">
+        </form>
+        <!--Switch to {language}-->
+        <nav id="nav-site">
+            <a href="/directory/" title="Browse our software.">Browse</a>
+            <a href="/directory/enterprise" title="Browse our Enterprise software.">Enterprise</a>
+            <a href="/blog/" title="Read the latest news from the SF HQ.">Blog</a>
+            <a href="//deals.sourceforge.net/?utm_source=sourceforge&amp;utm_medium=navbar&amp;utm_campaign=homepage" title="Discover and Save on the Best Gear, Gadgets, and Software" class="featured-link" target="_blank">Deals</a>
+            <a href="/support" title="Contact us for help and feedback.">Help</a>
+        </nav>
+        <nav id="nav-account">
+            
+              <div class="logged_out">
+                  <a href="https://sourceforge.net/auth/">Log In</a>
+                <span>or</span>
+                <a href="https://sourceforge.net/user/registration">Join</a>
+              </div>
+            
+        </nav>
+    </div>
+</header>
+<header id="site-sec-header">
+    <div class="wrapper">
+        <nav id="nav-hubs">
+            <h4>Solution Centers</h4>
+            <a href="http://goparallel.sourceforge.net/">Go Parallel</a>
+        </nav>
+        <nav id="nav-collateral">
+
+            <a href="https://library.slashdotmedia.com/">Resources</a>
+
+            <a href="/user/newsletters?source=sfnet_header">Newsletters</a>
+
+            
+            <a href="/cloud-storage-providers/?source=sfnet_header">Cloud Storage Providers</a>
+            
+            
+            <a href="/business-voip/?source=sfnet_header">Business VoIP Providers</a>
+            
+            
+
+
+        </nav>
+    </div>
+</header>
+
+
+        
+        
+<div id="messages">
+</div>
+
+
+
+        <div id="page-body">
+<div id="banner-sterling" class="sterling">
+
+
+
+
+
+    
+
+
+<div class="sticky-anchor"></div>
+<div class="sticky">
+
+<div id="SF_ProjectSum_728x90_A_wrapped" class="draper leaderboard  " data-unit="SF_ProjectSum_728x90_A">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1394209358853-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1394209358853-0');
+    });
+}());
+</script>
+</div>
+
+
+</div>
+<script type="text/javascript">
+    SF.Ads.stickyLeader = new SF.Stickify($('.sticky').eq(0));
+</script>
+
+
+
+
+
+    
+
+
+
+<div id="SF_ProjectSum_HubIcon_200x90_A_wrapped" class="draper hub  " data-unit="SF_ProjectSum_HubIcon_200x90_A">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1394209358854-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1394209358854-0');
+    });
+}());
+</script>
+</div>
+
+
+</div><nav id="breadcrumbs">
+    <ul>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/">Home</a></li>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/directory">Browse</a></li><li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/directory/audio-video/">Audio &amp; Video</a></li><li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/directory/audio-video/sound/">Sound/Audio</a></li><li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/directory/audio-video/sound/analysis/">Analysis</a></li><li class="project">getID3()</li>
+    </ul>
+</nav>
+
+
+<div id="project-header">
+    
+<section id="project-icon" class="noneditable">
+    <img itemscope itemtype="http://schema.org/ImageObject" itemprop="image" alt="getID3() Icon" src="//a.fsdn.com/con/img/project_default.png" height="48" width="48"/>
+</section>
+<div id="project-title" class="project-mirror">
+    <div >
+        <div>
+            <h1 itemprop="name">
+                    getID3()</h1>
+        </div>
+        <p id="maintainers" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        Brought to you by:
+        <a href="http://sourceforge.net/users/getid3" itemprop="url"><span itemprop="name">getid3</span></a></p>
+        
+    </div>
+    
+
+</div>
+</div>
+<article id="project" class="content-wrapper" itemscope itemtype="http://schema.org/SoftwareApplication">
+    <meta itemprop="image" content="https://a.fsdn.com/con/img/project_default.png"/>
+    <nav>
+        
+    <div id="top_nav"><div id="top_nav_admin">
+        <ul class="dropdown">
+            
+            <li class="selected">
+                <a href="/projects/getid3/?source=navbar"
+                >
+                <span>Summary</span></a>
+                
+            </li>
+            
+            <li >
+                <a href="/projects/getid3/files/?source=navbar"
+                >
+                <span>Files</span></a>
+                
+            </li>
+            
+            <li >
+                <a href="/projects/getid3/reviews?source=navbar"
+                >
+                <span>Reviews</span></a>
+                
+            </li>
+            
+            <li >
+                <a href="/projects/getid3/support?source=navbar"
+                >
+                <span>Support</span></a>
+                
+            </li>
+            
+            <li >
+                <a href="/p/getid3/wiki/?source=navbar"
+                >
+                <span>Wiki</span></a>
+                
+            </li>
+            
+            <li >
+                <a href="/p/getid3/donate/?source=navbar"
+                data-external=true>
+                <span>Donate</span></a>
+                
+            </li>
+            
+            
+        </ul>
+        
+    </div></div>
+    
+    </nav>
+
+    <div id="browser-warning-placeholder"></div>
+
+    
+    <section id="main-content">
+        <section id="call-to-action">
+	
+            <section id="counts-sharing">
+                <section class="project-info">
+                    <section class="content">
+                        <b data-icon="" class="ico" title="Star">&#9733;</b>
+                        <a href="/projects/getid3/reviews/" title="Browse reviews" id="call-to-action-reviews">4.7 Stars</a>
+                        <span>(23)</span>
+                    </section>
+                </section>
+                <section id="download-stats" class="project-info">
+                    <section class="content">
+                        <b data-icon="}" class="ico ico-downarrow" title="Down"></b>
+                        <a href="/projects/getid3/files/stats/timeline" title="Downloads This Week" id="call-to-action-stats">322 Downloads</a>
+                        <span>(This Week)</span>
+                    </section>
+                </section>
+                <section id="last-updated" class="project-info">
+                    <section class="content">
+                        <b data-icon="\" class="ico ico-calendar" title="Last Update"></b>
+                        Last Update:
+                        <time class="dateUpdated" datetime="2016-03-02">2016-03-02</time>
+                    </section>
+                </section>
+
+                
+<section class="social-sharing">
+    <!-- Twitter -->
+    <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-count="horizontal"
+       data-url="https://sf.net/projects/getid3/"
+       data-counturl="https://sourceforge.net/projects/getid3/"
+       data-via="sourceforge"
+       data-text="Download getID3() for free! "></a>
+    <!-- Google +1 -->
+    <script type="text/javascript">
+        (function() {
+         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+         po.src = '//apis.google.com/js/plusone.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+         })();
+    </script>
+    
+    <div class="g-plusone"
+         data-size="medium"
+         data-annotation="bubble"
+         data-href="https://sourceforge.net/projects/getid3/"></div>
+    <!-- Facebook -->
+    <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fgetid3%2F&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
+</section>
+
+
+                
+                
+    
+
+                
+            </section>
+
+            <section id="download_button">
+                    
+                        
+                        
+<a href="/projects/getid3/files/latest/download?source=typ_redirect" title="Download /getID3() 1.x/1.9.12/getID3-1.9.12.zip from SourceForge  - 1.3 MB" class="sfdl ">
+    
+        <span>
+            <b>Download</b>
+            <small >getID3-1.9.12.zip</small>
+        </span>
+    
+</a>
+                    <meta itemprop="fileSize" content="1282110"/><meta itemprop="fileFormat" content="application/zip; charset=binary"/><div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="price" content="Free"/>
+                        <link itemprop="availability" href="http://schema.org/InStock" />
+                    </div>
+                    <a href="/projects/getid3/files/?source=typ_redirect" id="files-link" title="Browse All Files">Browse All Files</a>
+                    <section class="project-info">
+                        
+                        <span class="platform-icon windows"><meta itemprop="operatingSystems" content="Windows"/>Windows</span>
+                        
+                        <span class="platform-icon mac"><meta itemprop="operatingSystems" content="Mac"/>Mac</span>
+                        
+                        <span class="platform-icon linux"><meta itemprop="operatingSystems" content="Linux"/>Linux</span>
+                        
+                    </section>
+            </section>
+        </section>
+
+        
+
+
+
+
+
+
+        <section id="project-description">
+            <header>
+                <h2>Description</h2>
+            </header>
+            <p id="description" itemprop="description">getID3() is a PHP script that extracts useful information (such as ID3 tags, bitrate, playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey&#39;s Audio, MIDI and more).</p>
+            <p>
+            <a id="homepage" class="pspbtn" href="http://getid3.sourceforge.net" title="getID3() Web Site" rel="nofollow">getID3() Web Site</a>
+            </p>
+        </section>
+
+        <section id="project-categories-and-license">
+            <div class="project-container">
+                <section>
+                    <header>
+                        <h4>Categories</h4>
+                    </header><a href="/directory/audio-video/sound/analysis/" itemprop="softwareApplicationSubCategory">Analysis</a></section>
+                <section>
+                    <section class="project-info">
+    <header>
+        <h3>License</h3>
+    </header>
+    <section class="content"><a href="/directory/license:gpl/">GNU General Public License version 2.0 (GPLv2)</a></section>
+</section>
+
+
+                </section>
+            </div>
+        </section>
+
+        
+	  <div class="psp_newsletter_subscribe">
+	      <h3>KEEP ME UPDATED</h3>
+              <span class="subscribe-tagline">Get project updates, sponsored content
+		    from our select <br>partners, and more.</span>
+
+              
+
+<form action="/user/newsletters/subscribe?source=PSP" method="post" class="newsletter-subscribe-form ">
+    <input type="hidden" name="XSPM5m0fR3CuHMsWMkVRWJR77VZ8" value="US">
+    <input type="hidden" name="XV_M5m0fR3CuHMsWMkUV4lh0:nH0" value="ip_address">
+    <input type="hidden" name="XQuM5m1vGyxyFjdxfXp2T4813mAY" value="PSP">
+
+    <div class="subtext">
+        By clicking on "Follow" below, you are agreeing to the <a href="http://slashdotmedia.com/terms-of-use/">Terms of Use</a> and the <a href="http://slashdotmedia.com/privacy-statement/">Privacy Policy</a>.
+    </div>
+        <input type="hidden" name="XT_4zmVrJyyasNNibukfXj9_meIA" value="sitewide">
+        <input type="hidden" name="XT_4zmVrJyyasNNibukfXj9_meIA" value="research">
+        <input type="hidden" name="XT_4zmVrJyyasNNibukfXj9_meIA" value="events">
+        <input type="hidden" name="XT_4zmVrJyyasNNibukfXj9_meIA" value="thirdparty">
+        <input type="hidden" name="XT_4zmVrJyyasNNibukfXj9_meIA" value="all">
+        <input type="hidden" name="XR_s7m2f4ciRv:y1w7r8wnnaqa6c" value="getid3">
+    
+
+
+    <div class="row">
+        
+        <div class="nsw-error-container input-set small-12 medium-8 columns tightest">
+            <div class="error-message"><i>Invalid email address. Please try again.</i></div>
+            <input type="email" class="subscriber-email" name="XQfU7j0DJ4A8EJx1Cc4IRXFMr4f4" placeholder="Enter your email address" value="" required>
+        </div>
+        
+        
+
+        <p class="subscriber-existing-email" style="display: none"> Sent to None.
+        
+        </p>
+
+        <button type="submit" class="subscriber-submit  small-12 medium-4 right columns tightest">
+            <span>
+                Follow
+            </span>
+        </button>
+    </div>
+
+    
+  <input type="hidden" name="_visit_cookie" value="56b2a38cc3d3bc605e225285"/>
+    <input type='hidden' name='timestamp' value='1464304362'/>
+    <input type='hidden' name='spinner' value='XRJBW7imlrlLYUaro9BoL:WhM_xg'/>
+    <p class='i1f4078b526084d14514b91f5cf86f2530eaf43a9'><label for='XQ_g5gEzcnmKWDHaeQ7CMYXLpxH8'>You seem to have CSS turned off.
+             Please don't fill out this field.</label><input id='XQ_g5gEzcnmKWDHaeQ7CMYXLpxH8' name='XQvg5gEzcnhyFjdxfXp2T4813mAY' type=
+             'text'/></p>
+    <p class='i1f4078b526084d14514b91f5cf86f2530eaf43a9'><label for='XQ_g5gEzcnmOWDHaeQ7CMYXLpxH8'>You seem to have CSS turned off.
+             Please don't fill out this field.</label><input id='XQ_g5gEzcnmOWDHaeQ7CMYXLpxH8' name='XQvg5gEzcnxyFjdxfXp2T4813mAY' type=
+             'text'/></p>
+</form>
+
+
+          </div>
+<section id="ratings">
+    <header class="ui-helper-clearfix">
+        <h2>
+            User Ratings
+        </h2>
+        
+
+    </header>
+
+    
+<section class="recommended-percentage item" itemscope itemtype="http://schema.org/AggregateRating" itemprop="aggregateRating">
+        <span class="rating">
+            <span class="average" itemprop="ratingValue">4.7</span>
+            <meta itemprop="bestRating" content="5"/>
+            <meta itemprop="worstRating" content="1"/>
+            <meta itemprop="ratingCount" content="23"/>
+            <span class="recommended">out of 5 stars</span>
+        </span>
+    </section>
+    <section class="stars">
+        <div class="star-text stars-5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="star-text stars-4">&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="star-text stars-3">&#9733;&#9733;&#9733;</div>
+        <div class="star-text stars-2">&#9733;&#9733;</div>
+        <div class="star-text stars-1">&#9733;</div>
+    </section>
+    <section class="bargraph">
+        <div class="stars-5" style="border-left-width: 182px">
+            21
+        </div>
+        <div class="stars-4" style="border-left-width: 1px">
+            0
+        </div>
+        <div class="stars-3" style="border-left-width: 1px">
+            0
+        </div>
+        <div class="stars-2" style="border-left-width: 1px">
+            0
+        </div>
+        <div class="stars-1" style="border-left-width: 16px">
+            2
+        </div>
+    </section>
+
+    
+<div class="dimensional-ratings">
+    
+
+<div class="dimensional-rating">
+    
+    <span class="label">ease</span>
+    <span title="1 of 5" class="rating box">1 of 5</span>
+    <span title="2 of 5" class="rating box">2 of 5</span>
+    <span title="3 of 5" class="rating box">3 of 5</span>
+    <span title="4 of 5" class="rating box">4 of 5</span>
+    <span title="5 of 5" class="rating box">5 of 5</span>
+    <span class="rating-score">
+        <span class="dim-rate">5</span> / 5
+    </span>
+</div>
+
+    
+
+<div class="dimensional-rating">
+    
+    <span class="label">features</span>
+    <span title="1 of 5" class="rating box">1 of 5</span>
+    <span title="2 of 5" class="rating box">2 of 5</span>
+    <span title="3 of 5" class="rating box">3 of 5</span>
+    <span title="4 of 5" class="rating box">4 of 5</span>
+    <span title="5 of 5" class="rating box">5 of 5</span>
+    <span class="rating-score">
+        <span class="dim-rate">5</span> / 5
+    </span>
+</div>
+
+    
+
+<div class="dimensional-rating">
+    
+    <span class="label">design</span>
+    <span title="1 of 5" class="rating box">1 of 5</span>
+    <span title="2 of 5" class="rating box">2 of 5</span>
+    <span title="3 of 5" class="rating box">3 of 5</span>
+    <span title="4 of 5" class="rating box">4 of 5</span>
+    <span title="5 of 5" class="rating box">5 of 5</span>
+    <span class="rating-score">
+        <span class="dim-rate">5</span> / 5
+    </span>
+</div>
+
+    
+
+<div class="dimensional-rating">
+    
+    <span class="label">support</span>
+    <span title="1 of 5" class="rating box">1 of 5</span>
+    <span title="2 of 5" class="rating box">2 of 5</span>
+    <span title="3 of 5" class="rating box">3 of 5</span>
+    <span title="4 of 5" class="rating box">4 of 5</span>
+    <span title="5 of 5" class="rating box">5 of 5</span>
+    <span class="rating-score">
+        <span class="dim-rate">5</span> / 5
+    </span>
+</div>
+
+</div>
+
+
+    <div id="divider-bottom"></div>
+
+</section>
+
+
+       
+
+
+    
+        <aside class="project-activity-main" id="project-activity"></aside>
+    
+
+    <script type="text/x-handlebars-template" id="project-activity-template">
+        <header>
+        
+            <h2>
+                Project Activity
+                <a id="follow-action" class="header-links {{#if following}}active{{/if}}" href="{{followee.activity_url}}activity/follow?source=project_activity" title="{{followee.activity_name}}">
+                    <b data-icon="S" class="ico ico-star"></b>
+                </a>
+                <a id="rss-feed" class="header-links" href="{{followee.activity_url}}activity/feed?source=project_activity" title="RSS"><b data-icon="f" class="ico ico-feed"></b></a>
+            </h2>
+        
+        </header>
+        
+        <ul class="list-of-activities">
+            {{#stripe timeline 5 false}}
+            <li class="item {{css_class}}">
+                <h4>
+                    {{#ifTagged "release"}}
+                      {{ cap this.verb }}
+                    {{else}}
+                      {{ icon this.actor.activity_extras.icon_url }}
+                      {{ activity_obj this.actor }}
+                      {{ this.verb }}
+                    {{/ifTagged}}
+                    {{ activity_obj this.obj }}
+                    {{#if this.target.activity_name}} on {{ activity_obj this.target }}{{/if}}
+                </h4>
+                {{#if this.obj.activity_extras.summary}}
+                  <p>{{ this.obj.activity_extras.summary }}</p>
+                {{/if}}
+                <time datetime="{{ this.published }}" title="{{ this.published }}">{{ ago this.published }}</time>
+            </li>
+            {{/stripe}}
+        </ul>
+        <a class="all-activities" href="{{followee.activity_url}}activity?source=project_activity">See All Activities</a>
+        
+    </script>
+
+
+        <section id="reviews-n-ratings">
+            <header>
+                <a class="pspbtn" href="/projects/getid3/reviews/new">Write a Review</a>
+                <h2>User Reviews</h2>
+            </header>
+            <div class="sorts-n-filters">
+                <div class="drop-down-menu">
+                    <div class="sort-options">
+                        <span>Filter</span>
+                        <div class="sort-drop-down">
+                            <a href="#">All</a>
+                        </div>
+                        <ul>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=0#reviews-n-ratings" title="Show All" class=" active">All</a></li>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=5#reviews-n-ratings" title="Show 5 Stars" class=" star-text">&#9733;&#9733;&#9733;&#9733;&#9733;</a></li>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=4#reviews-n-ratings" title="Show 4 Stars" class=" star-text">&#9733;&#9733;&#9733;&#9733;</a></li>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=3#reviews-n-ratings" title="Show 3 Stars" class=" star-text">&#9733;&#9733;&#9733;</a></li>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=2#reviews-n-ratings" title="Show 2 Stars" class=" star-text">&#9733;&#9733;</a></li>
+                            <li><a href="/projects/getid3/?source=typ_redirect&amp;stars=1#reviews-n-ratings" title="Show 1 Star" class=" star-text">&#9733;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <section class="content">
+                    <ul id="project-reviews" class="reviews" itemprop="reviews">
+                            <li>
+
+
+<article class="review reviewed" data-helpful-count="0">
+    <footer>
+        <span class="author-name">yellowjug</span>
+    </footer>
+    
+
+
+<div class="review-rating">
+
+<span title="1 of 5" class="rating star">1 of 5</span>
+
+<span title="2 of 5" class="rating star">2 of 5</span>
+
+<span title="3 of 5" class="rating star">3 of 5</span>
+
+<span title="4 of 5" class="rating star">4 of 5</span>
+
+<span title="5 of 5" class="rating star">5 of 5</span>
+
+</div>
+
+    <p class="review-txt ">
+        I use GetID3() in my open source software and it works like a charm. I had a small issue with a particular server configuration and the developer replied in a few hours and fixed the problem. Great job!
+    </p>
+    <div class="meta">
+        <span class="created-date">Posted 10/30/2014</span>
+    </div>
+</article>
+
+</li>
+                            <li>
+
+
+<article class="review reviewed" data-helpful-count="1.0">
+    <footer>
+        <span class="author-name">ivanhutchins</span>
+    </footer>
+    
+
+
+<div class="review-rating">
+
+<span title="1 of 5" class="rating star">1 of 5</span>
+
+<span title="2 of 5" class="rating star">2 of 5</span>
+
+<span title="3 of 5" class="rating star">3 of 5</span>
+
+<span title="4 of 5" class="rating star">4 of 5</span>
+
+<span title="5 of 5" class="rating star">5 of 5</span>
+
+</div>
+
+    <p class="review-txt ">
+        Getid3 is good! Thanks.
+    </p>
+    <div class="meta">
+        <span class="created-date">Posted 06/18/2013</span>
+    </div>
+</article>
+
+</li>
+                            <li>
+
+
+<article class="review reviewed" data-helpful-count="1.0">
+    <footer>
+        <span class="author-name">tfileme</span>
+    </footer>
+    
+
+
+<div class="review-rating">
+
+<span title="1 of 5" class="rating star">1 of 5</span>
+
+<span title="2 of 5" class="rating star">2 of 5</span>
+
+<span title="3 of 5" class="rating star">3 of 5</span>
+
+<span title="4 of 5" class="rating star">4 of 5</span>
+
+<span title="5 of 5" class="rating star">5 of 5</span>
+
+</div>
+
+    <p class="review-txt ">
+        Nice, thank you
+    </p>
+    <div class="meta">
+        <span class="created-date">Posted 05/12/2013</span>
+    </div>
+</article>
+
+</li>
+                            <li>
+
+
+<article class="review reviewed" data-helpful-count="0">
+    <footer>
+        <span class="author-name">&lt;REDACTED&gt;</span>
+    </footer>
+    
+
+
+<div class="review-rating">
+
+<span title="1 of 5" class="rating star">1 of 5</span>
+
+<span title="2 of 5" class="rating star">2 of 5</span>
+
+<span title="3 of 5" class="rating star">3 of 5</span>
+
+<span title="4 of 5" class="rating star">4 of 5</span>
+
+<span title="5 of 5" class="rating star">5 of 5</span>
+
+</div>
+
+    <p class="review-txt ">
+        very good project, thanks!
+    </p>
+    <div class="meta">
+        <span class="created-date">Posted 04/06/2013</span>
+    </div>
+</article>
+
+</li>
+                            <li>
+
+
+<article class="review reviewed" data-helpful-count="0">
+    <footer>
+        <span class="author-name">a11922256</span>
+    </footer>
+    
+
+
+<div class="review-rating">
+
+<span title="1 of 5" class="rating star">1 of 5</span>
+
+<span title="2 of 5" class="rating star">2 of 5</span>
+
+<span title="3 of 5" class="rating star">3 of 5</span>
+
+<span title="4 of 5" class="rating star">4 of 5</span>
+
+<span title="5 of 5" class="rating star">5 of 5</span>
+
+</div>
+
+    <p class="review-txt ">
+        Good and useful software
+    </p>
+    <div class="meta">
+        <span class="created-date">Posted 12/18/2012</span>
+    </div>
+</article>
+
+</li>
+                    </ul>
+                    <a class="pspbtn" href="/projects/getid3/reviews/?sort=created_date&amp;stars=0#reviews-n-ratings">Read more reviews</a>
+            </section>
+        </section>
+
+        <section id="project-additional-trove">
+            <header>
+                <h2>Additional Project Details</h2>
+            </header>
+            <div class="project-container">
+                <section class="project-info">
+    <header>
+        <h3>Languages</h3>
+    </header>
+    <section class="content"><a href="/directory/natlanguage:english/" itemprop=inLanguage>English</a></section>
+</section>
+
+
+                <section class="project-info">
+    <header>
+        <h3>Intended Audience</h3>
+    </header>
+    <section class="content"><a href="/directory/audience:developers/">Developers</a></section>
+</section>
+
+
+                <section class="project-info">
+    <header>
+        <h3>User Interface</h3>
+    </header>
+    <section class="content"><a href="/directory/environment:web/">Web-based</a></section>
+</section>
+
+
+                <section class="project-info">
+    <header>
+        <h3>Programming Language</h3>
+    </header>
+    <section class="content"><a href="/directory/language:php/">PHP</a></section>
+</section>
+
+
+                <section class="project-info">
+                    <header>
+                        <h4>Registered</h4>
+                    </header>
+                    <section class="content">
+                        2002-06-16
+                    </section>
+                </section>
+            </div>
+        </section></section>
+
+    <section id="sidebar" class="scroll-fixable">
+        <section class="sterling">
+            
+
+
+
+
+    
+    
+
+
+
+<div id="SF_ProjectSum_300x250_A_wrapped" class="draper multisize  " data-unit="SF_ProjectSum_300x250_A">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1394209358855-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1394209358855-0');
+    });
+}());
+</script>
+</div>
+
+
+            
+
+
+
+
+    
+
+
+
+<div id="SF_ProjectSum_300x250_B_wrapped" class="draper medrec  " data-unit="SF_ProjectSum_300x250_B">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1394209358856-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1394209358856-0');
+    });
+}());
+</script>
+</div>
+
+
+        </section>
+        <aside class="sidebar-widget">
+        <header>
+        <h3>Recommended Projects</h3>
+        </header>
+    <ul class="vertical">
+        
+          
+
+
+
+
+    
+
+
+
+<li id="SF_RWPSP_300x87_A_wrapped" class="draper  sterling_native revealIfDelivers" data-unit="SF_RWPSP_300x87_A">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1392148208791-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1392148208791-0');
+    });
+}());
+</script>
+</li>
+
+
+          
+
+
+
+
+    
+
+
+
+<li id="SF_RWPSP_300x87_B_wrapped" class="draper  sterling_native revealIfDelivers" data-unit="SF_RWPSP_300x87_B">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1392148208792-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1392148208792-0');
+    });
+}());
+</script>
+</li>
+
+
+        
+
+        
+
+            
+                <li class="item odd">
+                <a href="/projects/phpthumb/?source=recommended" title="phpThumb()"><img alt="Icon" src="//a.fsdn.com/con/img/project_default.png" /></a>
+                <div class="pinfo-content recommended">
+                <a class="project-name" href="/projects/phpthumb/?source=recommended"
+                        title="Learn more about phpThumb() ">phpThumb()</a>
+                        <div class="summary">
+                        
+                        </div>
+                    </div>
+
+            </li>
+            
+                <li class="item even">
+                <a href="/projects/ffmpeg-php/?source=recommended" title="ffmpeg-php extension"><img alt="Icon" src="//a.fsdn.com/con/img/project_default.png" /></a>
+                <div class="pinfo-content recommended">
+                <a class="project-name" href="/projects/ffmpeg-php/?source=recommended"
+                        title="Learn more about ffmpeg-php extension ">ffmpeg-php extension</a>
+                        <div class="summary">
+                        
+                        </div>
+                    </div>
+
+            </li>
+            
+                <li class="item odd last">
+                <a href="/projects/musicplayer/?source=recommended" title="XSPF Web Music Player"><img alt="Icon" src="//a.fsdn.com/con/img/project_default.png" /></a>
+                <div class="pinfo-content recommended">
+                <a class="project-name" href="/projects/musicplayer/?source=recommended"
+                        title="Learn more about XSPF Web Music Player ">XSPF Web Music Player</a>
+                        <div class="summary">
+                        
+                        </div>
+                    </div>
+
+            </li>
+            
+        
+    </ul>
+</aside>
+
+
+    
+<a href="http://track.totalvpn.com/5703e6c24e1af/click" rel="nofollow" class="static-placement recovery"><img width="300" height="250" alt="Total VPN" src="//a.fsdn.com/con/img/promotional/1394209358857.jpg"/></a>
+
+    
+	    
+    <aside class="sidebar-widget stackcommerce-widget">
+            <header id="stackcommerce-header">
+                <img src="//a.fsdn.com/con/img/sf_logo250x32.png" width="125" height="16" alt="sourceforge.net logo" />
+                <h3>Deals</h3>
+            </header>
+            
+
+
+
+
+    
+
+
+
+<div id="SF-300x250_wrapped" class="draper medrec  " data-unit="SF-300x250">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1392148208795-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1392148208795-0');
+    });
+}());
+</script>
+</div>
+
+
+    </aside>
+    
+
+        
+    
+    <section class="sterling">
+        
+
+
+
+
+    
+
+
+
+<div id="SF_ProjectSum_300x250_C_wrapped" class="draper medrec  " data-unit="SF_ProjectSum_300x250_C">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1394209358857-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1394209358857-0');
+    });
+}());
+</script>
+</div>
+
+
+    </section>
+
+    
+    
+        <aside class="sidebar-widget project-related-keywords ">
+            <header>
+                <h3>Top Searches</h3>
+            </header>
+            <ul id="project-top-searches">
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=asf">asf</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=audacity+plugins">audacity plugins</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=audio+player+php+html5">audio player php html5</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=brutus-aet2.zip+aet2">brutus-aet2.zip aet2</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=digital+signage+content+management+system+android">digital signage content management system android</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=display+calibration">display calibration</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=docmgr">docmgr</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=document+management+system+php+script">document management system php script</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=edit+mp3+files">edit mp3 files</a></b>
+                </li>
+            
+                <li class="search_term">
+                    <b><a href="/directory/?q=f4">f4</a></b>
+                </li>
+            
+            </ul>
+        </aside>
+    
+        <a id="report-inappropriate" href="/projects/getid3/report_inappropriate">Report inappropriate content</a>
+    </section>
+    
+
+    
+<script type="text/javascript">
+
+SF.Ads.scrollFixable = new SF.ScrollFixable($('.scroll-fixable').eq(0));
+
+</script>
+</article>
+        </div>
+  
+    <div class="project-footer-drapercontainer">
+    
+
+
+
+
+    
+
+
+
+<div id="SF_ProjectSum_728x90_B_wrapped" class="draper leaderboard  " data-unit="SF_ProjectSum_728x90_B">
+<script type="text/javascript">
+/*global googletag */
+(function(){
+    
+    document.write('<div id="div-gpt-ad-1392148208790-0" ></div>');
+    googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-1392148208790-0');
+    });
+}());
+</script>
+</div>
+
+
+    </div>
+  
+
+        
+
+        
+        
+
+          
+<footer id="site-footer">
+    <div class="wrapper">
+        <nav>
+            <h5>SourceForge</h5>
+            <a href="/about">About</a>
+            <a href="/blog/category/sitestatus/">Site Status</a>
+            <a href="http://twitter.com/sfnet_ops">@sfnet_ops</a>
+        </nav>
+        <nav>
+            <h5>Find and Develop Software</h5>
+            <a href="/create/">Create a Project</a>
+            <a href="/directory/">Software Directory</a>
+            <a href="/top">Top Downloaded Projects</a>
+        </nav>
+        <nav>
+            <h5>Community</h5>
+            <a href="/blog/">Blog</a>
+            <a href="http://twitter.com/sourceforge">@sourceforge</a>
+            <a href="https://library.slashdotmedia.com/">Resources</a>
+        </nav>
+        <nav>
+            <h5>Help</h5>
+            <a href="http://p.sf.net/sourceforge/docs">Site Documentation</a>
+            <a href="/support">Support Request</a>
+        </nav>
+    </div>
+</footer>
+<footer id="site-copyright-footer">
+    <div class="wrapper">
+        <div id="copyright">
+            &copy; 2016 Slashdot Media. All Rights Reserved.<br />
+        </div>
+        <nav>
+            <a href="https://slashdotmedia.com/terms-of-use/">Terms</a>
+            <a href="https://slashdotmedia.com/privacy-statement/">Privacy</a>
+            <span id='teconsent'></span>
+            <a href="https://slashdotmedia.com/opt-out-choices/">Opt Out Choices</a>
+            <a href="https://slashdotmedia.com">Advertise</a>
+        </nav>
+    </div>
+</footer>
+            <script src="//a.fsdn.com/con/js/min/sf.js?1464287901" type="text/javascript"></script>
+        
+
+        
+            <script type="text/javascript" src="//consent-st.truste.com/get?name=notice.js&amp;domain=slashdot.org&amp;c=teconsent&amp;text=true"></script>
+            <noscript><p><img src="//analytics.slashdotmedia.com/sf.php?idsite=39" style="border:0;" alt="" /></p></noscript>
+
+<div id="screenshots-callout-content" class="callout">
+    <a href="/p/getid3/admin/screenshots">Screenshots can attract more users to your project.</a>
+</div>
+<div id="features-callout-content" class="callout">
+    <a href="/p/getid3/admin/overview#features">Features can attract more users to your project.</a>
+</div>
+<script src="//a.fsdn.com/con/js/callouts.js?1464287901"></script>
+
+
+
+        
+      </body>
+</html>
+

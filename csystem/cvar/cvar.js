@@ -61,7 +61,6 @@ var CVar = new Class({
 	// other
 	init : function( cvar ){ 
 		if( cvar == null ) {
-			alert("no cvar");
 			return false;
 		}
 		this.m_strtype = cvar['m_strtype']; 

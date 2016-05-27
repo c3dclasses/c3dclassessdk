@@ -22,9 +22,9 @@ var CImageResource = new Class({
 			( cimage.create( strpath ) ) &&
 			( this.parent( strpath, params ) ) &&
 			( this.m_cimage = cimage )))
-			return alert("true");
+			return true;
 		else
-			return alert("false");
+			return false;
 	}, // end open()
 	
 	restore : function(){ 

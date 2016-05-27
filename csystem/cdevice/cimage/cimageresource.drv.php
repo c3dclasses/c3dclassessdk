@@ -12,8 +12,6 @@ function CImageResource_preLoad_toString( $id, $cresource ){
 	$p = $cresource->getParams();
 	if( !$p || !($p->get("cresource_type") == "CImageResource") ) // check if the resource is an image object
 		return "";
-	//alert(relname($cresource->path()));
-	//include_image( strid, strpath, strtype, params );
 	$json = $cresource->getParams()->toJSON();
 	$str = "include_image(\"{$id}\",\"".uri_name($cresource->path())."\",'CImage'," . $cresource->getParams()->toJSON() . ")";
 	$str .= "\n";

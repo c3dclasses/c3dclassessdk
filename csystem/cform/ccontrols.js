@@ -11,10 +11,6 @@ var CControls = new Class({
 	Extends : CHash,	
 	initialize : function(){ this.m_cform=null; this.m_cmemoryid=""; this.parent();},	
 	create : function(cform){ this.m_cform = cform; this.parent(); return true; },
-	use_memory : function (strcmemoryid){ this.m_cmemoryid = strcmemoryid; },
-	getCMemoryID : function () { return this.m_cmemoryid; },
-	bound : function(){ CForm_boundFieldName(true); return this; },
-	unbound : function(){ CForm_boundFieldName(false); return this; },
 	form : function(strname, value, params) { ob_start(); echo(this.control("form", strname, value, params)); },
 	endform : function(){ echo(this.control("endform",null,null,null)); return ob_end(); },
 	section : function(strname, strlabel, params){ return this.control("section", strname, strlabel, params);},
@@ -55,11 +51,15 @@ var CControls = new Class({
 	}, // end control_choices()
 	control : function(strtype, strname, value, params){		
 		if(this.m_cform && (coptions = this.m_cform.getCOptions()) && strtype != "label") {
-			ovalue = (coptions.optionExists(strname)) ? coptions.option(strname) : "";
+			ovalue = (coptions.optionExists(strname)) ? coptions.option(strname) : "";	
 			if(strtype == "radio" || strtype == "checkbox") {
-				if(ovalue == value) // optionvalue == attribute-value
-					this.set("checked","");
-				else this.remove("checked");
+				if(ovalue != "") {
+					if(ovalue == value) // optionvalue == attribute-value
+						this.set("checked","");
+					else this.remove("checked");
+				} // end if
+				else {
+				} // end else
 				value = value;
 			} // end if
 			else value = (ovalue) ? ovalue : value;
@@ -67,11 +67,14 @@ var CControls = new Class({
 		var _params={};
 		_params["ccontrol-type"]=strtype;
 		_params["ccontrol-name"]=strname; 
-		_params["ccontrol-id"]=this.m_cform.getNameWithSuffix(strname);
 		_params["ccontrol-value"]=value;
 		_params["ccontrol-params"]=params;
 		_params["ccontrol-attributes"]=this._();	
-		return this.processParams(_params);
+		_params["cmemory-id"]=this.m_cform.getCMemoryID();
+		_params["cform-id"]=this.m_cform.getID();
+		var ret = this.processParams(_params);
+		this.clear();
+		return ret;
 	}, // end control()
 	processParams : function(params){ return CControls_processParams(params); } 
 }); // end class CControls

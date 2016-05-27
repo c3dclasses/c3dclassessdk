@@ -27,7 +27,6 @@ var CElement = new Class({
 			return ( this.m_element ) ? this.m_element.tagName : ""; 
 		else {
 			if( this.m_element ){
-				alert("adding tag name");
 				this.m_element.tagName = arguments[0]; 
 			}
 		} // end else
@@ -237,7 +236,6 @@ var CElement = new Class({
 		var celement = CElement.toCElement( jelements[i] );
 		if( !celement )
 			return false;
-		//alert("inserted a new element");
 		celement.prevSibling( element );	
 		return true;
 	}, // end insertChild()

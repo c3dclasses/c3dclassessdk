@@ -20,7 +20,6 @@ var CAngularJS = new Class({
 		
 		// methods
 		loadMainModule : function( strappname ){
-			//alert("loading the module");
 			if( CAngularJS.m_module != null )
 				return true;
 			var module = angular.module( strappname, (CAngularJS.m_modules)?CAngularJS.m_modules:[] );
@@ -28,7 +27,6 @@ var CAngularJS = new Class({
 				return false;	
 			CAngularJS.m_module = module;
 			CAngularJS.m_strappname = strappname;
-			//alert("loaded the main module");	
 			CAngularJS.loadControllers();	
 			CAngularJS.loadFilters();
 			CAngularJS.loadDirectives();

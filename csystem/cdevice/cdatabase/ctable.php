@@ -201,9 +201,7 @@ class CTable extends CResource{
 		
 		if(isset($structure[$strcolname]) == false || !$structure[$strcolname]) { // add new column
 			$sql = "ALTER TABLE {$strtablename} ADD {$strcolname} {$strtype}";
-			
-			alert($sql);
-			
+		
 			if((mysql_query($sql,$connection) == FALSE) || !$this->setStructure())
 				return false;
 			$structure = $this->getStructure();

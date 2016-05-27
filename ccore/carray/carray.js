@@ -16,7 +16,6 @@ Array.prototype.shuffle = function() {
 	var arr = this, temp, index;
 	for (var i=0; i < this.length; i++) {
 		index = Math.floor((Math.random()*(this.length - i) + i));
-		//alert(index + " " + arr[index]);
 		temp = arr[i];
 		arr[i] = arr[index];
 		arr[index] = temp;

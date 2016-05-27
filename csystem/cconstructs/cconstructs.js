@@ -24,6 +24,12 @@ var CIf = new Class({
 	initialize : function( fncond, fnbody ){ this.m_ifs = []; },
 	add : function( fncond, fnbody ){	
 		if( !fnbody ) return this;		
+		
+		if(typeof(fnbody) == "object" && fnbody.constructor == "CReturn") {
+			fnbody.callback = fnbody;
+			return this;
+		} // end if
+		
 		this.m_ifs.push( { m_fncond:fncond, m_fnbody:fnbody } );
 		return this;
 	}, // end add()

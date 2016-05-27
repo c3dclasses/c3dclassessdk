@@ -11,7 +11,6 @@ function _replaceMatch( matches, strreplace, strcontents ){
 		strcontents = strcontents.replace(matches, strreplace);
 	} // end if
 	else if( getTypeOf(matches) == "object" ){
-		//alert( matches );
 		for( var i=0; i<matches.length; i++ ){
 			var patt=new RegExp(matches[i],"g");
 			strcontents = strcontents.replace(patt, strreplace);	

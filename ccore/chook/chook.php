@@ -22,8 +22,8 @@ class CHook{
 			CHook :: $m_chashhook->set( $strhookname, new CArray() );
 		$chook = CHook :: $m_chashhook->get( $strhookname );
 		if( $chook ) 
-			//$chook->push( $fnhandler );
-			$chook->insertAt( $index, $fnhandler );
+			$chook->push( $fnhandler );
+			//$chook->insertAt( $index, $fnhandler );
 		return true;
 	} // end add()
 	public static function remove( $strhookname, $fnhandler = NULL ){

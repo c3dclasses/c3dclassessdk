@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------
-// file: cthemeform.php
+// file: cform.php
 // desc: defines a form object for creating controls and options
 //----------------------------------------------------------------------------
 
@@ -16,54 +16,57 @@ include_js(relname(__FILE__) . "/cform.js");
 //-----------------------------------------------------------------
 class CForm {	
 	// members
-	protected $m_strname;		// stores the name of the form
+	protected $m_strid;			// stores the name/id of the form
+	protected $m_strcmemoryid;	// stores the cmemory id of the form
 	protected $m_params;		// stores the parameters of the form
 	protected $m_coptions;		// stores the options of the form 
 	protected $m_ccontrols;		// stores the controls of the form 
-//	protected $m_cmemoryid;		// stores the memory id of the form
 	
 	public function CForm($COptionsType="COptions", $CControlsType="CControls") {	
 		$this->m_ccontrols = new $CControlsType();
 		$this->m_coptions = new $COptionsType();
 		$this->m_params = NULL;
-		$this->m_strname = "";
-//		$this->m_cmemoryid = "";
+		$this->m_strid = "";
+		$this->m_strcmemoryid = "";
 	} // end CForm()
 	
 	public function create($strname="", $params=NULL) {
 		$this->m_ccontrols->create($this);
 		$this->m_coptions->create($this);
 		$this->m_params = $params;
-		$this->m_strname = $strname;
+		$this->m_strid = $strname;
 		return true;
 	} // end create()
-/*
-	public function use_memory($strcmemoryid){
-		$this->m_cmemoryid = $strcmemoryid;
-	} // end use_memory()
+
+	public function setID($strid) {
+		$this->m_strid = $strid;
+	} // end setID()
+	
+	public function getID() { 
+		return $this->m_strid;
+	} // end getID()
+	
+	public function setCMemoryID($strid) {
+		$this->m_strcmemoryid = $strid;
+		return;
+	} // end setCMemoryID()
 	
 	public function getCMemoryID() {
-		return $this->m_cmemoryid;
+		return $this->m_strcmemoryid;
 	} // end getCMemoryID()
-*/	
-	public function setName($strname) {
-		$this->m_strname = $strname;
-	} // end setName()
-	
-	public function getName() { 
-		return $this->m_strname;
-	} // end getName()
 	
 	public function getParams() { 
 		return $this->m_params; 
 	} // end getParams()
-
-	public function getNameWithSuffix($strsuffix, $strdelimiter="_") {
-		$fieldname = $strsuffix;
-		if($this->m_strname && CForm_isFieldNameBounded())
-			$fieldname = $this->m_strname . $strdelimiter . $strsuffix;
-		return $fieldname;
-	} // end getNameWithSuffix()
+	
+	public function setParam($strname, $value) { 
+		$this->m_params[$strname] = $value;		
+	} // end setParam()
+	
+	public function getParam($strname) { 
+		$params = $this->getParams();
+		return ($params && isset($params[$strname])) ? $params[$strname] : NULL ; 
+	} // end getParam()
 	
 	public function getCOptions() { 
 		return $this->m_coptions; 
@@ -72,14 +75,5 @@ class CForm {
 	public function getCControls() { 
 		return $this->m_ccontrols; 
 	} // end getCControls()
-	
-	public function getCForm($strname="", $params=NULL, $CFormType="CForm", $COptionsType="COptions", $CControlsType="CControls") {	
-		if (!$strname || $strname=="")
-			return NULL;		
-		$cform = new $CFormType($COptionsType,$CControlsType);
-		$strname = $this->getNameWithSuffix($strname);		
-		$cform->create($strname,$params);
-		return $cform;
-	} // end getCForm()
 } // end class CForm
 ?>

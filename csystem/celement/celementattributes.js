@@ -27,7 +27,6 @@ var CElementAttributes = new Class({
 			return false;
 		var jelement = null;
 		if( params === undefined ){
-			//alert( this.m_tag );
 			var element = document.createElement(this.m_tag);
 			jelement = jQuery( element );
 		} // end if
@@ -78,10 +77,8 @@ var CElementAttributes = new Class({
 	sevent : function(){ 
 		if( arguments.length < 2 )
 			return this;
-		alert( "handler: " + arguments[1] );
 		var cserverevent_obj = { strhandler:arguments[1] };
 		var cserverevent_handler = function(){
-			//alert( "handler: " + this.strhandler );
 		} // end cserverevent_handler()
 		cserverevent_handler = cserverevent_handler.bind( cserverevent_obj );
 		arguments[1]=cserverevent_handler;

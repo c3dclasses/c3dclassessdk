@@ -1,7 +1,7 @@
-//---------------------------------------------------------
+//------------------------------------------------------------------
 // file: cform.js
-// desc: defines the form used in the application
-//---------------------------------------------------------
+// desc: defines a form object for creating controls and options
+//------------------------------------------------------------------
 
 //---------------------------------------------------------
 // class: CForm
@@ -16,63 +16,54 @@ var CForm = new Class({
 		this.m_coptions = new window[COptionsType]();
 		this.m_ccontrols = new window[CControlsType]();	
 		this.m_params = null;
-		this.m_strname = "";
-		this.m_cmemoryid = "";
+		this.m_strid = "";
+		this.m_strcmemoryid = "";
 	}, // end initialize()
 	
 	create : function(strname, params) {
 		this.m_ccontrols.create(this);
 		this.m_coptions.create(this);
 		this.m_params = params;
-		this.m_strname = strname;
+		this.m_strid = strname;
 		return true;
 	}, // end create()
+		
+	setID : function(strid) {
+		this.m_strid = strid;
+	}, // end setID()
+		
+	getID : function() { 
+		return this.m_strid;
+	}, // end getID()
 	
-	use_memory : function (strcmemoryid){
-		this.m_cmemoryid = strcmemoryid;
-	}, // end use_memory()
+	setCMemoryID : function(strid) {
+		this.m_strcmemoryid = strid;
+		return;
+	}, // end setCMemoryID()
 	
-	getCMemoryID : function () {
-		return this.m_cmemoryid;
+	getCMemoryID : function() {
+		return this.m_strcmemoryid;
 	}, // end getCMemoryID()
-	
-	setName : function(strname) {
-		this.m_strname = strname;
-	}, // end setName()
-	
-	getName : function() { 
-		return this.m_strname;
-	}, // end getName()
 	
 	getParams : function() { 
 		return this.m_params; 
 	}, // end getParams()
-
-	getNameWithSuffix : function(strsuffix, strdelimiter) {
-		var fieldname = strsuffix;
-		strdelimiter = strdelimiter || "_";
-		if(this.m_strname && CForm_isFieldNameBounded())
-			fieldname = this.m_strname + strdelimiter + strsuffix;
-		return fieldname;
-	}, // end getNameWithSuffix()
 	
+	setParam : function(strname, value) { 
+		this.m_params = this.m_params || {}
+		this.m_params[strname] = value;		
+	}, // end setParam()
+	
+	getParam : function(strname) { 
+		var params = this.getParams();
+		return (params && params[strname]) ? params[strname] : null; 
+	}, // end getParam()
+
 	getCOptions : function() { 
 		return this.m_coptions; 
 	}, // end getCOtions()
 	
 	getCControls : function() { 
 		return this.m_ccontrols; 
-	}, // end getCControls()
-	
-	getCForm : function(strname, params, CFormType, COptionsType, CControlsType) {	
-		if (!strname || strname=="")
-			return NULL;		
-		CFormType = CFormType | "COptions";
-		COptionsType = COptionsType | "COptions";
-		CControlsType = CControlsType | "CControls";
-		var cform = new CFormType(COptionsType,CControlsType);
-		strname = this.getNameWithSuffix(strname);		
-		cform.create(strname, params);
-		return cform;
-	}, // end getCForm()	
+	} // end getCControls()
 }); // end CForm

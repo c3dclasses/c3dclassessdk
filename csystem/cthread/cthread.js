@@ -89,18 +89,22 @@ var CThread = new Class({
 	createContext : function( cthread ){
 		if( !cthread )
 			return false;
-			alert("create context");
+		
 		cthread.m_iid = CThread.m_icthread_count;
 		CThread.m_icthread_count++;
-		var objcontext=null; // get the current object context - what object does this thread belong to?
-		if( CThread.m_objcontext_cur ) 
-			objcontext = CThread.m_objcontext_cur;	
-		else if( CThread.m_cthread_cur && CThread.m_cthread_cur.m_objcontext )
+		
+		// get the current object context - what object does this thread belong to?
+		var objcontext = null; 
+		if( CThread.m_objcontext_cur )	// from the current object
+			objcontext = CThread.m_objcontext_cur;
+		else if( CThread.m_cthread_cur && CThread.m_cthread_cur.m_objcontext ) // from the current thread
 			objcontext = CThread.m_cthread_cur.m_objcontext;
-		else if( !objcontext )
+		else if(!objcontext) // no object context was set
 			return false;
-		this.m_objcontext.m_icthread_count++; // update the context
+			
+		// update the context
 		cthread.m_objcontext = objcontext;		
+		cthread.m_objcontext.m_icthread_count++;
 		return true;
 	}, // end createContext()
 	

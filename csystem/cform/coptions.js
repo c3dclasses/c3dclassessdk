@@ -1,19 +1,15 @@
 //---------------------------------------------------------
 // file: coptions.js
-// desc: defines the options of a form
+// desc: defines the options object of the form
 //---------------------------------------------------------
 
 //-----------------------------------------------------------------
 // name: COptions
-// desc: defines the options of a form
+// desc: defines the options object of the form
 //-----------------------------------------------------------------
 var COptions = new Class({
- 	initialize : function(){ this.m_cform = null; this.m_cmemoryid=""; },
+ 	initialize : function(){ this.m_cform = null; },
 	create : function(cform){ this.m_cform = cform; return true; },
-	use_memory : function (strcmemoryid){ this.m_cmemoryid = strcmemoryid; },
-	getCMemoryID : function () { return this.m_cmemoryid; },
-	bound : function(){ CForm_boundFieldName(true); return this; },
-	unbound : function(){ CForm_boundFieldName(false); return this; },
 	optionExists : function(strname) { return (this.processOption("get",strname) != null); }, 
 	removeOption : function(strname){ this.processOption("remove", strname); },
 	option : function() { 
@@ -28,11 +24,13 @@ var COptions = new Class({
 			return;
 		_params={};
 		_params["coption-operator"]=stroperator;
-		_params["coption-name"]=strname; 
-		_params["coption-id"]=this.m_cform.getNameWithSuffix(strname); 
+		_params["coption-name"]=strname;
 		_params["coption-value"]=strvalue;
 		_params["coption-params"]=params;
+		_params["cform-id"]=this.m_cform.getID();
+		_params["cmemory-id"]=this.m_cform.getCMemoryID();
 		return this.processParams(_params);
 	}, // end processOption()
+	// override this behavior to process the option
 	processParams : function(params){ return COptions_processParams(params); } 
 }); // end COptions

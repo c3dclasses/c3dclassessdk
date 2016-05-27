@@ -9,17 +9,12 @@ include_js(relname(__FILE__) . "/coptions.js");
 
 //-----------------------------------------------------------------
 // name: COptions
-// desc: defines options used by the cform 
+// desc: defines the options object of the form
 //-----------------------------------------------------------------
 class COptions {	
 	public $m_cform;
-	protected $m_cmemoryid;
-	public function COptions(){ $this->m_cform=NULL; $this->m_cmemoryid = "";}	
-	public function use_memory($strcmemoryid){ $this->m_cmemoryid = $strcmemoryid; } 
-	public function getCMemoryID() { return $this->m_cmemoryid; }
+	public function COptions(){ $this->m_cform=NULL; }	
 	public function create($cform){ $this->m_cform=$cform; }
-	public function bound(){ CForm_boundFieldName(true); return $this; }
-	public function unbound(){ CForm_boundFieldName(false); return $this; }
 	public function optionExists($strname){ return ($this->processOption("get",$strname) != NULL); } 
 	public function removeOption($strname){ $this->processOption("remove", $strname); }
 	public function option(){ 
@@ -34,10 +29,10 @@ class COptions {
 			return;
 		$_params["coption-operator"]=$stroperator;
 		$_params["coption-name"]=$strname; 
-		$_params["coption-id"]=$this->m_cform->getNameWithSuffix($strname); 
 		$_params["coption-value"]=$strvalue;
 		$_params["coption-params"]=$params;
-		$_params["cmemory-id"]=$this->getCMemoryID();
+		$_params["cform-id"]=$this->m_cform->getID();
+		$_params["cmemory-id"]=$this->m_cform->getCMemoryID();
 		return $this->processParams($_params);
 	} // end processOption()
 	// override this behavior to process the option

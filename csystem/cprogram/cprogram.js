@@ -26,13 +26,11 @@ var CProgram = new Class({
 			return true;
 		}, // end loadCPrograms()
 		mainCPrograms : function(){
-			//alert("running programs");
 			if( CProgram.m_cprograms == null )
 				return;
 			var cprograms = CProgram.m_cprograms._();
 			for( var name in cprograms ){	
 				CThread.loadContext(cprograms[name], cprograms[name].main);
-				//alert("programs");
 			} // end for
 		} // end mainPrograms()
 	} // end ClassMethods

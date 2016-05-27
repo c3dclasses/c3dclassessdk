@@ -21,7 +21,7 @@ class CArrayMemoryProgram extends CProgram{
 return <<<SCRIPT
 	printbr( "<b>carraymemory.js</b>" );
 	var cmemory = use_memory( "mymemory" );
-	_if( function(){ return ( cmemory.data() != null ); }, function(){ 		
+	_if( function(){ return ( cmemory.cache() != null ); }, function(){ 		
 		printbr( "Memory Before: ");
 		printbr( cmemory._toString() );
 		cmemory.create( "memory-3", "value-3", "string");

@@ -122,38 +122,4 @@ function __globalToString( $strglobalname ){
 		return "unserialize('".serialize($value)."')"; 
 	return $value;
 } // end __globalToString()
-/*
-var filename = (new Error).fileName;
-//alert( "This is the name of this script: " + filename);
-
-var scriptSource = (function() {
-    var scripts = document.getElementsByTagName('script');
-    var script = scripts[scripts.length - 1].src;
-    return script;//.substring(0, script.lastIndexOf('/')) + '/';
-}());
- 
-//alert(scriptSource);
-*/
-/*
-function __FILE__(){
-	return (new Error).fileName;
-} // end __FILE__()
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//-----------------------------------------------------------------
-// name: helper functions
-// desc: 
-//-----------------------------------------------------------------
-
-function functionToString( _function ){ 
-	return "" + _function;
-} // end functionToString()
-
-function stringToFunction( strfunction ){ 
-	return;
-} // end stringToFunction()
-
-*/
 ?>

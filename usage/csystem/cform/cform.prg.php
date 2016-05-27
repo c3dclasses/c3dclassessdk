@@ -20,22 +20,23 @@ class CFormProgram extends CProgram{
 	public function c_main(){
 return <<<SCRIPT
 	printbr( "<b>cform.js</b>" );
+	
+	// creating the cform
+	printbr("CForm");
 	var cform = new CForm();
-	cform.create("cformprogram-php");	
-	printbr(cform.getName());
+	cform.create("cformprogram-js");	
+	printbr(cform.getID());
+	printbr();
 	
 	// using coptions
 	printbr("COptions");
 	coptions = cform.getCOptions();
-	printbr(coptions.option("control1"));
-	printbr(coptions.option("control2"));
-	printbr(coptions.option("control3"));
-	printbr(coptions.option("control4"));
-	printbr(coptions.option("control5"));
-	printbr(coptions.option("control6"));
+	printbr("control1:" + coptions.option("control1"));
+	printbr("control2:" + coptions.option("control2"));
+	printbr("control3:" + coptions.option("control3"));
+	printbr("control4:" + coptions.option("control4"));
 	printbr();
 	
-	/*
 	// using ccontrols
 	printbr("CControls");
 	var ccontrols = cform.getCControls();	
@@ -43,9 +44,10 @@ return <<<SCRIPT
 	echo(ccontrols.label("control1", "Control1: "));
 	echo(ccontrols.text("control1", "This is my Text Control"));
 	printbr();
-	ccontrols.unbound();
+	var id = cform.getID();
+	cform.setID("");
 	echo(ccontrols.hidden("cprogramtype","CFormProgram"));
-	ccontrols.bound();
+	cform.setID(id);
 	echo(ccontrols.label("control2", "Control2 with attributes: "));
 	ccontrols.set("data-attr1", "value1");
 	ccontrols.set("data-attr2", "value2");
@@ -63,32 +65,32 @@ return <<<SCRIPT
 	echo(ccontrols.label("control4", "Control7 select control: "));
 	echo(ccontrols.select( "control4", "HELLO3", {"HELLO5":"WORLD5", "HELLO1":"WORLD1","HELLO2":"WORLD2","HELLO3":"WORLD3"}));
 	printbr();
-	echo(ccontrols.button("control5", "Delete Button"));		
+	echo(ccontrols.button("control5", "Control5"));		
 	printbr();
-	echo(ccontrols.submit("Control6", "Submit Button"));
+	echo(ccontrols.submit("control6", "Control6"));
 	echo(ccontrols.endform());
 	printbr();
-	printbr("COptions");
-	*/
 SCRIPT;
 	} // end c_main()
 	
 	public function innerhtml(){
 ob_start();
 	printbr( "<b>cform.php</b>" );
+	
+	// creating the cform
+	printbr("CForm");
 	$cform = new CForm();
 	$cform->create("cformprogram-php");	
-	printbr($cform->getName());
-
+	printbr($cform->getID());
+	printbr();
+	
 	// using options
 	printbr("COptions");
 	$coptions = $cform->getCOptions();
-	printbr($coptions->option("control1"));
-	printbr($coptions->option("control2"));
-	printbr($coptions->option("control3"));
-	printbr($coptions->option("control4"));
-	printbr($coptions->option("control5"));
-	printbr($coptions->option("control6"));
+	printbr("control1:" . $coptions->option("control1"));
+	printbr("control2:" . $coptions->option("control2"));
+	printbr("control3:" . $coptions->option("control3"));
+	printbr("control4:" . $coptions->option("control4"));
 	printbr();
 	
 	// using controls
@@ -98,9 +100,10 @@ ob_start();
 	echo $ccontrols->label("control1", "Control1: ");
 	echo $ccontrols->text("control1", "This is my Text Control");
 	printbr();
-	$ccontrols->unbound();			
+	$id = $cform->getID();
+	$cform->setID("");
 	echo $ccontrols->hidden("cprogramtype","CFormProgram");
-	$ccontrols->bound();
+	$cform->setID($id);
 	echo $ccontrols->label("control2", "Control2 with attributes: ");
 	$ccontrols->set("data-attr1", "value1");
 	$ccontrols->set("data-attr2", "value2");
@@ -118,9 +121,9 @@ ob_start();
 	echo $ccontrols->label("control4","Control4 select control: ");
 	echo $ccontrols->select("control4","HELLO3",array("HELLO5"=>"WORLD5","HELLO1"=>"WORLD1","HELLO2"=>"WORLD2","HELLO3"=>"WORLD3") );
 	printbr();
-	echo $ccontrols->button("control5", "Delete Button");		
+	echo $ccontrols->button("control5", "Control5");		
 	printbr();
-	echo $ccontrols->submit("Control6", "Submit Button");
+	echo $ccontrols->submit("Control6", "Control6");
 	echo $ccontrols->endform();
 	printbr();
 return ob_end();

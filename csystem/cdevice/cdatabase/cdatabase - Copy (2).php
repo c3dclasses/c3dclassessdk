@@ -37,7 +37,6 @@ class CDatabase extends CResource {
 		} // end if
 		$this->m_db = $db; 
 		$this->m_strdatabase = $strdatabase; 
-		//alert("opened database");
 		return true;	
 	} // end open()
 	
@@ -110,7 +109,6 @@ class CTableMemory extends CMemory{
 				if(!$tables_primary_key)
 					$tables_primary_key=array();
 				
-				//alert($table_name);
 				if(!isset($tables_primary_key[$table_name])){
 					$table_info_result = mysql_query("SHOW COLUMNS FROM $table_name");
 					$tables_primary_key[$table_name]="";

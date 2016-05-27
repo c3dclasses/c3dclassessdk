@@ -161,7 +161,6 @@ function CONDITION_PART( $node, $cparser, $terminateTokenType=NULL ){
 //------------------------------------------------------
 function BODY_PART( $node, $cparser, $terminateTokenType=NULL ){
 	if( !$cparser->accept( "{" ) ){
-		alert("doing statement part");
 		return NULL;//STATEMENT_PART( $node, $cparser, $terminateTokenType );
 	}
 	$node->add( $cparser->token(-1)->setTranslation("{"));

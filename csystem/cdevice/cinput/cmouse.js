@@ -201,8 +201,7 @@ var CMouse = new Class({
 		// desc: 
 		//---------------------------------------------
 		onDragEnd : function(evt){
-			alert("on drag end");
-	        this.update(evt, 3);
+			this.update(evt, 3);
 	        this.m_bcapture = false;
 	 	}, // end onDrag
 		
@@ -257,7 +256,6 @@ var CMouse = new Class({
 		// desc: handler to call if a mouse is used
 		//-------------------------------------------------------
 		onContextMenu : function( evt ){
-			//alert("context menu");
 			return this.m_bshowcontextmenu;
 		} // end onContextyMwenu()
 	} // end ClassMethods

@@ -61,7 +61,7 @@ return ob_end();
 	public static function cevent_handler( $params ){
 		sleep(2);
 		$params["param1"] .= " Modified from Server";
-		return $params;
+		return $params; 
 	} // end cevent_handler()
 } // end CEventProgram
 

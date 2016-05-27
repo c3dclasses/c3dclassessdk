@@ -85,22 +85,13 @@ function _print( str, dst ){
 		return;
 	} // end if
 	
-	if( !dst ){ 
-		//document.write( document.body.innerHTML + str ); 
-		//document.body.innerHTML += str; 
+	if(!dst){ 
 		dst = "#ckernal-output";
-		console.log(CThread.m_objcontext_cur);
-		if(CThread.m_objcontext_cur);
+		if(CThread.m_objcontext_cur) 
 			dst = CThread.m_objcontext_cur.jq();
-		//return; 
+		else if( CThread.m_cthread_cur && CThread.m_cthread_cur.m_objcontext)
+			dst = CThread.m_cthread_cur.m_objcontext.jq();
 	} // end if	
-	
-	/*
-	if( CObqueue != null && CObqueue.m_bstart == true ){
-		CObqueue.m_buffer += str
-		return;
-	} // end if
-	*/
 	
 	var node = jQuery(dst);
 	node.html(node.html()+str); 
@@ -200,10 +191,10 @@ function buildHTMLCloseTag( strtagname ){
 	return "</"+strtagname+ ">";
 } // buildHTMLClosingTag()
 
-//------------------------------------
+//--------------------------------------------
 // name: ob_start()
-// desc: 
-//------------------------------------
+// desc: start sending output to a buffer
+//--------------------------------------------
 var ob_start_stack = [];
 var ob_output = "";
 var ob_started = false;
@@ -216,10 +207,10 @@ function ob_start() {
 	return;
 } // end ob_start()
 
-//------------------------------------
+//---------------------------------------
 // name: ob_end()
-// desc: 
-//------------------------------------
+// desc: returns the accumulated output
+//---------------------------------------
 function ob_end() {
 	var ret = ob_output;
 	if(ob_start_stack.length > 0)
@@ -227,3 +218,22 @@ function ob_end() {
 	else ob_started = false;
 	return ret;
 } // end ob_end()
+
+//--------------------------------------------
+// name: ob_end_queue()
+// desc: dumps the output contents to a queue
+//--------------------------------------------
+var ob_queues = {};
+function ob_end_queue(queueid){
+	if( !ob_queues[queueid] )
+		ob_queues[queueid] = "";
+	ob_queues[queueid] += ob_end();
+} // end ob_end_queue()
+
+//--------------------------------------------------------------
+// name: ob_queue_dump()
+// desc: dumps the contents of the queue
+//--------------------------------------------------------------
+function ob_queue_dump( strid ){
+	return (!strid || !ob_queues[strid])  ? "" : !ob_queues[strid];	
+} // end ob_queue_dump()

@@ -141,7 +141,6 @@ class CTokenizer {
 			// find the begining pattern of the token
 			$length = strlen( $ctokentype->m_strbegin );
 			if( substr( $this->m_strinput, $i, $length ) == $ctokentype->m_strbegin ){
-				//alert("found begining: " .  $ctokentype->m_strbegin );
 				if( $ctokentype->m_strend == "" )	// found the single-part token
 					return array( "epos"=>($i + $length), "type"=>$ctokentype->m_strtype ); // return the position
 				
