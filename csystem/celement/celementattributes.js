@@ -113,9 +113,9 @@ var CElementAttributes = new Class({
 	// desc: helpers that return jquery, mootools, yui objects
 	//------------------------------------------------------------
 	getEventHandlers : function( strevent ){ return ( this.m_element==null || (data = jQuery.data( this.m_element, 'events' )) == null || data[strevent]==null ) ? null : data[strevent]; },
-	jq : function(param){ return jquery(param); },
+	jq : function(param){ return this.jquery(param); },
 	jquery : function(param){ return (!this.m_jelement) ? null : ( (!param) ? this.m_jelement : this.m_jelement.find(param) ); },
-	mt : function(param){ return return mootools(param); },
+	mt : function(param){ return return this.mootools(param); },
 	mootools : function(param){ return (!this.m_element || !Element) ? null : new Element(this.m_element); },
 	yui : function(param){},
 	_toString : function(){}
