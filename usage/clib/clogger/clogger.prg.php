@@ -5,8 +5,8 @@
 //---------------------------------------------------------------------------
 
 // includes
-include_program("CLoggerProgram");
-include_logger( dirname(__FILE__) . "/clogger.cfg.xml" );
+//include_program("CLoggerProgram");
+//include_logger( dirname(__FILE__) . "/clogger.cfg.xml" );
 
 //---------------------------------------------------
 // name: CLoggerProgram
