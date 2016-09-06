@@ -20,7 +20,9 @@ class CJSONMemoryProgram extends CProgram{
 return <<<SCRIPT
 	printbr( "<b>cjsonmemory.js</b>" );
 	var cmemory = use_memory( "cjsonmemory" );
-	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
+	cmemory.syncInterval(10000);
+	
+	_if( function(){ return ( cmemory.cache() != null ); }, function(){ 
 		printbr( "Memory Before: ");
 		cmemory.create( "memory-3", "value-3", "string");
 		printbr( cmemory._toString() );

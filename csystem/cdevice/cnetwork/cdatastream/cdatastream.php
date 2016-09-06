@@ -116,6 +116,15 @@ class CDataStream{
 			return $this->m_cdatastreamserver->send();		
 		return FALSE;		
 	} // end send()
+
+	public function send_creturn() {
+		if(!$this->send())
+			return NULL;
+		
+		
+		
+	} // end send_creturn()
+	
 	public function received(){
 		if( $this->m_cdatastreamclient ) 
 			return $this->m_cdatastreamclient->received();	

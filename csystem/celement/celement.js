@@ -37,8 +37,8 @@ var CElement = new Class({
 	html : function(){ if(!this.m_jelement) return this; if( arguments.length == 0 ) return this.m_jelement.html(); this.m_jelement.html( arguments[0] ); return this; }, 
 	name : function(){ if( arguments.length == 0 ) return this.attr( "name" ); this.attr( "name", arguments[0] ); return this; },
 	content : function(){ return this.m_content; },
-	filename : function(){ return this.m_filename; },
-	urifilename : function(){ return this.m_urifilename; },
+	//filename : function(){ return this.m_filename; },
+	//urifilename : function(){ return this.__URIFILE__; },
 	
 	// padding, margins, border
 	padding:function(prop){if(!this.m_jelement)return this;if(arguments.length==1)return this.m_jelement.padding()[prop];var obj={};obj[prop]=arguments[1];this.m_jelement.padding(obj);return this; },

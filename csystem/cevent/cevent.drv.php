@@ -15,10 +15,12 @@ function CEvent_isEmpty(){
 	return ( $_REQUEST == NULL || isset( $_REQUEST["cevent"] ) == false );
 } // end CEvent_isEmpty()
 	
-function CEvent_dispatch(){
+function CEvent_dispatch($streventnametocheck=""){
 	if( CEvent_isEmpty() )
 		return NULL;
 	$streventname = $_REQUEST["cevent_name"];
+	if($streventnametocheck != "" && $streventnametocheck != $streventname)
+		return NULL;
 	$iscdatastream = isset( $_REQUEST["m_bcdatastream"] );
 	$params = $_REQUEST;
 	$params = fire_event( $streventname, $params );

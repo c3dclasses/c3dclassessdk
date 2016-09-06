@@ -18,9 +18,14 @@ function docroot(){
 	//return "NA";
 	return CPath._("main");
 } // end docroot()
+/*
+function dirname( path ){
+	return path.replace(/\\/g, '/').replace(/\/[^\/]*\/?/, '');
+} // end dirname()
+*/
 
 function dirname( path ){
-	return path.replace(/\\/g, '/').replace(/\/[^\/]*\/?/, '');;
+	return (path) ? path.replace( /\\/g, '/' ).replace( /\/[^\/]*$/, '' ) : "";
 } // end dirname()
 
 // returns the path of the c3dclassessdk path

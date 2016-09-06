@@ -32,9 +32,9 @@ class CUnitTest extends UnitTestCase {
 		return true;
 	} // end create()
 	
-	public function testCUnitTestClass() {
-        $this->assertTrue(1==1);	
-    } // end testCUnitTestClass()
+	//public function testCUnitTestClass() {
+        //$this->assertTrue(1==1);	
+    //} // end testCUnitTestClass()
 	
 	// register the test
 	public static function 	register( $cunittesttype, $params=NULL ){

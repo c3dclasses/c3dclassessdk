@@ -9,16 +9,16 @@
 //-------------------------------------------------------
 var CResource = new Class({
 	// members
-	intialize : function() { 
+	initialize : function() { 
 		this.m_hashparams=null;
-	}, // end CImage() 
+	}, // end CResource() 
 	
 	open : function( strpath, params ) {
 		this.m_hashparams = new CHash();
 		if( !this.m_hashparams )
 			return false;
 		this.m_hashparams.create( params );
-		this.m_hashparams.set( "cresource_path", strpath );
+		this.m_hashparams.set("cresource_path", strpath);
 		return true;
 	}, // end open()
 	
@@ -34,27 +34,38 @@ var CResource = new Class({
 		return this.m_hashparams;
 	}, // end getParams()
 	
+	param : function(strname){
+		return ( this.m_hashparams ) ? this.m_hashparams.get(strname) : ""; 
+	}, // end params
+
 	path : function(){
-		return ( this.m_hashparams ) ? this.m_hashparams.get( "cresource_path" ) : ""; 
+		return this.param( "cresource_path" ); 
 	}, // end path()
+	
+	type : function(){
+		return this.param("cresource_type"); 
+	}, // end path()
+	
+	id : function(){
+		return this.param("cresource_id"); 
+	}, // end id()
 	
 	updateParams : function(params){
 		if( params && this.m_hashparams)
-			for(key in params)
+			for( var key in params )
 				this.m_hashparams.set( key, params[key] );
 	}, // end updateParams()
-
-	ClassMethods : {
-		m_hashpathtoresource : null,
-		m_hashidtoresource : null,
-		
+	
+	/////////////////////////
+	// class methods
+	
+	ClassMethods: {
+		m_hashpathtoresource : null,	// stores the "filepath" -> resource
+		m_hashidtoresource : null,	// stroes the "identifier" -> resource
+	
 		_getByPath : function( strpath ){
-			return (CResource.m_hashpathtoresource) ? CResource.m_hashpathtoresource.get(strpath) : null;
+			return (CResource.m_hashpathtoresource) ? CResource.m_hashpathtoresource.get( strpath ) : null;
 		}, // end _getByPath()
-		
-		_getByID : function( strid ){
-			return (CResource.m_hashidtoresource) ? CResource.m_hashidtoresource.get(strid) : null;
-		}, // end _getByID()
 	
 		_addByPath : function( strpath, cresource ){
 			if( CResource.m_hashpathtoresource == null )
@@ -64,7 +75,11 @@ var CResource = new Class({
 				return true;
 			} // end if
 			return false;			
-		}, // end _addByPath
+		}, // end _addByPath()
+		
+		_getByID : function( strid ){
+			return (CResource.m_hashidtoresource) ? CResource.m_hashidtoresource.get( strid ) : null;
+		}, // end _getByID()
 	
 		_addByID : function( strid, cresource ){
 			if( CResource.m_hashidtoresource == null )
@@ -74,9 +89,10 @@ var CResource = new Class({
 				return true;
 			} // end if
 			return false;
-		}, // end _addByID
+		}, // end _addByID()
 	
 		_register : function( strid, strpath, params ){
+			var cresource = null;
 			if( strid && ( cresource = CResource._getByID( strid ) ) ){
 				cresource.updateParams( params );
 				return cresource;
@@ -87,9 +103,15 @@ var CResource = new Class({
 				return cresource;
 			} // end if
 			var strtype = params["cresource_type"];
+			alert(strtype);
+			
 			if( strtype == "" || (cresource = new window[strtype]()) == null || cresource.open( strpath, params ) == false ){
 				return null; 	
 			} // end if
+			
+			console.log("cresource: of type: " + strtype + " id: " + strid);
+			console.log(cresource);
+			
 			CResource._addByID( strid, cresource );
 			CResource._addByPath( strpath, cresource );		
 			return cresource;

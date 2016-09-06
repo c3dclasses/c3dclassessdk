@@ -7,6 +7,7 @@
 // includes
 include_once("cinput/cinput.php");
 include_once("cmemory/cmemory.php");
+include_once("cmemory2/cmemory2.php");
 include_once("cnetwork/cdatastream/cdatastream.php");
 include_once("cdatabase/cdatabase.php");
 include_once("cdatabase/ctable.php");

@@ -1,7 +1,7 @@
 <?php
 //---------------------------------------------------------------------------
-// name: ctokenizer.php
-// desc: 
+// file: ctokenizer.php
+// desc: responsible converting the file into tokens 
 //---------------------------------------------------------------------------
 
 // constants
@@ -176,9 +176,11 @@ class CTokenizer {
 		return $this->m_strinput;
 	} // end getInput()
 	
-	public function printTokens(){
+	public function toString(){
+		$str="";
 		foreach( $this->m_ctokens as $index => $ctoken )
-			printbr( $index . ". (" . $ctoken->m_strtype  . ") -> " . $ctoken->toString( $this->m_strinput ) );
+			$str .= $index . ". (" . $ctoken->m_strtype  . ") -> " . $ctoken->toString($this->m_strinput) . "<br />";
+		return $str;
 	} // end printTokens()
 } // end CTokenizer
 ?>

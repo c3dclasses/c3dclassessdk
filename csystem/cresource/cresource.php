@@ -42,16 +42,30 @@ class CResource {
 		return $this->m_hashparams;
 	} // end getParams()
 	
+	public function param($strname){
+		return ( $this->m_hashparams ) ? $this->m_hashparams->get($strname) : ""; 
+	} // end params
+	
+	
 	public function path(){
-		return ( $this->m_hashparams ) ? $this->m_hashparams->get( "cresource_path" ) : ""; 
+		return $this->param( "cresource_path" ); 
 	} // end path()
+	
+	public function type(){
+		return $this->param("cresource_type"); 
+	} // end path(
+	
+	public function id(){
+		return this.param("cresource_id"); 
+	} // end id()
 	
 	public function updateParams($params){
 		if( $params && $this->m_hashparams)
 			foreach( $params as $key => $value )
 				$this->m_hashparams->set( $key, $value );
 	} // end updateParams()
-	// static methods
+	/////////////////////////
+	// class methods
 	protected static function _getByPath( $strpath ){
 		return (CResource :: $m_hashpathtoresource) ? CResource :: $m_hashpathtoresource->get( $strpath ) : NULL;
 	} // end _getByPath()
@@ -106,12 +120,12 @@ class CResource {
 	} // end toStringVisit()
 } // end CResource
 
-function include_resource( $strid, $strpath, $params ){
+function include_resource($strid, $strpath, $params){
 	return CResource :: _register( $strid, $strpath, $params );
-} // end includeiofile()
+} // end include_resource()
 
 function use_resource($strid){
 	$cresource = CResource :: _getByID( $strid );
 	return $cresource;
-} // end includeiofile()
+} // end use_resource()
 ?>

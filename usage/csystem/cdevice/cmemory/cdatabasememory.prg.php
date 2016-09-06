@@ -7,7 +7,7 @@
 // includes
 include_program( "CDatabaseMemoryProgram" );
 //include_memory( "cdatabasememory", "localhost/c3dclassessdk/cdatabasememory", "CDatabaseMemory", array("username"=>"root", "password"=>"") );
-include_memory( "cdatabasememory", "localhost/prac/cdatabasememory", "CDatabaseMemory", array("username"=>"root", "password"=>"") );
+//include_memory( "cdatabasememory", "localhost/prac/cdatabasememory", "CDatabaseMemory", array("username"=>"root", "password"=>"","client"=>true ) );
 
 
 //---------------------------------------------------
@@ -23,7 +23,7 @@ class CDatabaseMemoryProgram extends CProgram{
 return <<<SCRIPT
 	printbr( "<b>cdatabasememory.js</b>" );
 	var cmemory = use_memory( "cdatabasememory" );
-	_if( function(){ return ( cmemory.data() != null ); }, function(){ 
+	_if( function(){ return ( cmemory.cache() != null ); }, function(){ 
 		printbr( "Memory Before: ");
 		cmemory.create( "memory-3", "value-3", "string");
 		printbr( cmemory._toString() );

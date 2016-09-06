@@ -6,7 +6,6 @@
 //       that.    
 //---------------------------------------------------------------------------------
 
-// includes
 //----------------------------------------------------------------
 // class: CDataStream
 // desc: defines a datastream object
@@ -163,7 +162,8 @@ var CDataStream = new Class({
         	} // end statusCode
         }); // end jQuery.ajax()
 		if (!xhr)
-			return null;
+			return null;	
+		
 		xhr.error(CDataStream.error.bind(this));	// more callbacks
 		xhr.fail(CDataStream.fail.bind(this));
 		xhr.done(CDataStream.done.bind(this));

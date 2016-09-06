@@ -52,8 +52,8 @@ class CElement extends CElementAttributesEx{
 	public function 	content(){ return $this->m_content; }
 	
 	// filename / paths	
-	public function		filename(){ return $this->prop( "m_filename" ); }
-	public function		urifilename(){ return $this->prop( "m_urifilename" ); }
+	//public function		filename(){ return $this->prop( "m_filename" ); }
+	//public function		urifilename(){ return $this->prop( "__URIFILE__" ); }
 	
 	// padding, margins, border
 	public function 	padding( $strloc ){$prop="padding-".$strloc; if(func_num_args()==1)return $this->css($prop); $this->css($prop,func_get_arg(1)); return $this; }	
@@ -224,9 +224,8 @@ class CElement extends CElementAttributesEx{
 		$this->name( $strclassname . "_" . $iid );
 		$this->id( $strclassname . "_" . $iid );
 		$this->attr( "classtype", $strthisclassname );
-		$this->prop( "m_filename", $strfilename );
-		$this->prop( "m_urifilename", urlfile( basename( $strfilename ), $strfilename ) );
-		$this->prop( "__FILE__", $this->prop( "m_urifilename" ) );
+		$this->prop( "__FILE__", $strfilename );
+		$this->prop( "__URIFILE__", urlfile( basename( $strfilename ), $strfilename ) );
 		$this->tag("div", true);
 		$this->html("");
 		$this->state("0");

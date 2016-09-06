@@ -5,8 +5,8 @@
 //---------------------------------------------------------------------------
 
 // includes
-include_program( "CArrayMemoryProgram" );
-include_array_memory( "mymemory", "session", $_SESSION, array("client"=>true));
+include_program("CArrayMemoryProgram");
+include_array_memory("mymemory", "session", $_SESSION, array("client"=>true));
 
 //---------------------------------------------------
 // name: CArrayMemoryProgram
@@ -21,7 +21,7 @@ class CArrayMemoryProgram extends CProgram{
 return <<<SCRIPT
 	printbr( "<b>carraymemory.js</b>" );
 	var cmemory = use_memory( "mymemory" );
-	_if( function(){ return ( cmemory.cache() != null ); }, function(){ 		
+	_if(function(){ return ( cmemory.cache() != null ); }, function(){ 		
 		printbr( "Memory Before: ");
 		printbr( cmemory._toString() );
 		cmemory.create( "memory-3", "value-3", "string");
@@ -31,8 +31,22 @@ return <<<SCRIPT
 		printbr( cmemory._toString() );
 		this._return();
 	})._endif();
+	
+	printbr();
+	
+	cmemory.syncInterval(10000);
+	
+	// testing the sync function for every second
+	/*setInterval( function() {
+		var creturn = cmemory.sync();
+		_if(function(){ return creturn.isdone();}, function(){
+			printbr("cmemory.sync()");
+			printbr( cmemory._toString() );
+		})._endif();
+	}, 15000 );
+	*/
 SCRIPT;
-	} // end load()
+	} // end c_main()
 	
 	public function innerhtml(){
 ob_start();

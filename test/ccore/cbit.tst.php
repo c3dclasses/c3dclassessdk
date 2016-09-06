@@ -3,15 +3,21 @@
 // name: cbitarray.tst.php
 // desc: test the cbitarray class
 //---------------------------------------------------------------------------
-
+include_unittest("CUnitTest2");
+class CUnitTest2 extends CUnitTest {
+	public function testMyStuff(){
+		$this->assertTrue(NULL == NULL);
+		
+	} // end testMyStuff
+}
 //---------------------------------------------------
-// name: CBitArrayUnitTest
+// name: CBitUnitTest
 // desc: hello world program
 //---------------------------------------------------
-include_unittest("CBitArrayUnitTest");
-class CBitArrayUnitTest extends CUnitTest{
+include_unittest("CBitUnitTest");
+class CBitUnitTest extends CUnitTest{
 	// rendering methods
-	public function testCBitArray(){
+	public function testCBit(){
 		$cbitarray = new CBitArray();
 		$this->assertTrue($cbitarray != NULL);
 		$this->assertTrue($cbitarray->create(56) != false);
@@ -33,21 +39,21 @@ class CBitArrayUnitTest extends CUnitTest{
 		$this->assertTrue($cbitarray2->createFromString( $cbitarray->toDecimalString() ) != false);
 		$this->assertTrue($cbitarray->toBinaryString()==$cbitarray->toBinaryString());
 		$this->assertTrue($cbitarray2->toDecimalString()==$cbitarray->toDecimalString());
-	} // end testCBitArray()
-} // end CBitArrayUnitTest
+	} // end testCBit()
+} // end CBitUnitTest
 ob_start();
 ?>
 <script parse="true" location="footer">
 //---------------------------------------------------
-// name: CBitArrayUnitTest
+// name: CBitUnitTest
 // desc: hello world program
 //---------------------------------------------------
-include_unittest("CBitArrayUnitTest");
-var CBitArrayUnitTest = new Class ({ 
+include_unittest("CBitUnitTest");
+var CBitUnitTest = new Class ({ 
 	// meta data
     Extends: CUnitTest,  
 	// rendering methods
-	testCBitArray : function(){
+	testCBit : function(){
 		var cbitarray = new CBitArray();
 		this.assertTrue(cbitarray != null);
 		this.assertTrue(cbitarray.create(56) != false);
@@ -69,8 +75,8 @@ var CBitArrayUnitTest = new Class ({
 		this.assertTrue(cbitarray2.createFromString( cbitarray.toDecimalString() ) != false);
 		this.assertTrue(cbitarray2.toBinaryString()==cbitarray.toBinaryString());
 		this.assertTrue(cbitarray2.toDecimalString()==cbitarray.toDecimalString());
-	} // end testCBitArray()
-}); // end CBitArrayUnitTest
+	} // end testCBit()
+}); // end CBitUnitTest
 </script><!-- end script -->
 <?php
 ob_end_queue("body");	// put this code in the script queue to be rendered later
