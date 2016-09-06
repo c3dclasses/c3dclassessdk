@@ -21,7 +21,7 @@ return <<<SCRIPT
 	printbr("<b>carray.js</b>");
     var a = new Array();
     a.push(8);
-    printbr("Length: " + a.length); 
+    printbr("Length: " + a.length);
     a.push(10, 20, 30);
     printbr("Length: " + a.length);
     printbr(a.toString());
@@ -69,7 +69,11 @@ ob_start();
 	printbr("<b>carray.php</b>");
     $a = new CArray();
     $a->push(8);
+<<<<<<< .mine
     printbr("Length: " . $a->length()); 
+=======
+    printbr("Length: " . $a->length());
+>>>>>>> .theirs
     $a->push(10, 20, 30);
     printbr("Length: " . $a->length());
     printbr($a->toString());

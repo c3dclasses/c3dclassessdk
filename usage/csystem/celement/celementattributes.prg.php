@@ -9,7 +9,7 @@ include_program( "CElementAttributesProgram" );
 
 //---------------------------------------------------
 // name: CElementAttributesProgram
-// desc: celementattributesex program demo
+// desc: celementattributes program demo
 //---------------------------------------------------
 class CElementAttributesProgram extends CProgram{
 	public function CElementAttributesProgram(){ 
@@ -18,12 +18,14 @@ class CElementAttributesProgram extends CProgram{
 	
 	public function c_main(){ 
 return <<<JSCRIPT
+    printbr("<b>celementattributes.js</b>");
 JSCRIPT;
 	} // end c_main()
 	
 	// rendering methods
 	public function innerhtml(){
 ob_start();
+    printbr("<p>celementattributes.php</b>");
 return ob_end();
 	} // end innerhtml()
 } // end CElementAttributesProgram
