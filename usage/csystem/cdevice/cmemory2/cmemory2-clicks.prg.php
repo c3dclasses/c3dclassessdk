@@ -6,6 +6,8 @@
 
 // includes
 include_program("CMemoryProgram2_Clicks");
+include_memory2("testmemory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
+				
 
 //---------------------------------------------------
 // name: CMemoryProgram2_Clicks
@@ -20,7 +22,7 @@ class CMemoryProgram2_Clicks extends CProgram{
 return <<<SCRIPT
 		printbr("<b>cmemory.js</b>");
 		
-		include_remote_memory2("testmemory", dirname(this.__FILE__) + "/cjsonmemory.json", "CJSONMemoryDriver");
+		//include_remote_memory2("testmemory", dirname(this.__FILE__) + "/cjsonmemory.json", "CJSONMemoryDriver");
 		var cmemory = use_memory2("testmemory");
 		
 		// create 
@@ -68,7 +70,7 @@ return <<<SCRIPT
 			})._endif();
 		}); // end .click()
 		
-		
+		// delete
 		$("#delete").click(function(){
 			var name = window.prompt("Please enter memory location name", "default_name");
 			if(!name)
@@ -81,6 +83,7 @@ return <<<SCRIPT
 			})._endif()
 		}); // end .click()		
 		
+		// sync
 		$("#sync").click(function(){
 			var _return = cmemory.sync();
 			var _r1 = _if(function(){return _return.isdone();}, function(){
@@ -93,8 +96,20 @@ return <<<SCRIPT
 				alert("done with the sync command now run this");
 				this._return();
 			})._endif();
-			
-			
+		}); // end .click()
+		
+		// get
+		$("#get").click(function(){
+			var name = window.prompt("Please enter memory location name", "default_name");
+			_print("cmemory.get() = ");
+			print_r(cmemory.get(name))	
+			printbr();
+		}); // end .click()
+		
+		// print
+		$("#print").click(function(){
+			printbr("cmemory._toString() = " + cmemory._toString());		
+			printbr();
 		}); // end .click()
 SCRIPT;
 	} // end c_main()
@@ -109,6 +124,8 @@ ob_start();
 		printbr("<button id=\"retrieve\">cmemory.retreive()</button>");
 		printbr("<button id=\"update\">cmemory.update()</button>");
 		printbr("<button id=\"delete\">cmemory.delete()</button>");
+		printbr("<button id=\"get\">cmemory.get()</button>");
+		printbr("<button id=\"print\">cmemory._toString()</button>");
 return ob_end();
 	} // end innerhtml()
 } // end CMemoryProgram

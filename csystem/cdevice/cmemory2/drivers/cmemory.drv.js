@@ -19,10 +19,8 @@ var CMemoryDriver = new Class({
 	update: function(cvar) { return null; }, 
 	delete: function(strname) { return null; },
 	sync: function(cache) { return null; },
-		
 	/////////////////////////
-	// class methods
-	
+	// class methods	
 	ClassMethods: {
 		/////////////////////////
 		// opening and closing
@@ -180,7 +178,6 @@ var CMemoryDriver = new Class({
 				this._return();
 			})._elseif(function(){ return _driver_return.iserror(); }, function() {
 				_return.done([false]);
-				alert("sync false4");
 				this._return();
 			})._endif();
 			return _return;

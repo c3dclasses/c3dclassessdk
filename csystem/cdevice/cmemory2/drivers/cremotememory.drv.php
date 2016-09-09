@@ -6,7 +6,6 @@
 
 // includes
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
-include_event("oncremotememorydriver", "oncremotememorydriver_handler"); 
 
 //----------------------------------------------------------------
 // class: CRemoteMemoryDriver
@@ -78,8 +77,9 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 
 //------------------------------------------------------------
 // name: oncremotememorydriver_handler()
-// desc: sets up the event handler to 
+// desc: sets up the event handler to process remote memory
 //------------------------------------------------------------
+include_event("oncremotememorydriver", "oncremotememorydriver_handler"); 
 function oncremotememorydriver_handler($params) {
 	// check params
 	if(!$params||
@@ -130,5 +130,5 @@ function oncremotememorydriver_handler($params) {
 	} // end if
 	
 	return NULL;	
-} // end oncmemory()
+} // end oncremotememorydriver_handler()
 ?>

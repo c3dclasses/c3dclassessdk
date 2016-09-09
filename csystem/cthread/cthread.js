@@ -69,7 +69,6 @@ var CThread = new Class ({
 		this.unlock(); 
 		if(this.m_creturn) {
 			this.m_creturn.done();
-			alert("done");
 			this.m_creturn = null;
 		} // end if
 	}, // end exit()

@@ -66,7 +66,7 @@ class CResource {
 	} // end updateParams()
 	/////////////////////////
 	// class methods
-	protected static function _getByPath( $strpath ){
+	public static function _getByPath( $strpath ){
 		return (CResource :: $m_hashpathtoresource) ? CResource :: $m_hashpathtoresource->get( $strpath ) : NULL;
 	} // end _getByPath()
 	
@@ -125,7 +125,9 @@ function include_resource($strid, $strpath, $params){
 } // end include_resource()
 
 function use_resource($strid){
-	$cresource = CResource :: _getByID( $strid );
+	$cresource = CResource :: _getByID($strid);
+	if(!$cresource)
+		$cresource = CResource :: _getByPath( $strid );
 	return $cresource;
 } // end use_resource()
 ?>

@@ -24,17 +24,6 @@ class CMemoryDriver extends CResource {
 	public function delete($strname) { return NULL; }
 	public function sync($cache) { return NULL; } 
 	
-	//////////////////////////
-	// helper methods
-	public function setTimeStamp(&$cvar, $strtimestamp) {
-		if(!$cvar)
-			return false;	
-		if(!isset($cvar["m_params"]))
-			$cvar["m_params"] = array();
-		$cvar["m_params"][$strtimestamp] = time();
-		return true;
-	} // end setTimeStamp()
-	
 	/////////////////////////
 	// class methods
 	

@@ -17,8 +17,10 @@ var CMemory2 = new Class({
 	//////////////////////
 	// opening / closing
 	open : function(strpath, params){
-		return this.parent(strpath, params) &&
-			CMemoryDriver._open(this) != null;
+		if(!this.parent(strpath, params) || CMemoryDriver._open(this) == null)
+			return false;
+		this.m_cache = params["cache"]; // preload the cache
+		return true;
 	}, // end open()	
 	
 	close : function(){
@@ -106,10 +108,20 @@ function include_remote_memory2(strid, strpath, strtype, struri, params){
 	var driver_params = params["cmemorydriver_params"] || {};
 	driver_params["cremotememorydriver_type"] = strtype;
 	driver_params["cremotememorydriver_uri"] = struri; 	
-	params["cmemorydriver_params"] = driver_params;	
+	params["cmemorydriver_params"] = driver_params;
 	return include_memory2(strid, strpath, "CRemoteMemoryDriver", params);
 } // end include_remote_memory2()
 
 function use_memory2(strid) {
 	return use_resource(strid)
 } // end use_memory2()
+
+///////////////////////////////
+// importing / exporting
+function import_cmemory(strid, params) {
+	$driver_params = params["params"]
+	var strpath = $driver_params["cmemorydriver_path"];
+	var strtype = $driver_params["cmemorydriver_type"];
+	var struri = $driver_params["cmemorydriver_uri"];
+	return include_remote_memory2(strid, strpath, strtype, struri, params);
+} // end import_cmemory()
