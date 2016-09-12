@@ -33,11 +33,11 @@ class CMemoryDriver extends CResource {
 		if(!$cmemory)
 			return NULL;
 		// set up the driver params
-		$params = $cmemory->param("cmemorydriver_params"); 
-		$strtype = $params["cmemorydriver_type"];
-		$strpath = $params["cmemorydriver_path"];
-		$strid = $params["cmemorydriver_id"];
-		return (include_memory_driver($strid, $strpath, $strtype, $params)) ? 
+		$params = $cmemory->getParams(); 
+		$strtype = $params->get("cmemorydriver_type");
+		$strpath = $params->get("cmemorydriver_path");
+		$strid = $params->get("cmemorydriver_id");
+		return (include_memory_driver($strid, $strpath, $strtype, $params->_())) ? 
 				use_memory_driver($strid) : NULL;
 	} // end _open()
 
@@ -46,7 +46,7 @@ class CMemoryDriver extends CResource {
 		return $cmemorydriver->close();
 	} // end _close
 
-	//////////////////////
+	//////////
 	// CRUD	
 	public static function _create($cmemory, $cvar) {
 		if(!$cmemory || !$cvar)

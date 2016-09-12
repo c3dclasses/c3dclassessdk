@@ -17,7 +17,7 @@ class CJSONMemoryDriver extends CMemoryDriver {
 	
 	public function CJSONMemoryDriver(){ 
 		parent :: CMemoryDriver(); 
-		$this->m_json=NULL; 
+		$this->m_json = NULL; 
 	} // end CJSONMemoryDriver()
 	
 	public function open($strpath, $params=NULL) {

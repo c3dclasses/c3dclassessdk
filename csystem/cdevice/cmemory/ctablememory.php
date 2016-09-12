@@ -18,47 +18,30 @@ class CTableMemory extends CMemory{
 		$this->m_data = NULL;
 	} // end CTableMemory()
 	
+	////////////////////////////
+	// open / close / destroy
 	public function open( $strpath="", $params=NULL ){
-		
-		//alert("open CTableMemory");
-		//alert("PK: " . $strprimarykey );
-		
+		// set up patterns and get the matches
 		$pathpattern = '/(?P<host>\w+)\/(?P<database>\w+)\/(?P<table>\w+)/';
 		$bmatch = preg_match($pathpattern, $strpath, $matches);
-		
 		if( $bmatch == FALSE || $bmatch == 0 || $params == NULL || 
 			isset( $params["primarykey"] ) == false ||
 			isset( $params["username"] ) == false || 
 			isset( $params["password"] ) == false )
-			return false;
-			
+			return false;	
 		$strprimarykey = $params["primarykey"];
-		
+		// include the table object
 		if( !include_table($strpath, $strpath, array("username"=>"root", "password"=>"", 
 			"primarykey"=>"${strprimarykey}")) || !($ctable = use_table($strpath)) )
 			 return false;
-		
 		if( parent::open($strpath, $params) == FALSE){
 			$this->close();
 			return false;
 		} // end if
-		
 		$this->m_ctable = $ctable;
 		$this->m_strprimarykey = $strprimarykey;
 		return true;	
 	} // end open()
-	
-	public function getCTable() {
-		return $this->m_ctable;
-	} // end getCTable()
-	
-	public function getPrimaryKey() {
-		return $this->m_strprimarykey;
-	} // end getPrimaryKey()
-	
-	public function isOpen() {
-		return ($this->m_ctable && $this->m_strprimarykey != "");
-	} // end isOpen()
 	
 	public function close(){ 
 		if($this->m_ctable)
@@ -68,6 +51,12 @@ class CTableMemory extends CMemory{
 		$this->m_data = NULL;
 	} // end close()
 	
+	public function isOpen() {
+		return ($this->m_ctable && $this->m_strprimarykey != "");
+	} // end isOpen()	
+	
+	////////////////////////////
+	// CRUD
 	public function create($strname, $value, $strtype){ 
 		if(!$this->isOpen())
 			return NULL;
@@ -103,6 +92,17 @@ class CTableMemory extends CMemory{
 		return $this->m_ctable->delete($this->m_strprimarykey, $strname);
 	} // end delete()
 	
+	/////////////////////////
+	// get / set methods
+	public function getCTable() {
+		return $this->m_ctable;
+	} // end getCTable()
+	
+	public function getPrimaryKey() {
+		return $this->m_strprimarykey;
+	} // end getPrimaryKey()
+
+	/////////////////////
 	// misc. methods
 	public function error(){ 
 		return $this->m_ctable->error();
@@ -121,6 +121,8 @@ class CTableMemory extends CMemory{
 	} // end toString()
 } // end CTableMemory
 
+//////////////////////////////
+// include/use
 function include_table_memory($strid, $strpath, $params) {
 	return include_memory( $strid, $strpath, "CTableMemory", $params );
 }// end include_table_memory()

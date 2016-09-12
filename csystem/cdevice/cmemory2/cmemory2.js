@@ -19,7 +19,7 @@ var CMemory2 = new Class({
 	open : function(strpath, params){
 		if(!this.parent(strpath, params) || CMemoryDriver._open(this) == null)
 			return false;
-		this.m_cache = params["cache"]; // preload the cache
+		this.m_cache = params["cmemory_cache"]; // preload the cache
 		return true;
 	}, // end open()	
 	
@@ -91,24 +91,20 @@ var CMemory2 = new Class({
 /////////////////////////
 // includes and using
 function include_memory2(strid, strpath, strtype, params) {
-	params = params || {};
 	// setup the driver params
-	var driver_params = params["cmemorydriver_params"] || {};
-	driver_params["cmemorydriver_id"] = strtype + "::" + strid;
-	driver_params["cmemorydriver_path"] = strpath;
-	driver_params["cmemorydriver_type"] = strtype;
+	params = params || {};
 	params["cresource_type"] = "CMemory2";
-	params["cmemorydriver_params"] = driver_params;
+	params["cmemorydriver_id"] = strtype + "::" + strid;
+	params["cmemorydriver_path"] = strpath;
+	params["cmemorydriver_type"] = strtype;
 	return include_resource(strid, "CMemory2::" + strid, params);
 } // end include_memory2()
 
 function include_remote_memory2(strid, strpath, strtype, struri, params){
-	params = params || {};
 	// setup the driver params
-	var driver_params = params["cmemorydriver_params"] || {};
-	driver_params["cremotememorydriver_type"] = strtype;
-	driver_params["cremotememorydriver_uri"] = struri; 	
-	params["cmemorydriver_params"] = driver_params;
+	params = params || {};
+	params["cremotememorydriver_type"] = strtype;
+	params["cremotememorydriver_uri"] = struri; 	
 	return include_memory2(strid, strpath, "CRemoteMemoryDriver", params);
 } // end include_remote_memory2()
 
@@ -119,9 +115,10 @@ function use_memory2(strid) {
 ///////////////////////////////
 // importing / exporting
 function import_cmemory(strid, params) {
-	$driver_params = params["params"]
-	var strpath = $driver_params["cmemorydriver_path"];
-	var strtype = $driver_params["cmemorydriver_type"];
-	var struri = $driver_params["cmemorydriver_uri"];
+	if(!params)
+		return false;
+	var strpath = params["cmemorydriver_path"];
+	var strtype = params["cmemorydriver_type"];
+	var struri = params["cmemorydriver_uri"];
 	return include_remote_memory2(strid, strpath, strtype, struri, params);
 } // end import_cmemory()

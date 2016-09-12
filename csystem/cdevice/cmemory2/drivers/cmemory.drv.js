@@ -28,11 +28,12 @@ var CMemoryDriver = new Class({
 			if(!cmemory)
 				return null;
 			// set up the driver params
-			var params = cmemory.param("cmemorydriver_params"); 
-			var strtype = params["cmemorydriver_type"];
-			var strpath = params["cmemorydriver_path"];
-			var strid = params["cmemorydriver_id"]; 	
-			return include_memory_driver(strid, strpath, strtype, params) ? 
+			var params = cmemory.getParams(); 
+			var strtype = params.get("cmemorydriver_type");
+			var strpath = params.get("cmemorydriver_path");
+			var strid = params.get("cmemorydriver_id"); 
+			console.log(params._());
+			return include_memory_driver(strid, strpath, strtype, params._()) ? 
 					use_memory_driver(strid) : null;
 		}, // end _open()
 
@@ -41,7 +42,7 @@ var CMemoryDriver = new Class({
 			return cmemorydriver.close();
 		}, // end _close()
 		
-		//////////////////////
+		/////////
 		// CRUD
 		_create: function (cmemory, cvar) {
 			if(!cmemory || !cvar)
@@ -52,10 +53,10 @@ var CMemoryDriver = new Class({
 			var _driver_return = cmemorydriver.create(cvar);
 			if(!_driver_return)
 				return _return_done([false]);		
+			var strname = cvar["m_strname"];
 			var _return = _return_busy();
 			if(!_return)
 				return _return_done([false]);
-			var strname = cvar["m_strname"]; 			
 			cmemory.m_cache[strname] = cvar;
 			_if(function(){return _driver_return.isdone();}, function() {
 				var params = _driver_return.results();
@@ -161,9 +162,8 @@ var CMemoryDriver = new Class({
 			if(!cmemorydriver)
 				return _return_done([false]);
 			var _driver_return = cmemorydriver.sync(cmemory.m_cache);
-			if(!_driver_return) {
+			if(!_driver_return)
 				return _return_done([false]);
-			}
 			var _return = _return_busy();
 			if(!_return)
 				return _return_done([false]);

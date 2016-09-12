@@ -86,8 +86,9 @@ function oncremotememorydriver_handler($params) {
 	   //!isset($params["memid"]) ||
 	   !isset($params["memtype"]) ||
 	   !isset($params["mempath"]) ||
-	   !isset($params["memcommand"]))
-		return NULL;
+	   !isset($params["memcommand"])) {
+		return _return_done(array(NULL));
+	} // end if
 	
 	// get the parameters
 	$strid = isset($params["memid"]) ? $params["memid"] : "tmpid";
@@ -96,9 +97,10 @@ function oncremotememorydriver_handler($params) {
 	$strcommand = $params["memcommand"];
 	
 	// get the memory driver
-	if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid))
-		return NULL;
-		
+	if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid)) {
+		return _return_done(array(NULL));
+	} // end if
+	
 	if($strcommand == "sync") {
 		$cache = isset($params["memcache"]) ? $params["memcache"] : NULL;	
 		$_return = $cmemorydriver->sync(json_decode($cache));

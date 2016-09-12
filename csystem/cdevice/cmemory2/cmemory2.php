@@ -23,7 +23,7 @@ class CMemory2 extends CResource { // inherits the CResource
 	public function open($strpath, $params=NULL){
 		if(!parent :: open($strpath, $params) || CMemoryDriver :: _open($this) == NULL)
 			return false;
-		$this->m_cache = isset($params["cache"]) ? $params["cache"] : NULL; // preload the cache
+		$this->m_cache = isset($params["cmemory_cache"]) ? $params["cmemory_cache"] : NULL; // preload the cache
 		return true;	
 	} // end open()
 
@@ -96,21 +96,17 @@ class CMemory2 extends CResource { // inherits the CResource
 // includes and using
 function include_memory2($strid, $strpath, $strtype, $params=NULL){
 	// setup the driver params
-	$driver_params = isset($params["cmemorydriver_params"]) ? $params["cmemorydriver_params"] : array();
-	$driver_params["cmemorydriver_id"] = $strtype . "::" . $strid;
-	$driver_params["cmemorydriver_path"] = $strpath;
-	$driver_params["cmemorydriver_type"] = $strtype;
 	$params["cresource_type"] = "CMemory2";
-	$params["cmemorydriver_params"] = $driver_params; 
+	$params["cmemorydriver_id"] = $strtype . "::" . $strid;
+	$params["cmemorydriver_path"] = $strpath;
+	$params["cmemorydriver_type"] = $strtype;
 	return include_resource($strid, "CMemory2::" . $strid, $params);
 } // end include_memory2()
 
 function include_remote_memory2($strid, $strpath, $strtype, $struri="", $params=NULL){
 	// setup the driver params
-	$driver_params = isset($params["cmemorydriver_params"]) ? $params["cmemorydriver_params"] : array();
-	$driver_params["cremotememorydriver_type"] = $strtype;
-	$driver_params["cremotememorydriver_uri"] = $struri; 	
-	$params["cmemorydriver_params"] = $driver_params;
+	$params["cremotememorydriver_type"] = $strtype;
+	$params["cremotememorydriver_uri"] = $struri; 	
 	return include_memory2($strid, $strpath, "CRemoteMemoryDriver", $params);
 } // end include_remote_memory2()
 
@@ -121,17 +117,18 @@ function use_memory2($strid){
 ///////////////////////////////
 // importing / exporting
 function export_cmemory($id, $cresource) {
-	if( !$cresource || !($p=$cresource->getParams()) || $p->get("cresource_type") != "CMemory2")
+	if( !$cresource || !($p=$cresource->getParams()) || 
+		$p->get("cresource_type") != "CMemory2")
 		return "";
-	$cresource->sync();
-	$cache = $cresource->cache();
-	$params = $p->get("cmemorydriver_params");
+	$cresource->sync(); 
+	$params = $p->_();
+	$params["cmemory_cache"] = $cresource->cache();
 	$id = json_encode($id);
-	$params = json_encode(array("cache"=>$cache, "params"=>$params));
+	$params = json_encode($params);
 	return "import_cmemory($id, $params);";	
 } // end export_cmemory()
 function export_cmemory_script(){ 
 	return CResource :: toStringVisit( "export_cmemory" ); 
-} // end include_remote_memory_export_script() 
+} // end export_cmemory_script() 
 CHook :: add( "script", "export_cmemory_script" );
 ?>
