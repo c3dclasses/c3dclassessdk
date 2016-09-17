@@ -45,4 +45,20 @@ function include_function($strid, $strfn, $struri="", $strfile="", $params=NULL)
 function use_function($strid){
 	return use_resource($strid);
 } // end use_function()
+
+// importing / exporting
+function export_cfunction($id, $cresource) {
+	if(!$cresource || !($p=$cresource->getParams()) || 
+		$p->get("cresource_type") != "CFunction")
+		return "";
+	if($p->get("cfunction_uri") == "")
+		return "";
+	$id = json_encode($id);
+	$params = json_encode($p->_());
+	return "\n" . "import_function($id, $params);" . "\n";	
+} // end export_cmemory()
+function export_cfunction_js(){ 
+	return CResource :: toStringVisit("export_cfunction"); 
+} // end export_cfunction_js() 
+CHook :: add("script", "export_cfunction_js");
 ?>

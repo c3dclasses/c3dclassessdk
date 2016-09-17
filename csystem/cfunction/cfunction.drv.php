@@ -4,7 +4,6 @@
 // desc: provides hooks and listeners to link remote functions to the system
 //----------------------------------------------------------------------------
 
-
 //---------------------------------------------
 // name: _return_remote_call()
 // desc: does the function call
@@ -60,4 +59,9 @@ if($_REQUEST) {
 	else echo json_encode($outparams); 
 	}
 } // end if
+
+//-------------------------------------------------
+// name: export_cfunction()
+// desc: exports cfunction to js 
+//-------------------------------------------------
 ?>

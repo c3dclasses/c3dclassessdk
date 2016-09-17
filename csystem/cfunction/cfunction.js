@@ -32,14 +32,23 @@ var CFunction = new Class({
 	} // end call()
 }); // end CFunction
 
-// includes / use
+// includes / use / import
 function include_function(strid, strfn, struri, strfile, params) {
 	params = params || {};
 	params["cresource_type"] = "CFunction";
-	alert("in include function");
 	return include_resource(strid, struri+"->"+strfile+"->"+strfn, params);
 } // end include_function()
 
 function use_function(strid){
 	return use_resource(strid);
 } // end use_function()
+
+function import_function(strid, params) {
+	if(!params)
+		return false;
+	var strpath = params["cfunction_id"];
+	var strfile = params["cfunction_file"];
+	var struri = params["cfunction_uri"];
+	var strfn = params["cfunction_fn"];
+	return include_function(strid, strfn, struri, strfile, params);
+} // end import_cmemory()
