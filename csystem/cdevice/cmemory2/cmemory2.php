@@ -121,14 +121,15 @@ function export_cmemory($id, $cresource) {
 		$p->get("cresource_type") != "CMemory2")
 		return "";
 	$cresource->sync(); 
+
 	$params = $p->_();
 	$params["cmemory_cache"] = $cresource->cache();
 	$id = json_encode($id);
 	$params = json_encode($params);
-	return "import_cmemory($id, $params);";	
+	return "\n" . "import_cmemory($id, $params);" . "\n";	
 } // end export_cmemory()
 function export_cmemory_script(){ 
-	return CResource :: toStringVisit( "export_cmemory" ); 
+	return CResource :: toStringVisit("export_cmemory"); 
 } // end export_cmemory_script() 
-CHook :: add( "script", "export_cmemory_script" );
+CHook :: add("script", "export_cmemory_script");
 ?>

@@ -15,7 +15,7 @@ class CArrayMemoryDriver extends CMemoryDriver {
 	protected $m_array;
 	
 	public function CArrayMemoryDriver(){ 
-		parent :: CMemory(); 
+		parent :: CMemoryDriver(); 
 		$this->m_array = NULL; 
 	} // end CArrayMemoryDriver()
 	
@@ -33,7 +33,7 @@ class CArrayMemoryDriver extends CMemoryDriver {
 	
 	public function create($cvar) {
 		if(!$cvar) // no var
-			return _return_done(array(NULL));
+			return _return_done(NULL);
 		$strname = $cvar['m_strname'];
 		$value = $cvar['m_value'];	
 		$bcreated=false;
@@ -48,30 +48,31 @@ class CArrayMemoryDriver extends CMemoryDriver {
 		$outcvar['m_icreated'] = ($bcreated) ? "" : time(); // set the timestamp
 		$outcvar['m_iupdated'] = "";
 		$outcvar['m_iretrieved'] = "";
-		return _return_done(array($outcvar));
+		return _return_done($outcvar);
 	} // end create()
 	
 	public function retrieve($strname){ 
-		if($this->restore() == FALSE || 
-			$this->m_array == NULL || 
+		if($this->m_array == NULL || 
 			isset($this->m_array[$strname]) == FALSE || 
-			($value = $this->m_array[ $strname ]) == NULL)
-			_return_done(array(NULL));
+			($value = $this->m_array[ $strname ]) == NULL ||
+			gettype($value) == "unknown type" )
+			_return_done(NULL);
+		$outcvar['m_strname'] = $strname;	
 		$outcvar['m_value'] = (gettype($value) == "object") ? unserialize($value) : $value;
 		$outcvar['m_strtype'] = gettype($value);
 		$outcvar['m_icreated'] = ""; // set the timestamp
 		$outcvar['m_iupdated'] = "";
 		$outcvar['m_iretrieved'] = time();
-		return _return_done(array($outcvar)); 
+		return _return_done($outcvar); 
 	} // end retrieve()
 		
 	public function update($cvar){ 
 		if(!$cvar)
-			return _return_done(array(NULL));
+			return _return_done(NULL);
 		$strname = $cvar['m_strname'];
 		$value = $cvar['m_value'];	
 		if($this->m_array == NULL || isset($this->m_array[$strname]) == FALSE)
-			return _return_done(array(NULL));
+			return _return_done(NULL);
 		$this->m_array[$strname]=$value;
 		$outcvar['m_strname'] = $strname;
 		$outcvar['m_value'] = (gettype($value) == "object") ? serialize($value) : $value;
@@ -79,18 +80,19 @@ class CArrayMemoryDriver extends CMemoryDriver {
 		$outcvar['m_icreated'] = ""; // set the timestamp
 		$outcvar['m_iupdated'] = time();
 		$outcvar['m_iretrieved'] = "";
-		return _return_done(array($outcvar));
+		return _return_done($outcvar);
 	} // end update()
 	
 	public function delete($strname){ 
 		if($this->m_array == NULL ||isset($this->m_array[$strname]) == FALSE)
-			return _return_done(array(NULL));
+			return _return_done(NULL);
 		$this->m_array[$strname] = NULL;
 		unset($this->m_array[$strname]);
-		return _return_done(array(NULL));
+		return _return_done(NULL);
 	} // end delete()
 	
 	public function sync($cache) {
+		print_r($cache);
 		// update the main cache	
 		if($cache) {
 			foreach($cache as $strname => $value) {
@@ -99,7 +101,7 @@ class CArrayMemoryDriver extends CMemoryDriver {
 			} // end foreach
 		} // end if
 		if(!$this->m_array)
-			return _return_done(array(NULL));
+			return _return_done(NULL);
 		$outcache = NULL;
 		foreach($this->m_array as $strname => $value) {
 			$cvar = NULL;
@@ -111,7 +113,7 @@ class CArrayMemoryDriver extends CMemoryDriver {
 			$cvar['m_iretrieved'] = "";
 			$outcache[$strname]=$cvar;
 		} // end for
-		return _return_done(array($outcache));
+		return _return_done($outcache);
 	} // end sync()
 } // end CArrayMemoryDriver
 ?>

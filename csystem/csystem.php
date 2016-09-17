@@ -8,6 +8,7 @@
 include_once("cresource/cresource.php");
 include_once("cfile/cfile.php");
 include_once("cevent/cevent.php");
+include_once("cfunction/cfunction.php");
 include_once("cevent/cconcurrentevent.php");
 include_once("ckernal/ckernal.php");
 include_once("celement/celement.php");

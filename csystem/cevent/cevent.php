@@ -43,7 +43,7 @@ class CEvent{
 		$str="";
 		$callid=0;
 		$inparams = $params;
-		if( CEvent :: $m_chashevent != NULL && ( $cevent = CEvent :: $m_chashevent->get( $streventname ) ) != NULL )
+		if( CEvent :: $m_chashevent != NULL && ( $cevent = CEvent :: $m_chashevent->get( $streventname ) ) != NULL ) {
 			foreach( $cevent->valueOf() as $handler ){ 		
 				$callback = $handler["callback"];
 				$params = $handler["params"];
@@ -51,6 +51,7 @@ class CEvent{
 					$outparams[$callid] = call_user_func( $callback, $inparams );
 				$callid++;
 			} // end foreach()
+		} // end if
 		return $outparams;
 	} // end fire()
 	

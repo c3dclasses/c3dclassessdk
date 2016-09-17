@@ -87,7 +87,7 @@ function oncremotememorydriver_handler($params) {
 	   !isset($params["memtype"]) ||
 	   !isset($params["mempath"]) ||
 	   !isset($params["memcommand"])) {
-		return _return_done(array(NULL));
+		return _return_done(NULL);
 	} // end if
 	
 	// get the parameters
@@ -98,7 +98,7 @@ function oncremotememorydriver_handler($params) {
 	
 	// get the memory driver
 	if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid)) {
-		return _return_done(array(NULL));
+		return _return_done(NULL);
 	} // end if
 	
 	if($strcommand == "sync") {
@@ -126,11 +126,10 @@ function oncremotememorydriver_handler($params) {
 		$_return = $cmemorydriver->delete($strname);
 	} // end if
 	
-	if($_return) {
-		$data = $_return->data();
-		return $data[0];	
-	} // end if
-	
-	return NULL;	
+	//if($_return) {
+		//$data = $_return->data();
+		//return $data[0];	
+	//} // end if
+	return ($_return) ? $_return->data() : NULL;	
 } // end oncremotememorydriver_handler()
 ?>

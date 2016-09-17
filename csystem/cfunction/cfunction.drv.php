@@ -8,8 +8,8 @@
 // name: _return_remote_call()
 // desc: does the function call
 //---------------------------------------------
-function _return_remote_call($struri, $strfn, $inparams) {
-if(!$struri) { // do a local function call
+function _return_remote_call($struri, $strfile, $strfn, $inparams) {
+	if(!$struri) { // do a local function call
         if ($strfn && is_callable($strfn) == "function")
             return call_user_func($strfn,$inparams);
         else return _return_done(NULL);
@@ -19,13 +19,16 @@ if(!$struri) { // do a local function call
     if(!$cds || $cds->open($struri, "post", "cfunction") == false) // open
         return _return_done(NULL);
     $cds->setDataParam("cfunction",true);
-    $cds->setDataParam("cfunction_name",$strfn);
-    if($inparams) {
+    $cds->setDataParam("cfunction_uri",$struri);	// server of the function
+	$cds->setDataParam("cfunction_file",$strfile);	// file of the function 
+	$cds->setDataParam("cfunction_function",$strfn); 	// name of the function
+	if($inparams && gettype($inparams) == "array") {
         foreach($inparams as $name=>$value) {
             $cds->setDataParam($name,$value);
         } // end foreach
     } // end if
-    $cds->options("m_basync",false);
-    return $cds.send();
+	else $cds->setDataParam("cfunction_inparam",$inparams);
+    $cds->send();
+	return _return_done($cds->getData());
 } // end _return_remote_call()
 ?>

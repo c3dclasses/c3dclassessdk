@@ -7,6 +7,7 @@
 // includes
 include_js( relname( __FILE__ ) . "/cthread.js" ); 
 
+/*
 //--------------------------------------------------------
 // name: CThread
 // desc: defines the cthread class
@@ -205,4 +206,5 @@ class CThread {
 	public static function getCurrentFunction(){ return CThread :: $m_fncontext_cur; }
 	public static function setCurrentFunction( $fncontext ){ CThread :: $m_fncontext_cur = fncontext; }
 } // end CThread
+*/
 ?>

@@ -63,7 +63,7 @@ function CMemory_preLoad_toString( $id, $cresource ){
 	$p = $cresource->getParams();
 	if( !$p || !$p->get("cmemory") || !$p->get("client") ) // check if the resource is a memory object
 		return "";
-	$str = "CMemory.use(\"{$id}\",".$cresource->toJSON().")";
+	$str = "CMemory.use(\"{$id}\",".$cresource->toJSON().");";
 	$str .= "\n";
 	return $str;		
 } // end CMemory_preLoad()

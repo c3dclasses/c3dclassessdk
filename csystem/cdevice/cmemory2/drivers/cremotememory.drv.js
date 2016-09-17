@@ -56,7 +56,7 @@ var CRemoteMemoryDriver = new Class({
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"sync", 
-			"memcache":(cache)?JSON.stringify(cache):"{}"
+			"memcache":(cache)?JSON.stringify(cache):"null"
 		}, this.uri()); // end fire()
 	},	// end sync()
 	

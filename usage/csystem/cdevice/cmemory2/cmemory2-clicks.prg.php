@@ -7,7 +7,8 @@
 // includes
 include_program("CMemoryProgram2_Clicks");
 include_memory2("testmemory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
-				
+include_memory2("testarraymemory", "session2", "CArrayMemoryDriver", array("carraymemorydriver_array"=>&$_SESSION));
+
 
 //---------------------------------------------------
 // name: CMemoryProgram2_Clicks
@@ -23,6 +24,7 @@ return <<<SCRIPT
 		printbr("<b>cmemory.js</b>");
 		
 		//include_remote_memory2("testmemory", dirname(this.__FILE__) + "/cjsonmemory.json", "CJSONMemoryDriver");
+		//var cmemory = use_memory2("testarraymemory");
 		var cmemory = use_memory2("testmemory");
 		
 		// create 

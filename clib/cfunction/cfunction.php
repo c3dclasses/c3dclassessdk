@@ -1,4 +1,5 @@
 <?php
+/*
 //----------------------------------------------------------------
 // file: cfunction.php
 // desc: defines a function as an object for the purposes of attaching
@@ -57,4 +58,5 @@ function _function($function) {
 function _fn($function) {
 	return _function($function); 
 } // end _fn()
+*/
 ?>
