@@ -7,7 +7,7 @@
 // includes
 include_program("CFunctionProgram");
 include_function("testfn", "testfunction", NULL, NULL, NULL);
-include_function("testremotefn", "testfunction2", "http://localhost/usage/csystem/cfunction/prac.php",
+include_function("testremotefn", "testfunction2", "http://localhost/csystem/cfunction/cfunction.drv.php",
 __FILE__,NULL);
 
 //--------------------------------------------
@@ -19,8 +19,16 @@ class CFunctionProgram extends CProgram{
 		parent :: CProgram();	
 	} // end CFunctionProgram()
 	
-	public function c_main(){
+	public function c_main(){	
 return <<<SCRIPT
+	include_function("testremotefn", "testfunction2", "http://localhost/csystem/cfunction/cfunction.drv.php",
+	this.__FILE__,null);
+	var _return = use_function("testremotefn").call({"param1":"value1","param2":"value2"});
+	
+	_if(function(){return _return.isdone(); }, function(){
+		printbr("use_function(\"testremotefn\")->call(\"{\"param1\"=>\"value1\"}\") = " + print_r(_return.data(),true));
+	})._endif();
+
 SCRIPT;
 	} // end load()
 	
@@ -30,6 +38,12 @@ ob_start();
 	$ret = use_function("testfn")->call("bye");
 	printbr("use_function(\"testfn\")->call(\"bye\") = " . $ret->data());
 	$ret = use_function("testremotefn")->call(array("param1"=>"value1"));
+	
+	// set some params before calling
+	// $fn->timeout(3);
+	// $fn->retry(2);
+	
+	
 	printbr("use_function(\"testremotefn\")->call(\"byefhjkfhks\") = " . print_r($ret->data(),true));
 return ob_end();
 	} // end innerhtml()

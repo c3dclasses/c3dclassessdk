@@ -7,6 +7,7 @@
 
 // includes
 include_js(relname(__FILE__) . "/cfunction.js");
+include_js(relname(__FILE__) . "/cfunction.drv.js");
 
 //--------------------------------------------------
 // name: CFunction
@@ -21,7 +22,7 @@ class CFunction extends CResource {
         $strurifn = explode("->", $strpath);
         $params["cfunction_uri"] = isset($strurifn[0])?$strurifn[0]:NULL;
         $params["cfunction_file"] = isset($strurifn[1])?$strurifn[1]:NULL;
-		$params["cfunction_fn"] = isset($strurifn[2])?$strurifn[2]:NULL;
+	$params["cfunction_fn"] = isset($strurifn[2])?$strurifn[2]:NULL;
         return parent :: open($strpath, $params);
     } // end open()
 
@@ -31,7 +32,7 @@ class CFunction extends CResource {
             $this->param("cfunction_file"),
 			$this->param("cfunction_fn"),
             $inparams
-        ); // end _return_remote_call()
+        ); // end call()
     } // end call()
 } // end CFunction
 
