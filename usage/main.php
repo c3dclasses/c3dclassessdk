@@ -3,8 +3,12 @@
 // name: main.php
 // desc: defines the server side main
 //-------------------------------------------------------------
-
 // include kernal libraries
+//$stime = microtime();
+//include("foo.php");
+//include("foo.php");
+//include("foo.php");
+
 include_once(dirname(dirname(__FILE__)) . "/c3dclassessdk.php");
 
 // include the clientside main
@@ -55,4 +59,6 @@ echo $ckernal->deinit();
 
 // destory the kernal and it's object 
 CKernal :: destroyCKernal($ckernal);
+//phpinfo();
+//echo "server load time: " . ((microtime() - $stime)*1000) . "</br>";
 ?>

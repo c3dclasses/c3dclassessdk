@@ -6,12 +6,25 @@
 
 // includes
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
+//include_function("oncremotememorydriver", "oncremotememorydriver_handler", "http://localhost/csystem/cfunction/cfunction.drv.php",
+//__FILE__,NULL);
 
 //----------------------------------------------------------------
 // class: CRemoteMemoryDriver
 // desc: defines the remote memory driver object
 //----------------------------------------------------------------
 class CRemoteMemoryDriver extends CMemoryDriver{
+	protected $m_cfunction = NULL;
+	
+	public function open($strpath, $params) {
+		if(!parent :: open($strpath, $params))
+			return false;
+		$id = $this->id() . "_fn";
+		// include the remote function
+		return include_function($id, "oncremotememorydriver_handler", $this->uri(), __FILE__, NULL) && 
+			($this->m_cfunction = use_function($id));
+	} // end open()
+	
 	public function create($cvar) {
 		return CEvent :: fire("oncremotememorydriver", array(
 			"memtype"=>$this->drivertype(),
