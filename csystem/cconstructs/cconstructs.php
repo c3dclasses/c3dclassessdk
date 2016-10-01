@@ -7,7 +7,6 @@
 // headers
 include_js( relname( __FILE__ ) . "/cconstructs.js" ); 
 
-
 //--------------------------------------------------------------------------------
 // name: CReturn
 // desc: defines a return contruct or statement for asynchonous methods

@@ -17,7 +17,7 @@ class CMemoryDriver extends CResource {
 	// driver instance methods
 	public function CMemoryDriver() { parent :: CResource(); } 
 	public function open($strpath, $params) { return parent :: open($strpath, $params); }
-	public function close() { /*return parent :: close();*/ } 
+	public function close() { return parent :: close(); } 
 	public function create($cvar) { return NULL; }
 	public function retrieve($strname) { return NULL; } 
 	public function update($cvar) { return NULL; } 
@@ -32,21 +32,26 @@ class CMemoryDriver extends CResource {
 	public static function _open($cmemory) {
 		if(!$cmemory)
 			return NULL;
-		// set up the driver params
+		$cmemorydriver = $cmemory->getCMemoryDriver();
+		if($cmemorydriver)
+			return $cmemorydriver;
+		// create the cmemorydriver for this memory object
 		$params = $cmemory->getParams(); 
-		$strtype = $params->get("cmemorydriver_type");
-		$strpath = $params->get("cmemorydriver_path");
-		$strid = $params->get("cmemorydriver_id");
-		return (include_memory_driver($strid, $strpath, $strtype, $params->_())) ? 
-				use_memory_driver($strid) : NULL;
+		$strtype = $params->get("cmemorydriver_type"); 
+		$strpath = $params->get("cmemorydriver_path"); 
+		if($strtype == "" || ($cmemorydriver = new $strtype()) == NULL || 
+			$cmemorydriver->open($strpath, $params->_()) == false) 
+			return NULL;
+		$cmemory->setCMemoryDriver($cmemorydriver);
+		return $cmemorydriver;
 	} // end _open()
 
 	public static function _close($cmemory) {
 		$cmemorydriver = CMemoryDriver :: _open($cmemory);
 		return $cmemorydriver->close();
-	} // end _close
+	} // end _close()
 
-	//////////
+	/////////
 	// CRUD	
 	public static function _create($cmemory, $cvar) {
 		if(!$cmemory || !$cvar)
@@ -64,10 +69,10 @@ class CMemoryDriver extends CResource {
 		$cmemory->m_cache[$strname] = $cvar;
 		if($_driver_return->isdone()) {
 			$params = $_driver_return->results();
-			if(!isset($params[0]))
+			if(!$params)
 				$_return->done(false);
 			else {
-				$cmemory->m_cache[$strname] = $params[0];	
+				$cmemory->m_cache[$strname] = $params;	
 				$_return->done(true);
 			} // end else
 		} else if($_driver_return->iserror()) {
@@ -90,10 +95,10 @@ class CMemoryDriver extends CResource {
 			return _return_done(false);
 		if($_driver_return->isdone()) { 
 			$params = $_driver_return->results();
-			if(!isset($params[0]))
+			if(!$params)
 				$_return->done(false);
 			else {
-				$cmemory->m_cache[$strname] = $params[0];
+				$cmemory->m_cache[$strname] = $params;
 				$_return->done(true);
 			} // end else
 		} else if($_driver_return->iserror()) {
@@ -118,10 +123,10 @@ class CMemoryDriver extends CResource {
 			return _return_done(false);
 		if($_driver_return->isdone()) {
 			$params = $_driver_return->results();
-			if(!isset($params[0]))
+			if(!$params)
 				$_return->done(false);
 			else {
-				$cmemory->m_cache[$strname] = $params[0];
+				$cmemory->m_cache[$strname] = $params;
 				$_return->done(true);
 			} // end else
 		} else if($_driver_return->iserror()) {
@@ -160,15 +165,14 @@ class CMemoryDriver extends CResource {
 			return _return_done(false);
 		$_driver_return = $cmemorydriver->sync($cmemory->m_cache);
 		if(!$_driver_return)
-			return $_return_done(false);
+			return _return_done(false);
 		$_return = _return_busy();
 		if(!$_return)
 			return _return_done(false);
 		if($_driver_return->isdone()) {
 			$params = $_driver_return->results();
-			if(!$params) {
+			if(!$params)
 				$_return->done(false);
-			}
 			else {
 				$cmemory->m_cache = $params;	
 				$_return->done(true);

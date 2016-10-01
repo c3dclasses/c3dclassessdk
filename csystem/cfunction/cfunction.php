@@ -19,27 +19,26 @@ class CFunction extends CResource {
 	} // end CFunction()
 	
     public function open($strpath, $params) {
-        $strurifn = explode("->", $strpath);
-        $params["cfunction_uri"] = isset($strurifn[0])?$strurifn[0]:NULL;
-        $params["cfunction_file"] = isset($strurifn[1])?$strurifn[1]:NULL;
-	$params["cfunction_fn"] = isset($strurifn[2])?$strurifn[2]:NULL;
-        return parent :: open($strpath, $params);
+    	return parent :: open($strpath, $params);
     } // end open()
-
-    public function call($inparams) {
-        return _return_remote_call(
+	
+    public function call($inparams) {     
+		return _return_remote_call(
             $this->param("cfunction_uri"),
             $this->param("cfunction_file"),
-			$this->param("cfunction_fn"),
+			$this->param("cfunction_function"),
             $inparams
         ); // end call()
     } // end call()
 } // end CFunction
 
 // includes / use
-function include_function($strid, $strfn, $struri="", $strfile="", $params=NULL) {	
+function include_function($strid, $strfunction, $struri="", $strfile="", $params=NULL) {	
 	$params["cresource_type"] = "CFunction";
-	return include_resource($strid, $struri."->".$strfile."->".$strfn, $params);
+	$params["cfunction_uri"] = $struri;
+	$params["cfunction_file"] = $strfile;
+	$params["cfunction_function"] = $strfunction;
+	return include_resource($strid, $struri."->".$strfile."->".$strfunction, $params);
 } // end include_function()
 
 function use_function($strid){
@@ -57,8 +56,20 @@ function export_cfunction($id, $cresource) {
 	$params = json_encode($p->_());
 	return "\n" . "import_function($id, $params);" . "\n";	
 } // end export_cmemory()
+
 function export_cfunction_js(){ 
 	return CResource :: toStringVisit("export_cfunction"); 
 } // end export_cfunction_js() 
 CHook :: add("script", "export_cfunction_js");
+
+// encoding and decoding a function 
+function cfunction_encode_params($struri, $strfile, $strfunction) {
+	return implode("->", array($struri, $strfile, $strfunction));
+} // end cfunction_uri()
+
+function cfunction_decode_params($cfunction) {
+	return explode("->", $cfunction);
+} // end cfunction_uri()
+
+
 ?>

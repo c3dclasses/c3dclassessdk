@@ -59,10 +59,10 @@ var CMemoryDriver = new Class({
 			cmemory.m_cache[strname] = cvar;
 			_if(function(){return _driver_return.isdone();}, function() {
 				var params = _driver_return.results();
-				if(!params[0])
+				if(!params)
 					_return.done(false);
 				else {
-					cmemory.m_cache[strname] = params[0];
+					cmemory.m_cache[strname] = params;
 					_return.done(true);
 				} // end else
 				this._return();
@@ -87,10 +87,10 @@ var CMemoryDriver = new Class({
 				return _return_done(false);
 			_if(function(){ return _driver_return.isdone() }, function(){
 				var params = _driver_return.results();
-				if(!params[0])
+				if(!params)
 					_return.done(false);
 				else { 
-					cmemory.m_cache[strname] = params[0];
+					cmemory.m_cache[strname] = params;
 					_return.done(true);
 				} // end else
 				this._return();
@@ -117,10 +117,10 @@ var CMemoryDriver = new Class({
 				return _return_done(false);
 			_if(function(){ return _driver_return.isdone() }, function(){
 				var params = _driver_return.results();
-				if(!params[0])
+				if(!params)
 					_return.done(false);
 				else {
-					 cmemory.m_cache[strname] = params[0];
+					 cmemory.m_cache[strname] = params;
 					_return.done(true);
 				} // end else
 				this._return();
@@ -169,10 +169,10 @@ var CMemoryDriver = new Class({
 				return _return_done(false);
 			_if(function(){return _driver_return.isdone();}, function(){
 				var params = _driver_return.results(); 
-				if(!params[0])
+				if(!params)
 					_return.done(false);
 				else{
-					 cmemory.m_cache = params[0];
+					 cmemory.m_cache = params;
 					_return.done(true);
 				} // end else
 				this._return();

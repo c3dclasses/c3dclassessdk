@@ -1,83 +1,75 @@
 <?php
 //----------------------------------------------------------------
-// file: cremotememory.drv.js
+// file: cremotememory.drv.php
 // desc: defines the remote memory driver object
 //----------------------------------------------------------------
 
 // includes
+if($_REQUEST["cremotememorydriver"]) {
+	include_once("../../../../ccore/ccore.php");
+	include_once("../../../csystem.php");
+} // end if
+include_once("cmemory.drv.php");
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
-//include_function("oncremotememorydriver", "oncremotememorydriver_handler", "http://localhost/csystem/cfunction/cfunction.drv.php",
-//__FILE__,NULL);
 
 //----------------------------------------------------------------
 // class: CRemoteMemoryDriver
 // desc: defines the remote memory driver object
 //----------------------------------------------------------------
 class CRemoteMemoryDriver extends CMemoryDriver{
-	protected $m_cfunction = NULL;
-	
-	public function open($strpath, $params) {
-		if(!parent :: open($strpath, $params))
-			return false;
-		$id = $this->id() . "_fn";
-		// include the remote function
-		return include_function($id, "oncremotememorydriver_handler", $this->uri(), __FILE__, NULL) && 
-			($this->m_cfunction = use_function($id));
-	} // end open()
-	
 	public function create($cvar) {
-		return CEvent :: fire("oncremotememorydriver", array(
-			"memtype"=>$this->drivertype(),
+		return $this->triggerRemoteOperation(array(
+			"memtype"=>$this->type(),
 			"mempath"=>$this->path(),
 			"memid"=>$this->id(), 
 			"memcommand"=>"create", 
 			"memvar"=>$cvar
-		), $this->uri()); // end fire
+		)); // end triggerRemoteOperation()
 	} // end create() 
 	
 	public function retrieve($strname) { 
-		return CEvent :: fire("oncremotememorydriver", array(
-			"memtype"=>$this->drivertype(),
+		return $this->triggerRemoteOperation(array(
+			"memtype"=>$this->type(),
 			"mempath"=>$this->path(),
 			"memid"=>$this->id(), 
 			"memcommand"=>"retrieve", 
 			"memvarname"=>$strname
-		), $this->uri()); // end fire()
+		)); // end triggerRemoteOperation()
 	} // end retrieve()
 	
 	public function update($cvar) { 
-		return CEvent :: fire("oncremotememorydriver", array(
+		return $this->triggerRemoteOperation(array(
 			"memtype"=>$this->type(),
 			"mempath"=>$this->path(),
 			"memid"=>$this->id(), 
 			"memcommand"=>"update", 
 			"memvar"=>$cvar
-		), $this->uri()); // end fire()
+		)); // end triggerRemoteOperation()
 	} // end update() 
 	
 	public function delete($strname) { 
-		return CEvent.fire( "oncremotememorydriver", array(
-			"memtype"=>$this->drivertype(),
+		return $this->triggerRemoteOperation(array(
+			"memtype"=>$this->type(),
 			"mempath"=>$this->path(),
 			"memid"=>$this->id(), 
 			"memcommand"=>"delete", 
 			"memvarname"=>$strname 
-		), $this->uri()); // end fire() 
+		)); // end triggerRemoteOperation()
 	} // end delete()
 	
 	public function sync($cache) { 
-		return CEvent::fire( "oncremotememorydriver", array(
-			"memtype"=>$this->drivertype(),
-			"mempath"=> $this->path(),
+		return $this->triggerRemoteOperation(array(
+			"memtype"=>$this->type(),
+			"mempath"=>$this->path(),
 			"memid"=>$this->id(), 
 			"memcommand"=>"sync", 
-			"memcache"=>($cache) ? json_encode($cache) : NULL
-		), $this->uri()); // end fire()
-	}	// end sync()
+			"memcache"=>($cache)?json_encode($cache):NULL
+		)); // end triggerRemoteOperation()
+	} // end sync()
 	
-	public function drivertype() {
+	public function type() {
 		return $this->param("cremotememorydriver_type");
-	} // end drivertype()
+	} // end type()
 	
 	public function uri() {
 		return $this->param("cremotememorydriver_uri");
@@ -86,63 +78,70 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 	public function id() {
 		return $this->param("cremotememorydriver_id");		
 	} // end id()
+	
+	protected function triggerRemoteOperation($inparams) {
+		$struri = $this->uri();
+		$cds = new CDataStream();	// create
+		if(!$struri || !$cds || $cds->open($struri, "post", "cremotememorydriver") == false) // open
+        		return _return_done(NULL);	
+    	$cds->setDataParam("cremotememorydriver",true);
+    	$cds->setDataParam("cremotememorydriver_uri",$struri);	// server of the function
+		$cds->setDataParam("cremotememorydriver_type",$this->type());	// file of the function 
+		$cds->setDataParam("cremotememorydriver_id",$this->id()); 	// name of the function
+		if($inparams && gettype($inparams) == "array")
+        		foreach($inparams as $name=>$value)
+            			$cds->setDataParam($name,$value);
+		else $cds->setDataParam("cremotememorydriver_inparam",$inparams);
+    		$cds->send();
+		return _return_done($cds->getData());
+	} // end triggerRemoteOperation()
+	
+	static public function handleRemoteOperation($params) {
+		// check the parameters
+		if(!$params ||
+			!isset($params["cremotememorydriver"]) ||
+	   		!isset($params["memtype"]) ||
+	   		!isset($params["mempath"]) ||
+	   		!isset($params["memcommand"])) {
+			return;
+		}
+		// get the parameters
+		$strid = isset($params["memid"]) ? $params["memid"] : "tmpid";
+		$strtype = urldecode($params["memtype"]);
+		$strpath = urldecode($params["mempath"]);
+		$strcommand = urldecode($params["memcommand"]);
+		// include driver files	
+		includephpfilesfrompath(dirname(__FILE__), ".drv.php");
+		// get the memory driver
+		if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid)) {
+			echo json_encode(NULL);
+			return;
+		} // end if
+		if($strcommand == "sync") {
+			$cache = isset($params["memcache"]) ? $params["memcache"] : NULL;	
+			$_return = $cmemorydriver->sync(json_decode($cache));
+		} // end if
+		else if($strcommand == "create") {
+			$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;
+			$_return = $cmemorydriver->create($cvar);
+		} // end if
+		else if($strcommand == "retrieve") {
+			$strname = $params["memvarname"];
+			$_return = $cmemorydriver->retrieve($strname);
+		} // end if
+		else if($strcommand == "update") {
+			$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;
+			$_return = $cmemorydriver->update($cvar);
+		} // end if
+		else if($strcommand == "delete") {
+			$strname = $params["memvarname"];
+			$_return = $cmemorydriver->delete($strname);
+		} // end if
+		
+		echo json_encode($_return->data());
+	} // end handleRemoteOperation()
 } // end CRemoteMemoryDriver
 
-//------------------------------------------------------------
-// name: oncremotememorydriver_handler()
-// desc: sets up the event handler to process remote memory
-//------------------------------------------------------------
-include_event("oncremotememorydriver", "oncremotememorydriver_handler"); 
-function oncremotememorydriver_handler($params) {
-	// check params
-	if(!$params||
-	   //!isset($params["memid"]) ||
-	   !isset($params["memtype"]) ||
-	   !isset($params["mempath"]) ||
-	   !isset($params["memcommand"])) {
-		return _return_done(NULL);
-	} // end if
-	
-	// get the parameters
-	$strid = isset($params["memid"]) ? $params["memid"] : "tmpid";
-	$strtype = $params["memtype"];
-	$strpath = $params["mempath"];
-	$strcommand = $params["memcommand"];
-	
-	// get the memory driver
-	if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid)) {
-		return _return_done(NULL);
-	} // end if
-	
-	if($strcommand == "sync") {
-		$cache = isset($params["memcache"]) ? $params["memcache"] : NULL;	
-		$_return = $cmemorydriver->sync(json_decode($cache));
-	} // end if
-	
-	else if($strcommand == "create") {
-		$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;
-		$_return = $cmemorydriver->create($cvar);
-	} // end if
-	
-	else if($strcommand == "retrieve") {
-		$strname = $params["memvarname"];
-		$_return = $cmemorydriver->retrieve($strname);
-	} // end if
-	
-	else if($strcommand == "update") {
-		$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;
-		$_return = $cmemorydriver->update($cvar);
-	} // end if
-
-	else if($strcommand == "delete") {
-		$strname = $params["memvarname"];
-		$_return = $cmemorydriver->delete($strname);
-	} // end if
-	
-	//if($_return) {
-		//$data = $_return->data();
-		//return $data[0];	
-	//} // end if
-	return ($_return) ? $_return->data() : NULL;	
-} // end oncremotememorydriver_handler()
+// handle the request
+CRemoteMemoryDriver :: handleRemoteOperation($_REQUEST);
 ?>

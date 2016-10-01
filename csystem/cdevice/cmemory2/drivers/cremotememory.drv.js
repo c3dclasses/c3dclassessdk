@@ -11,58 +11,58 @@ var CRemoteMemoryDriver = new Class({
 	Extends: CMemoryDriver,
 	
 	create: function(cvar) {
-		return CEvent.fire("oncremotememorydriver", {
-			"memtype":this.drivertype(),
+		return this.triggerRemoteOperation({
+			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"create", 
 			"memvar":cvar
-		}, this.uri()); // end fire 
+		}); // end triggerRemoteOperation() 
 	}, // end create() 
 	
 	retrieve: function(strname) { 
-		return CEvent.fire("oncremotememorydriver", {
-			"memtype":this.drivertype(),
+		return this.triggerRemoteOperation({
+			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"retrieve", 
 			"memvarname":strname 
-		}, this.uri()); // end fire() 
+		}); // end triggerRemoteOperation() 
 	}, // end retrieve()
 	
 	update: function(cvar) { 
-		return CEvent.fire("oncremotememorydriver", {
-			"memtype":this.drivertype(),
+		return this.triggerRemoteOperation( {
+			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"update", 
 			"memvar":cvar
-		}, this.uri()); // end fire()
+		}); // end triggerRemoteOperation()
 	}, // end update() 
 	
 	delete: function(strname) { 
-		return CEvent.fire("oncremotememorydriver", {
-			"memtype":this.drivertype(),
+		return this.triggerRemoteOperation( {
+			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"delete", 
 			"memvarname":strname 
-		}, this.uri()); // end fire() 
+		}); // end triggerRemoteOperation() 
 	}, // end delete()
 	
 	sync: function(cache) {	
-		return CEvent.fire("oncremotememorydriver", {
-			"memtype":this.drivertype(),
+		return this.triggerRemoteOperation( {
+			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
 			"memcommand":"sync", 
 			"memcache":(cache)?JSON.stringify(cache):"null"
-		}, this.uri()); // end fire()
+		}); // end triggerRemoteOperation()
 	},	// end sync()
 	
-	drivertype : function() {
+	type : function() {
 		return this.param("cremotememorydriver_type");
-	}, // end drivertype()
+	}, // end type()
 	
 	uri : function() {
 		return this.param("cremotememorydriver_uri");
@@ -70,5 +70,29 @@ var CRemoteMemoryDriver = new Class({
 	
 	id : function() {
 		return this.param("cremotememorydriver_id");		
-	} // end id()
+	}, // end id()
+	
+	triggerRemoteOperation : function(inparams) {
+		var struri = this.uri();
+		
+		console.log(this);
+		
+		alert(struri);
+		var cds = new CDataStream();	// create
+		if(!struri || !cds || cds.open(struri, "post", "cremotememorydriver") == false) // open
+        		return _return_done(null);	
+    	cds.setDataParam("cremotememorydriver",true);
+    	cds.setDataParam("cremotememorydriver_uri",struri);	// server of the function
+		cds.setDataParam("cremotememorydriver_type",this.type());	// file of the function 
+		cds.setDataParam("cremotememorydriver_id",this.id()); 	// name of the function
+		if(inparams && typeof(inparams) == "object")
+        	for(var name in inparams)
+           		cds.setDataParam(name, inparams[name]);
+		else cds.setDataParam("cremotememorydriver_inparam", inparams);
+    	
+		console.log(cds);
+		
+		alert("done");
+		return cds.send();
+	} // end triggerRemoteOperation()
 }); // end CRemoteMemoryDriver

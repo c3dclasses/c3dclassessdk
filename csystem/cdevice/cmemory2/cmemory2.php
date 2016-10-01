@@ -16,19 +16,22 @@ class CMemory2 extends CResource { // inherits the CResource
 	public function CMemory2(){
 		parent :: CResource();
 		$this->m_cache = NULL; 	
+		$this->m_cmemorydriver = NULL;
 	} // end CMemory2()
 
 	//////////////////////
 	// opening / closing
-	public function open($strpath, $params=NULL){
+	public function open($strpath, $params=NULL) {
 		if(!parent :: open($strpath, $params) || CMemoryDriver :: _open($this) == NULL)
 			return false;
-		$this->m_cache = isset($params["cmemory_cache"]) ? $params["cmemory_cache"] : NULL; // preload the cache
+		// preload the cache
+		$this->m_cache = isset($params["cmemory_cache"]) ? $params["cmemory_cache"] : NULL; 
 		return true;	
 	} // end open()
 
 	public function close(){
 		$this->m_cache = NULL;
+		$this->m_cmemorydriver = NULL;
 		return CMemoryDriver :: _close($this);
 	} // end close()
 
@@ -70,7 +73,15 @@ class CMemory2 extends CResource { // inherits the CResource
 	// other
 	public function cache() {
 		return $this->m_cache;
-	} // end data()
+	} // end cache()
+	
+	public function setCMemoryDriver($cmemorydriver){
+		$this->m_cmemorydriver = $cmemorydriver;
+	} // end setCMemoryDriver()
+
+	public function getCMemoryDriver(){
+		return $this->m_cmemorydriver;
+	} // end getCMemoryDriver()
 
 	public function _toString(){
 		return print_r($this->m_cache, true);
@@ -94,19 +105,19 @@ class CMemory2 extends CResource { // inherits the CResource
 
 /////////////////////////
 // includes and using
-function include_memory2($strid, $strpath, $strtype, $params=NULL){
-	// setup the driver params
+function include_memory2($strid, $strpath, $strtype, $params=NULL) {
 	$params["cresource_type"] = "CMemory2";
-	$params["cmemorydriver_id"] = $strtype . "::" . $strid;
-	$params["cmemorydriver_path"] = $strpath;
 	$params["cmemorydriver_type"] = $strtype;
-	return include_resource($strid, "CMemory2::" . $strid, $params);
+	$params["cmemorydriver_path"] = $strpath;
+	$strpath = "CMemory2||$strtype||$strpath";
+	return include_resource($strid, $strpath, $params);
 } // end include_memory2()
 
 function include_remote_memory2($strid, $strpath, $strtype, $struri="", $params=NULL){
-	// setup the driver params
-	$params["cremotememorydriver_type"] = $strtype;
-	$params["cremotememorydriver_uri"] = $struri; 	
+	$params["cremotememorydriver_path"]=$strpath;
+	$params["cremotememorydriver_type"]=$strtype;
+	$params["cremotememorydriver_uri"]=$struri;
+	$params["cremotememorydriver_id"]="$struri||$strtype||$strpath";
 	return include_memory2($strid, $strpath, "CRemoteMemoryDriver", $params);
 } // end include_remote_memory2()
 
@@ -116,18 +127,19 @@ function use_memory2($strid){
 
 ///////////////////////////////
 // importing / exporting
-function export_cmemory($id, $cresource) {
-	if( !$cresource || !($p=$cresource->getParams()) || 
+function export_cmemory($id, $cmemory) {
+	if( !$cmemory || !($p=$cmemory->getParams()) || 
 		$p->get("cresource_type") != "CMemory2")
 		return "";
-	$cresource->sync(); 
-
+	$cmemory->sync(); 
 	$params = $p->_();
-	$params["cmemory_cache"] = $cresource->cache();
+	$params["cmemory_cache"] = $cmemory->cache();
+	$params["cremotememorydriver_uri"]="http://kevlewis.com/c3dclassessdk/csystem/cdevice/cmemory2/drivers/cremotememory.drv.php";
 	$id = json_encode($id);
 	$params = json_encode($params);
 	return "\n" . "import_cmemory($id, $params);" . "\n";	
 } // end export_cmemory()
+
 function export_cmemory_script(){ 
 	return CResource :: toStringVisit("export_cmemory"); 
 } // end export_cmemory_script() 

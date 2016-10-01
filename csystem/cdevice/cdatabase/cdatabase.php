@@ -1,4 +1,4 @@
- <?php
+<?php
 //----------------------------------------------------------------
 // file: cdatabase.php
 // desc: defines a database object 

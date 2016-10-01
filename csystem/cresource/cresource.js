@@ -103,7 +103,6 @@ var CResource = new Class({
 				return cresource;
 			} // end if
 			var strtype = params["cresource_type"];
-			alert(strtype);
 			
 			if( strtype == "" || (cresource = new window[strtype]()) == null || cresource.open( strpath, params ) == false ){
 				return null; 	

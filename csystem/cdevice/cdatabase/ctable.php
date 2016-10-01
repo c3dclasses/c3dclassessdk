@@ -1,4 +1,4 @@
- <?php
+<?php
 //----------------------------------------------------------------
 // file: ctable.php
 // desc: defines a database table object 

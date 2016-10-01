@@ -119,6 +119,6 @@ function import_cmemory(strid, params) {
 		return false;
 	var strpath = params["cmemorydriver_path"];
 	var strtype = params["cmemorydriver_type"];
-	var struri = params["cmemorydriver_uri"];
+	var struri = params["cremotememorydriver_uri"];
 	return include_remote_memory2(strid, strpath, strtype, struri, params);
 } // end import_cmemory()

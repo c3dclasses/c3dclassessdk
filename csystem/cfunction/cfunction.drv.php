@@ -8,20 +8,21 @@
 // name: _return_remote_call()
 // desc: does the function call
 //---------------------------------------------
-function _return_remote_call($struri, $strfile, $strfn, $inparams) {
-	if(!$struri) { // do a local function call
-        if ($strfn && gettype($strfn) == "function")
-            return call_user_func($strfn,$inparams);
+function _return_remote_call($struri, $strfile, $strfunction, $inparams) {
+	// do a local function call
+	if(!$struri) { 
+        if ($strfunction && is_callable($strfunction))
+            return call_user_func($strfunction,$inparams);
         else return _return_done(NULL);
     } // end if
     // do a remote call
     $cds = new CDataStream();	// create
-    if(!$cds || $cds->open($struri, "post", "cfunction") == false) // open
-        return _return_done(NULL);
+	if(!$cds || $cds->open($struri, "post", "cfunction") == false) // open
+        return _return_done(NULL);	
     $cds->setDataParam("cfunction",true);
     $cds->setDataParam("cfunction_uri",$struri);	// server of the function
 	$cds->setDataParam("cfunction_file",$strfile);	// file of the function 
-	$cds->setDataParam("cfunction_function",$strfn); 	// name of the function
+	$cds->setDataParam("cfunction_function",$strfunction); 	// name of the function
 	if($inparams && gettype($inparams) == "array") {
         foreach($inparams as $name=>$value) {
             $cds->setDataParam($name,$value);
@@ -42,23 +43,21 @@ if($_REQUEST) {
 	$file = isset($_REQUEST["cfunction_file"]) ? $_REQUEST["cfunction_file"] : "";
 	$function = isset($_REQUEST["cfunction_function"]) ? $_REQUEST["cfunction_function"] : "";
 	$inparams = isset($_REQUEST["cfunction_inparam"]) ? $_REQUEST["cfunction_inparam"] : $_REQUEST;
-	
 	if($isCFunction && $function) {
-		//print_r($_REQUEST);
 		include_once("../../ccore/ccore.php");
 		include_once("../csystem.php");
-		
-	$outparams = NULL;
-	$file = urldecode($file);
-	$function = urldecode($function);
-	include_once($file);
-	if(function_exists($function)) {
-		$_return = call_user_func($function, $inparams);
-		echo json_encode($_return->data());
-	} // end if
-	else echo json_encode($outparams); 
-	}
-} // end if
+	
+		$outparams = NULL;
+		$file = urldecode($file);
+		$function = urldecode($function);
+		include_once($file);
+		if(function_exists($function)) {
+			$_return = call_user_func($function, $inparams);
+			if($_return)
+				echo trim(json_encode($_return->data()));
+		} // end if	
+	} // end if($isCFunction)
+} // end if($_REQUEST)
 
 //-------------------------------------------------
 // name: export_cfunction()

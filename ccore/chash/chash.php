@@ -29,7 +29,7 @@ class CHash{
 	public function visit( $fnvisit ){ if( is_callable( $fnvisit ) && $this->m_hash ) foreach( $this->m_hash as $key => $value ) call_user_func( $fnvisit, $key, $value ); } 
 	public function toStringVisit( $fnvisit, $cdata=NULL ){ $str = "";if(is_callable($fnvisit) && $this->m_hash) foreach($this->m_hash as $key => $value) $str .= call_user_func($fnvisit, $key, $value, $cdata);  return $str; }
 	public function hash( $key ){ $nargs = func_num_args();	if( $nargs == 1 ) return $this->get( $key ); else if( $nargs == 2 ) $this->set( $key, func_get_arg(1) ); return; }
-	public function urlencode(){ if( $this->m_hash ) foreach( $this->m_hash as $key => $value ) $this->m_hash[$key] = urlencode($value); }
+	public function urlencode(){ if( $this->m_hash ) foreach( $this->m_hash as $key => $value ) if(gettype($value)=="string") $this->m_hash[$key] = urlencode($value); }
 	public function toJSON(){ return json_encode($this->m_hash); }
 	protected $m_hash;
 } // end CHash
