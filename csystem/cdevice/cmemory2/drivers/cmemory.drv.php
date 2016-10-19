@@ -22,7 +22,7 @@ class CMemoryDriver extends CResource {
 	public function retrieve($strname) { return NULL; } 
 	public function update($cvar) { return NULL; } 
 	public function delete($strname) { return NULL; }
-	public function sync($cache) { return NULL; } 
+	public function sync($cache) { return NULL; }
 	
 	/////////////////////////
 	// class methods

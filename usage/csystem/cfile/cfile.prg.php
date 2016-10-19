@@ -5,8 +5,8 @@
 //-------------------------------------------------------------------------------
 
 // includes
-include_program( "CFileProgram" );
-include_file( "foo", dirname(__FILE__) . "/foo.txt", "a" );
+//include_program( "CFileProgram" );
+//include_file( "foo", dirname(__FILE__) . "/foo.txt", "a" );
 
 //---------------------------------------------------
 // name: CFileProgram

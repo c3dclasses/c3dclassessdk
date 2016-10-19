@@ -5,7 +5,7 @@
 //----------------------------------------------------------------
 
 // includes
-if($_REQUEST["cremotememorydriver"]) {
+if(isset($_REQUEST["cremotememorydriver"])) {
 	include_once("../../../../ccore/ccore.php");
 	include_once("../../../csystem.php");
 } // end if
@@ -84,8 +84,8 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 		$cds = new CDataStream();	// create
 		if(!$struri || !$cds || $cds->open($struri, "post", "cremotememorydriver") == false) // open
         		return _return_done(NULL);	
-    	$cds->setDataParam("cremotememorydriver",true);
-    	$cds->setDataParam("cremotememorydriver_uri",$struri);	// server of the function
+    		$cds->setDataParam("cremotememorydriver",true);
+    		$cds->setDataParam("cremotememorydriver_uri",$struri);	// server of the function
 		$cds->setDataParam("cremotememorydriver_type",$this->type());	// file of the function 
 		$cds->setDataParam("cremotememorydriver_id",$this->id()); 	// name of the function
 		if($inparams && gettype($inparams) == "array")

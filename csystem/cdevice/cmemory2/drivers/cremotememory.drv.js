@@ -31,7 +31,7 @@ var CRemoteMemoryDriver = new Class({
 	}, // end retrieve()
 	
 	update: function(cvar) { 
-		return this.triggerRemoteOperation( {
+		return this.triggerRemoteOperation({
 			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
@@ -41,7 +41,7 @@ var CRemoteMemoryDriver = new Class({
 	}, // end update() 
 	
 	delete: function(strname) { 
-		return this.triggerRemoteOperation( {
+		return this.triggerRemoteOperation({
 			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
@@ -51,7 +51,7 @@ var CRemoteMemoryDriver = new Class({
 	}, // end delete()
 	
 	sync: function(cache) {	
-		return this.triggerRemoteOperation( {
+		return this.triggerRemoteOperation({
 			"memtype":this.type(),
 			"mempath":this.path(),
 			"memid":this.id(), 
@@ -74,25 +74,17 @@ var CRemoteMemoryDriver = new Class({
 	
 	triggerRemoteOperation : function(inparams) {
 		var struri = this.uri();
-		
-		console.log(this);
-		
-		alert(struri);
 		var cds = new CDataStream();	// create
 		if(!struri || !cds || cds.open(struri, "post", "cremotememorydriver") == false) // open
         		return _return_done(null);	
-    	cds.setDataParam("cremotememorydriver",true);
-    	cds.setDataParam("cremotememorydriver_uri",struri);	// server of the function
+    		cds.setDataParam("cremotememorydriver",true);
+    		cds.setDataParam("cremotememorydriver_uri",struri);	// server of the function
 		cds.setDataParam("cremotememorydriver_type",this.type());	// file of the function 
 		cds.setDataParam("cremotememorydriver_id",this.id()); 	// name of the function
 		if(inparams && typeof(inparams) == "object")
-        	for(var name in inparams)
-           		cds.setDataParam(name, inparams[name]);
+        		for(var name in inparams)
+           			cds.setDataParam(name, inparams[name]);
 		else cds.setDataParam("cremotememorydriver_inparam", inparams);
-    	
-		console.log(cds);
-		
-		alert("done");
 		return cds.send();
 	} // end triggerRemoteOperation()
 }); // end CRemoteMemoryDriver

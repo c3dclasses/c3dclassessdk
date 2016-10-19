@@ -74,12 +74,12 @@ class CMemory2 extends CResource { // inherits the CResource
 	public function cache() {
 		return $this->m_cache;
 	} // end cache()
-	
-	public function setCMemoryDriver($cmemorydriver){
+
+	public function setCMemoryDriver($cmemorydriver) {
 		$this->m_cmemorydriver = $cmemorydriver;
 	} // end setCMemoryDriver()
 
-	public function getCMemoryDriver(){
+	public function getCMemoryDriver() {
 		return $this->m_cmemorydriver;
 	} // end getCMemoryDriver()
 
