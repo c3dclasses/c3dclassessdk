@@ -46,7 +46,7 @@ class CMemory2 extends CResource { // inherits the CResource
 		)); // end CMemoryDriver.create()	
 	} // end create()
 
-    	public function retrieve ($strname) {
+    public function retrieve ($strname) {
 		return CMemoryDriver :: _retrieve($this, $strname);
 	} // end retrieve()
 
