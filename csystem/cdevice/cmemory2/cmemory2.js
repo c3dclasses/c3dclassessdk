@@ -12,6 +12,7 @@ var CMemory2 = new Class({
 	initialize : function() { // CMemory2
 		this.parent();
 		this.m_cache = {}; 	
+		this.m_cmemorydriver = null;
 	}, // end CMemory2()
 	
 	//////////////////////
@@ -19,12 +20,14 @@ var CMemory2 = new Class({
 	open : function(strpath, params){
 		if(!this.parent(strpath, params) || CMemoryDriver._open(this) == null)
 			return false;
+		// preload the cache
 		this.m_cache = (params["cmemory_cache"]) ? params["cmemory_cache"] : null; // preload the cache
 		return true;
 	}, // end open()	
 	
 	close : function(){
-		this.m_cache = null;
+		this.m_cache = {};
+		this.m_cmemorydriver = null;
 		return CMemoryDriver._close(this);
 	}, // end close()
 
@@ -66,7 +69,15 @@ var CMemory2 = new Class({
 	// other
 	cache : function() {
 		return this.m_cache; 
-	}, // end data()
+	}, // end cache()
+
+	setCMemoryDriver : function(cmemorydriver) {
+		this.m_cmemorydriver = cmemorydriver;
+	}, // end setCMemoryDriver()
+
+	getCMemoryDriver : function() {
+		return this.m_cmemorydriver;
+	}, // end getCMemoryDriver()
 
 	_toString : function(){
 		return print_r(this.m_cache, true);
@@ -91,20 +102,20 @@ var CMemory2 = new Class({
 /////////////////////////
 // includes and using
 function include_memory2(strid, strpath, strtype, params) {
-	// setup the driver params
 	params = params || {};
-	params["cresource_type"] = "CMemory2";
-	params["cmemorydriver_id"] = strtype + "::" + strid;
-	params["cmemorydriver_path"] = strpath;
+	params["cresource_type"] = "CMemory2"
 	params["cmemorydriver_type"] = strtype;
-	return include_resource(strid, "CMemory2::" + strid, params);
+	params["cmemorydriver_path"] = strpath;
+	strpath = "CMemory2||"+strtype+"||"+strpath;
+	return include_resource(strid, strpath, params);
 } // end include_memory2()
 
 function include_remote_memory2(strid, strpath, strtype, struri, params){
-	// setup the driver params
 	params = params || {};
+	params["cremotememorydriver_path"]=strpath;
 	params["cremotememorydriver_type"] = strtype;
 	params["cremotememorydriver_uri"] = struri; 	
+	params["cremotememorydriver_id"]=struri+"||"+strtype+"||"+strpath;
 	return include_memory2(strid, strpath, "CRemoteMemoryDriver", params);
 } // end include_remote_memory2()
 

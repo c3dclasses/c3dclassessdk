@@ -133,8 +133,9 @@ function export_cmemory($id, $cmemory) {
 		return "";
 	$cmemory->sync(); 
 	$params = $p->_();
+	
 	$params["cmemory_cache"] = $cmemory->cache();
-	$params["cremotememorydriver_uri"]="http://kevlewis.com/c3dclassessdk/csystem/cdevice/cmemory2/drivers/cremotememory.drv.php";
+	$params["cremotememorydriver_uri"] = CRemoteMemoryDriver :: getLocalURI();
 	$id = json_encode($id);
 	$params = json_encode($params);
 	return "\n" . "import_cmemory($id, $params);" . "\n";	

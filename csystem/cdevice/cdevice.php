@@ -13,4 +13,6 @@ include_once("cdatabase/cdatabase.php");
 include_once("cdatabase/ctable.php");
 include_once("cimage/cimage.php");
 include_once("cimage/cimageresource.php");
+include_once("csound/csound.php");
+include_once("cvideo/cvideo.php");
 ?>

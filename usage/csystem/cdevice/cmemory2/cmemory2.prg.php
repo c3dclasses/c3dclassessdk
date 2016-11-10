@@ -26,6 +26,9 @@ SCRIPT;
 	ob_start();			
 		printbr("<b>cmemory2.php</b>");	
 		
+		printbr();
+		printbr();
+		
 		// local memory
 		printbr("<b>include_memory2()</b>");	
 		printbr("include_memory2(\"local-memory\", dirname(__FILE__) . \"/cjsonmemory.json\", \"CJSONMemoryDriver\");");
@@ -35,8 +38,7 @@ SCRIPT;
 		// remote memory
 		printbr("<b>include_remote_memory2()</b>");	
 		printbr("include_remote_memory2(\"remote-memory\", dirname(__FILE__) . \"/cjsonmemory.json\", \"CJSONMemoryDriver\");");
-		$struri = "http://kevlewis.com/c3dclassessdk/csystem/cdevice/cmemory2/drivers/cremotememory.drv.php";
-		include_remote_memory2("remote-memory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver", $struri);
+		include_remote_memory2("remote-memory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver", CRemoteMemoryDriver :: getLocalURI());
 		$this->doMemory("remote-memory");
 	return ob_end();
 	} // end innerhtml()

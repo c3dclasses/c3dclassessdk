@@ -11,6 +11,7 @@ if($_REQUEST["cremotememorydriver"]) {
 } // end if
 include_once("cmemory.drv.php");
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
+include_path("CRemoteMemoryDriver_URI", uri_name(__FILE__));
 
 //----------------------------------------------------------------
 // class: CRemoteMemoryDriver
@@ -95,6 +96,10 @@ class CRemoteMemoryDriver extends CMemoryDriver{
     		$cds->send();
 		return _return_done($cds->getData());
 	} // end triggerRemoteOperation()
+	
+	static public function getLocalURI() {
+		return CPath :: _("CRemoteMemoryDriver_URI");
+	} // end getLocalURI()
 	
 	static public function handleRemoteOperation($params) {
 		// check the parameters
