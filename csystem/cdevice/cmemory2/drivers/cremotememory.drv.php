@@ -101,10 +101,6 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 		return CPath :: _("CRemoteMemoryDriver_URI");
 	} // end getLocalURI()
 
-	static public function getLocalURI() {
-		return uri_name(__FILE__);
-	} // end getLocalURI()
-
 	static public function handleRemoteOperation($params) {
 		// check the parameters
 		if(!$params ||
