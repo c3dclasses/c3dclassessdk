@@ -3,4 +3,6 @@
 // file: csound.php
 // desc: 
 //---------------------------------------------------------
+
+include_js(relname(__FILE__) . "/csound.js");
 ?>

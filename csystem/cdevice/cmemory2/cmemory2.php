@@ -46,7 +46,7 @@ class CMemory2 extends CResource { // inherits the CResource
 		)); // end CMemoryDriver.create()	
 	} // end create()
 
-    public function retrieve ($strname) {
+    	public function retrieve ($strname) {
 		return CMemoryDriver :: _retrieve($this, $strname);
 	} // end retrieve()
 
@@ -74,12 +74,12 @@ class CMemory2 extends CResource { // inherits the CResource
 	public function cache() {
 		return $this->m_cache;
 	} // end cache()
-
-	public function setCMemoryDriver($cmemorydriver) {
+	
+	public function setCMemoryDriver($cmemorydriver){
 		$this->m_cmemorydriver = $cmemorydriver;
 	} // end setCMemoryDriver()
 
-	public function getCMemoryDriver() {
+	public function getCMemoryDriver(){
 		return $this->m_cmemorydriver;
 	} // end getCMemoryDriver()
 
@@ -133,8 +133,9 @@ function export_cmemory($id, $cmemory) {
 		return "";
 	$cmemory->sync(); 
 	$params = $p->_();
+	
 	$params["cmemory_cache"] = $cmemory->cache();
-	$params["cremotememorydriver_uri"]="http://kevlewis.com/c3dclassessdk/csystem/cdevice/cmemory2/drivers/cremotememory.drv.php";
+	$params["cremotememorydriver_uri"] = CRemoteMemoryDriver :: getLocalURI();
 	$id = json_encode($id);
 	$params = json_encode($params);
 	return "\n" . "import_cmemory($id, $params);" . "\n";	

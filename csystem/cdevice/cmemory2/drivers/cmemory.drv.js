@@ -13,13 +13,12 @@ var CMemoryDriver = new Class({
 	// driver instance methods
 	initialize: function() { this.parent(); },
 	open: function(strpath, params) { return this.parent(strpath, params); },
-	close: function() { return parent :: close(); }, 
+	close: function() { /*return parent :: close();*/ }, 
 	create: function(cvar) { return null; }, 
 	retrieve: function(strname) { return null; },
 	update: function(cvar) { return null; }, 
 	delete: function(strname) { return null; },
 	sync: function(cache) { return null; },
-	
 	/////////////////////////
 	// class methods	
 	ClassMethods: {
@@ -28,18 +27,13 @@ var CMemoryDriver = new Class({
 		_open: function(cmemory) {
 			if(!cmemory)
 				return null;
-			cmemorydriver = cmemory.getCMemoryDriver();
-			if(cmemorydriver)
-				return cmemorydriver;
-			// create the cmemorydriver for this memory object
+			// set up the driver params
 			var params = cmemory.getParams(); 
 			var strtype = params.get("cmemorydriver_type");
 			var strpath = params.get("cmemorydriver_path");
-			if(strtype == "" || (cmemorydriver = new $strtype()) == null || 
-				cmemorydriver.open(strpath, params._()) == false) 
-				return null;
-			cmemory.setCMemoryDriver(cmemorydriver);	
-			return cmemorydriver;
+			var strid = params.get("cmemorydriver_id"); 
+			return include_memory_driver(strid, strpath, strtype, params._()) ? 
+					use_memory_driver(strid) : null;
 		}, // end _open()
 
 		_close: function(cmemory) {

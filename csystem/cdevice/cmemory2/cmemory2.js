@@ -12,8 +12,9 @@ var CMemory2 = new Class({
 	initialize : function() { // CMemory2
 		this.parent();
 		this.m_cache = {}; 	
+		this.m_cmemorydriver = null;
 	}, // end CMemory2()
-
+	
 	//////////////////////
 	// opening / closing
 	open : function(strpath, params){
@@ -23,9 +24,10 @@ var CMemory2 = new Class({
 		this.m_cache = (params["cmemory_cache"]) ? params["cmemory_cache"] : null; // preload the cache
 		return true;
 	}, // end open()	
-
+	
 	close : function(){
-		this.m_cache = null;
+		this.m_cache = {};
+		this.m_cmemorydriver = null;
 		return CMemoryDriver._close(this);
 	}, // end close()
 
@@ -43,7 +45,7 @@ var CMemory2 = new Class({
 	retrieve : function(strname){ 
 		return CMemoryDriver._retrieve(this, strname);
 	}, // end retrieve()
-
+	
 	update : function(strname, value, strtype, params){
 		return CMemoryDriver._update(this, {
 			"m_strname":strname, 
@@ -52,7 +54,7 @@ var CMemory2 = new Class({
 			"m_params": params 
 		}); // end CMemoryDriver.update()
 	}, // end update()
-
+	
 	delete : function(strname){
 		return CMemoryDriver._delete(this, strname);
 	}, // end delete()
@@ -111,9 +113,9 @@ function include_memory2(strid, strpath, strtype, params) {
 function include_remote_memory2(strid, strpath, strtype, struri, params){
 	params = params || {};
 	params["cremotememorydriver_path"]=strpath;
-	params["cremotememorydriver_type"]=strtype;
-	params["cremotememorydriver_uri"]=struri;
-	params["cremotememorydriver_id"]=struri+"||"+strtype+"||"+strpath";
+	params["cremotememorydriver_type"] = strtype;
+	params["cremotememorydriver_uri"] = struri; 	
+	params["cremotememorydriver_id"]=struri+"||"+strtype+"||"+strpath;
 	return include_memory2(strid, strpath, "CRemoteMemoryDriver", params);
 } // end include_remote_memory2()
 

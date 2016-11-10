@@ -1,6 +1,8 @@
 <?php
 //---------------------------------------------------------
 // file: cvideo.php
-// desc: 
+// desc: defines the video object
 //---------------------------------------------------------
+
+include_js(relname(__FILE__) . "/cvideo.js");
 ?>

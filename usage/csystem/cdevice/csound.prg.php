@@ -19,6 +19,10 @@ class CSoundProgram extends CProgram{
 	public function c_main(){
 return <<<SCRIPT
 	printbr( "<b>csound.js</b>" );
+	csound = new CSound();
+	csound.createFromURI("http://www.w3schools.com/tags/movie.ogg", "mysound");
+	csound.load();
+	csound.play();
 SCRIPT;
 	} // end load()
 	
