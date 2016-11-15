@@ -77,7 +77,7 @@ class CTable extends CResource{
 		foreach($this->m_structure as $colname => $structure){
 			$columns[] = $colname;
 			if($structure["Key"] == "PRI")
-				$value = $strprimarykeyvalue;			
+				$value = "\"{$strprimarykeyvalue}\"";			
 			else if($colname != $strcolname) 
 				$value = "NULL";
 			else $value = "\"{$newvalue}\"";
@@ -99,6 +99,23 @@ class CTable extends CResource{
 		$sql = "SELECT * FROM {$strtablename} WHERE {$strprimarykeyfield} = '{$strprimarykeyvalue}'";
 		return $this->query_row($sql);
 	} // end retrieve()	
+
+	public function retrieveAll() {
+		if(!$this->isOpen())
+			return NULL;
+		$strtablename = $this->getName();
+		$strpk = $this->getPrimaryKeyField();
+		$sql = "SELECT * FROM {$strtablename};";
+		$_result = $this->m_cdatabase->query($sql);
+		if($_result == FALSE)
+			return NULL;
+		$rows = NULL;
+		while($row = mysql_fetch_assoc($_result)) {
+			$rows[$row[$strpk]] = $row;
+		} // end while
+		mysql_free_result($_result);
+		return $rows;
+	} // end retrieveAll()
 	
 	public function delete($strprimarykeyvalue="", $strcolname="", $bdeletecolumn=false){
 		if(!$this->isOpen())
@@ -251,7 +268,10 @@ class CTable extends CResource{
 		if(!$this->m_cdatabase)
 			return NULL;
 		$result = $this->m_cdatabase->query($sql);
-		return ($result == FALSE || ($row = mysql_fetch_assoc($result)) == FALSE) ? NULL : $row;
+		if($result == FALSE || ($row = mysql_fetch_assoc($result)) == FALSE)
+			return NULL;
+		mysql_free_result($result);
+		return $row;
 	} // end query_row()
 } // end CTable
 

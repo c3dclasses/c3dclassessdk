@@ -21,7 +21,7 @@ var CMemory2 = new Class({
 		if(!this.parent(strpath, params) || CMemoryDriver._open(this) == null)
 			return false;
 		// preload the cache
-		this.m_cache = (params["cmemory_cache"]) ? params["cmemory_cache"] : null; // preload the cache
+		this.m_cache = (params["cmemory_cache"]) ? params["cmemory_cache"] : {}; // preload the cache
 		return true;
 	}, // end open()	
 	

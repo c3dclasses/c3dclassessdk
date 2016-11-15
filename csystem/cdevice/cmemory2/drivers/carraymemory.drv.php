@@ -1,8 +1,10 @@
 <?php 
-//----------------------------------------------------------------
+//------------------------------------------------------------------------------
 // file: carraymemory.drv.php
 // desc: defines a array memory driver object 
-//----------------------------------------------------------------
+// usage: include_memory("strid", "$GLOBALVARNAME", "CArrayMemoryDriver");
+//	      cmemory = use_memory("strid"); 
+//------------------------------------------------------------------------------
 
 // includes
 include_once("cmemory.drv.php");
@@ -20,71 +22,38 @@ class CArrayMemoryDriver extends CMemoryDriver {
 	} // end CArrayMemoryDriver()
 	
 	public function open($strpath, $params=NULL){
-		if(!isset($params["carraymemorydriver_array"]) ||
-			parent :: open($strpath, $params) == false)
+		if(parent :: open($strpath, $params) == false)
 			return false;
-		$this->m_array = &$params["carraymemorydriver_array"];
+		try {
+			eval('$array = &' . $strpath . ';');
+			$this->m_array = &$array;
+		} // end try
+		catch(Exception $ex) {
+			return false;
+		} // end catch()
 		return true;	
 	} // end open()
 	
 	public function close(){
-		$this->m_array = NULL; 
+		//$this->m_array = NULL; 
 	} // end close()
 	
 	public function create($cvar) {
-		if(!$cvar) // no var
+		if(!$cvar || !$this->exist($cvar['m_strname'])) // no var
 			return _return_done(NULL);
-		$strname = $cvar['m_strname'];
-		$value = $cvar['m_value'];	
-		$bcreated=false;
-		if(isset($this->m_array[$strname])) { // its already set
-			$bcreated = true;
-			$value = $this->m_array[$strname];
-		} // end if
-		else $this->m_array[$strname] = $value;
-		$outcvar['m_strname'] = $strname;
-		$outcvar['m_value'] = (gettype($value) == "object") ? serialize($value) : $value;
-		$outcvar['m_strtype'] = gettype($value);
-		$outcvar['m_icreated'] = ($bcreated) ? "" : time(); // set the timestamp
-		$outcvar['m_iupdated'] = "";
-		$outcvar['m_iretrieved'] = "";
-		return _return_done($outcvar);
+		return _return_done($this->encode($cvar, array("m_icreated"=>time())));
 	} // end create()
 	
-	public function retrieve($strname){ 
-		if($this->m_array == NULL || 
-			isset($this->m_array[$strname]) == FALSE || 
-			($value = $this->m_array[ $strname ]) == NULL ||
-			gettype($value) == "unknown type" )
-			_return_done(NULL);
-		$outcvar['m_strname'] = $strname;	
-		$outcvar['m_value'] = (gettype($value) == "object") ? unserialize($value) : $value;
-		$outcvar['m_strtype'] = gettype($value);
-		$outcvar['m_icreated'] = ""; // set the timestamp
-		$outcvar['m_iupdated'] = "";
-		$outcvar['m_iretrieved'] = time();
-		return _return_done($outcvar); 
+	public function retrieve($strname) { 	
+		return _return_done($this->decode($strname, array("m_iretrieved"=>time())));	
 	} // end retrieve()
 		
 	public function update($cvar){ 
-		if(!$cvar)
-			return _return_done(NULL);
-		$strname = $cvar['m_strname'];
-		$value = $cvar['m_value'];	
-		if($this->m_array == NULL || isset($this->m_array[$strname]) == FALSE)
-			return _return_done(NULL);
-		$this->m_array[$strname]=$value;
-		$outcvar['m_strname'] = $strname;
-		$outcvar['m_value'] = (gettype($value) == "object") ? serialize($value) : $value;
-		$outcvar['m_strtype'] = gettype($value);
-		$outcvar['m_icreated'] = ""; // set the timestamp
-		$outcvar['m_iupdated'] = time();
-		$outcvar['m_iretrieved'] = "";
-		return _return_done($outcvar);
+		return _return_done($this->encode($cvar, array("m_iupdated"=>time())));
 	} // end update()
 	
 	public function delete($strname){ 
-		if($this->m_array == NULL ||isset($this->m_array[$strname]) == FALSE)
+		if($this->exist($strname))
 			return _return_done(NULL);
 		$this->m_array[$strname] = NULL;
 		unset($this->m_array[$strname]);
@@ -92,28 +61,70 @@ class CArrayMemoryDriver extends CMemoryDriver {
 	} // end delete()
 	
 	public function sync($cache) {
-		print_r($cache);
-		// update the main cache	
+		// update the main cache		
 		if($cache) {
-			foreach($cache as $strname => $value) {
-				if($this->m_array[$strname])
-					$this->m_array[$strname] = $value;
+			foreach($cache as $strname => $cvar) {
+				if($this->m_array[$strname]) {
+					$this->encode($cvar);
+				} // end if
 			} // end foreach
 		} // end if
-		if(!$this->m_array)
-			return _return_done(NULL);
 		$outcache = NULL;
-		foreach($this->m_array as $strname => $value) {
-			$cvar = NULL;
-			$cvar['m_strname'] = $strname;
-			$cvar['m_value'] = (gettype($value) == "object") ? unserialize($value) : $value;
-			$cvar['m_strtype'] = gettype($value);
-			$cvar['m_icreated'] = ""; // set the timestamp
-			$cvar['m_iupdated'] = "";
-			$cvar['m_iretrieved'] = "";
-			$outcache[$strname]=$cvar;
+		foreach($this->m_array as $strname => $cvar) {
+			$cvar = $this->decode($strname, array("m_isynced"=>time()));
+			$outcache[$strname] = $cvar;
 		} // end for
 		return _return_done($outcache);
 	} // end sync()
+	
+	//////////////////////
+	// helper methods
+	
+	public function exist($strname) {
+		return ($this->m_array == NULL ||isset($this->m_array[$strname]) == FALSE);
+	} // end exist()
+	
+	public function encode($cvar, $arrmetadata=NULL) {
+		if(!$cvar && !isset($cvar['m_strname']))
+			return NULL;
+		$strname = $cvar['m_strname'];	
+		// serialize the value if it is an object
+		$value = $cvar['m_value'];
+		if(gettype($cvar['m_value']) == "object") {
+			$cvar['m_value'] = serialize($cvar['m_value']);
+			$cvar['m_strtype'] = "object";
+		} // end if
+		// set metadata
+		if($arrmetadata) {
+			foreach($arrmetadata as $strmetaname => $metadata) {
+				$cvar[$strmetaname] = $metadata;
+			} // end foreach()
+		} // end if
+		// json encode the memory location	
+		$this->m_array[$strname] = json_encode($cvar);
+		// reset the value
+		$cvar['m_value'] = $value; 
+		return $cvar;
+	} // end encode()
+	
+	public function decode($strname, $arrmetadata=NULL) {
+		if(!$this->m_array)
+			return NULL;	
+		$cvar = isset($this->m_array[$strname]) ? json_decode($this->m_array[$strname], true) : NULL;
+		if(!$cvar)
+			return NULL;
+		// set metadata and encode it again 
+		if($arrmetadata) {
+			foreach($arrmetadata as $strmetaname => $metadata) {
+				$cvar[$strmetaname]=$metadata;
+			} // end foreach()
+		} // end if
+		// json encode the memory location	
+		$this->m_array[$strname] = json_encode($cvar);
+		// unserialize the value if it's an object
+		if(gettype($cvar['m_value']) == "object")
+			$cvar['m_value'] = unserialize($cvar['m_value']);		
+		return $cvar;
+	} // end decode()
 } // end CArrayMemoryDriver
 ?>

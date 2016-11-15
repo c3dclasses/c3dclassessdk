@@ -4,6 +4,7 @@
 // desc: defines the memory driver object
 //----------------------------------------------------------------
 
+session_start();
 // includes
 include_js(relname(__FILE__) . "/cmemory.drv.js");
 

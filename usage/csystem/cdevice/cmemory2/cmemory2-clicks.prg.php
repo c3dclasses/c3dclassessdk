@@ -4,11 +4,16 @@
 // desc: demos hows to use cmemory object to store data on server / client
 //---------------------------------------------------------------------------
 
+// Start the session
+session_start();
+
 // includes
 include_program("CMemoryProgram2_Clicks");
-include_memory2("testmemory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
-include_memory2("testarraymemory", "session2", "CArrayMemoryDriver", array("carraymemorydriver_array"=>&$_SESSION));
-
+include_memory2("testjson", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
+include_memory2("testarray", "\$_SESSION", "CArrayMemoryDriver");
+include_memory2("testdatabase", "localhost/kevlewis_public/_cmemorytable", "CDatabaseMemoryDriver",
+array("username"=>"kevlewis_public", "password"=>"kevlewis_public"));
+	
 //---------------------------------------------------
 // name: CMemoryProgram2_Clicks
 // desc: hello world program
@@ -21,9 +26,15 @@ class CMemoryProgram2_Clicks extends CProgram{
 	public function c_main(){
 return <<<SCRIPT
 		printbr("<b>cmemory.js</b>");
-		//include_remote_memory2("testmemory", dirname(this.__FILE__) + "/cjsonmemory.json", "CJSONMemoryDriver");
-		//var cmemory = use_memory2("testarraymemory");
-		var cmemory = use_memory2("testmemory");
+		
+		// memory type 
+		var cmemory = use_memory2(document.querySelector('input[name="memorytype"]:checked').value);
+		$("input[name=\"memorytype\"]").click(function(){
+			var memid = document.querySelector('input[name="memorytype"]:checked').value;
+			cmemory = use_memory2(memid);
+			alert("using cmemory: " + memid);
+		}); // end .click()
+		
 		// create 
 		$(".create").click(function(){
 			var name = window.prompt("Please enter memory location name", "default_name");
@@ -54,7 +65,7 @@ return <<<SCRIPT
 			})._endif();
 		}); // end .click()
 		
-		// create 
+		// update
 		$(".update").click(function(){
 			var name = window.prompt("Please enter memory location name", "default_name");
 			var value = window.prompt("Please enter memory location value", "This is the default value");
@@ -105,7 +116,7 @@ return <<<SCRIPT
 			printbr();
 		}); // end .click()
 		
-		// print
+		// toString
 		$(".print").click(function(){
 			printbr("cmemory._toString() = " + cmemory._toString());		
 			printbr();
@@ -117,6 +128,9 @@ SCRIPT;
 	public function innerhtml() {	
 ob_start();			
 		printbr("<b>cmemory.php</b>");
+		printbr("<input type=\"radio\" name=\"memorytype\" value=\"testjson\" checked> CJSONMemoryDriver<br/>");
+  		printbr("<input type=\"radio\" name=\"memorytype\" value=\"testdatabase\"> CDatabaseMemoryDriver<br/>");
+  		printbr("<input type=\"radio\" name=\"memorytype\" value=\"testarray\"> CArrayMemoryDriver<br/>");
 		printbr("<button class=\"sync\">cmemory.sync()</button>");
 		printbr("<button class=\"create\">cmemory.create()</button>");
 		printbr("<button class=\"retrieve\">cmemory.retreive()</button>");

@@ -85,6 +85,8 @@ var CRemoteMemoryDriver = new Class({
     	cds.setDataParam("cremotememorydriver_uri",struri);	// server of the function
 		cds.setDataParam("cremotememorydriver_type",this.type());	// file of the function 
 		cds.setDataParam("cremotememorydriver_id",this.id()); 	// name of the function
+		cds.setDataParam("cremotememorydriver_params", this.m_hashparams.m_hash);
+		
 		if(inparams && typeof(inparams) == "object")
         	for(var name in inparams)
            		cds.setDataParam(name, inparams[name]);

@@ -35,8 +35,8 @@ ob_start();
 	
 	/////////////////
 	// opening 
-	printbr('include_table_memory("__ctablememory", "localhost/__ctablememory_db/__ctablememory_tbl", 
-				array("username"=>"root", "password"=>"", "primarykey"=>100))');
+	printbr('include_table_memory("__ctablememory", "localhost/kevlewis_public/__ctablememory_tbl", 
+				array("username"=>"kevlewis_public", "password"=>"1234", "primarykey"=>100))');
 				
 	// use the table object
 	$ctablememory = use_table_memory("__ctablememory");

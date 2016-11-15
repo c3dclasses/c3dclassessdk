@@ -115,16 +115,17 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 		$strtype = urldecode($params["memtype"]);
 		$strpath = urldecode($params["mempath"]);
 		$strcommand = urldecode($params["memcommand"]);
+		$driver_params = $params["cremotememorydriver_params"];
 		// include driver files	
 		includephpfilesfrompath(dirname(__FILE__), ".drv.php");
 		// get the memory driver
-		if(!include_memory_driver($strid, $strpath, $strtype) || !$cmemorydriver = use_memory_driver($strid)) {
+		if(!include_memory_driver($strid, $strpath, $strtype, $driver_params) || !$cmemorydriver = use_memory_driver($strid)) {
 			echo json_encode(NULL);
 			return;
 		} // end if
 		if($strcommand == "sync") {
 			$cache = isset($params["memcache"]) ? $params["memcache"] : NULL;	
-			$_return = $cmemorydriver->sync(json_decode($cache));
+			$_return = $cmemorydriver->sync(json_decode($cache, true));
 		} // end if
 		else if($strcommand == "create") {
 			$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;

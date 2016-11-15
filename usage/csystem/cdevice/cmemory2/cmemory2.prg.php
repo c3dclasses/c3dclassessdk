@@ -6,7 +6,7 @@
 
 // includes
 include_program("CMemoryProgram2");
-
+	
 //---------------------------------------------------
 // name: CMemoryProgram
 // desc: hello world program
@@ -32,14 +32,17 @@ SCRIPT;
 		// local memory
 		printbr("<b>include_memory2()</b>");	
 		printbr("include_memory2(\"local-memory\", dirname(__FILE__) . \"/cjsonmemory.json\", \"CJSONMemoryDriver\");");
-		include_memory2("local-memory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
+		//include_memory2("local-memory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver");
+		include_memory2("local-memory", "_SESSION", "CArrayMemoryDriver");
+		
 		$this->doMemory("local-memory");
-				
+		/*		
 		// remote memory
 		printbr("<b>include_remote_memory2()</b>");	
 		printbr("include_remote_memory2(\"remote-memory\", dirname(__FILE__) . \"/cjsonmemory.json\", \"CJSONMemoryDriver\");");
 		include_remote_memory2("remote-memory", dirname(__FILE__) . "/cjsonmemory.json", "CJSONMemoryDriver", CRemoteMemoryDriver :: getLocalURI());
 		$this->doMemory("remote-memory");
+		*/
 	return ob_end();
 	} // end innerhtml()
 	
@@ -83,12 +86,20 @@ SCRIPT;
 		printbr("cmemory->_toString() = " . $cmemory->_toString());
 		printbr();
 		
+		printbr();
+		$cmemory->sync();
+		printbr("cmemory->sync()"); 
+		printbr();
+		
+		printbr("cmemory->_toString() = " . $cmemory->_toString());
+		printbr();
+		
 		$cmemory->delete("foo487346");
 		printbr("cmemory->delete(\"foo487346\")"); 
 		printbr();
 		
 		printbr("cmemory->_toString() = " . $cmemory->_toString());
-		printbr();		
+		printbr();			
 	} // end doMemory()
 	
 } // end CMemoryProgram

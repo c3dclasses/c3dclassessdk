@@ -10,7 +10,7 @@ include_program( "CDatabaseProgram" );
 // include __ctable object using this path and credentials. 
 // open and create the database (__cdatabase) if it does not exist
 // open and create the table (__ctable) if it doesn't exist
-include_table("__ctable", "localhost/__cdatabase/__ctable", array("username"=>"root", "password"=>""));
+include_table("__ctable", "localhost/kevlewis_public/__ctable", array("username"=>"kevlewis_public", "password"=>"kevlewis_public"));
 
 //---------------------------------------------------
 // name: CDatabaseProgram
@@ -88,20 +88,21 @@ ob_start();
 		printbr("ctable->retrieve(100) = " . print_r($row, true));
 	else printbr("ERROR: ctable->retrieve(100) = undefined");
 	
+	
 	// delete row[100]
-	if($ctable->delete(100))
-		printbr("ctable->delete(100) - delete row[100]");
-	else printbr("ERROR: ctable->delete(100) - delete row[100]");
+	//if($ctable->delete(100))
+	//	printbr("ctable->delete(100) - delete row[100]");
+	//else printbr("ERROR: ctable->delete(100) - delete row[100]");
 	  
 	// delete the table
-	if($ctable->delete())
-		printbr("ctable->delete() - deleted the whole table");
-	else printbr("ERROR: ctable->delete() - deleted the whole table");
+	//if($ctable->delete())
+	//	printbr("ctable->delete() - deleted the whole table");
+	//else printbr("ERROR: ctable->delete() - deleted the whole table");
 	
 	// delete the database
-	if($ctable->getDatabase()->delete())
-		printbr("ctable->getDatabase()->delete() - deleted the database");
-	else printbr("ERROR: ctable->getDatabase()->delete() - deleted the database");
+	//if($ctable->getCDatabase()->delete())
+	//	printbr("ctable->getDatabase()->delete() - deleted the database");
+	//else printbr("ERROR: ctable->getDatabase()->delete() - deleted the database");
 	
 return ob_end();
 	} // end innerhtml()
