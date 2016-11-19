@@ -5,10 +5,14 @@
 //----------------------------------------------------------------
 
 // includes
-if($_REQUEST["cremotememorydriver"]) {
+
+/*if($_REQUEST["cremotememorydriver"]) {
 	include_once("../../../../ccore/ccore.php");
 	include_once("../../../csystem.php");
 } // end if
+*/
+include_once(dirname(dirname(dirname(dirname(dirname(__FILE__)))))."/ccore/cincludefiles/cincludeif.php");
+include_if($_REQUEST["cremotememorydriver"], array("../../../../ccore/ccore.php", "../../../csystem.php") );
 include_once("cmemory.drv.php");
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
 include_path("CRemoteMemoryDriver_URI", uri_name(__FILE__));
@@ -129,6 +133,7 @@ class CRemoteMemoryDriver extends CMemoryDriver{
 		} // end if
 		else if($strcommand == "create") {
 			$cvar = isset($params["memvar"]) ? $params["memvar"] : NULL;
+			//printbr("hello"); print_r($params); printbr("hello");
 			$_return = $cmemorydriver->create($cvar);
 		} // end if
 		else if($strcommand == "retrieve") {

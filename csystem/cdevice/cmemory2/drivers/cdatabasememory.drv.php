@@ -57,28 +57,46 @@ class CDatabaseMemoryDriver extends CMemoryDriver {
 		return _return_done(NULL);
 	} // end delete()
 	
-	public function sync($cache) {
+	public function sync($local) {
 		// update the main cache		
 		if(!$this->m_ctable) 
 			return NULL;
-		$array = $this->m_ctable->retrieveAll();
-		if($cache) {
-			foreach($cache as $strname => $cvar) {
-				if(isset($array[$strname])) {
+		$remote = $this->getRemoteCache();
+		if($local) {
+			foreach($local as $strname => $cvar) {
+				if(isset($remote[$strname])) { // if its in the remote
+					$rcvar = $remote[$strname];
+					if(isset($rcvar["m_iupdated"]) && 
+						isset($cvar["m_iupdated"]) &&
+						$rcvar["m_iupdated"] > $cvar["m_iupdated"]) // check if remote var is more recent
+						continue;
 					$this->encode($cvar);
 				} // end if
 			} // end foreach
 		} // end if
-		$outcache = NULL;
-		foreach($array as $strname => $cvar) {
+		
+		$newlocal = NULL;
+		foreach($remote as $strname => $cvar) {
 			$cvar = $this->decode($strname, array("m_isynced"=>time()));
-			$outcache[$strname] = $cvar;
+			$newlocal[$strname] = $cvar;
 		} // end for
-		return _return_done($outcache);
+		return _return_done($newlocal);
 	} // end sync()
 
 	//////////////////////
 	// helper methods
+	
+	public function getRemoteCache() {
+		if(!$this->m_ctable)
+			return NULL;
+		$cache = $this->m_ctable->retrieveAll();
+		if(!$cache)
+			return NULL;
+		foreach($cache as $strname => $cvar) {
+			$cache[$strname] = $this->decode($strname);
+		} // end foreach()
+		return $cache;
+	} // end getRemoteCache()
 	
 	public function exist($strname) {
 		if(!$this->m_ctable || !($row = $this->m_ctable->retrieve($strname)))

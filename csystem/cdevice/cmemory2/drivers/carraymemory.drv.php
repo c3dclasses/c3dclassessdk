@@ -2,8 +2,8 @@
 //------------------------------------------------------------------------------
 // file: carraymemory.drv.php
 // desc: defines a array memory driver object 
-// usage: include_memory("strid", "$GLOBALVARNAME", "CArrayMemoryDriver");
-//	      cmemory = use_memory("strid"); 
+// usage: include_memory("strmemid", "$GLOBALVARNAME", "CArrayMemoryDriver");
+//	      cmemory = use_memory("strmemid"); 
 //------------------------------------------------------------------------------
 
 // includes
