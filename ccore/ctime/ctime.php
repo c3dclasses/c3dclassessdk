@@ -12,8 +12,8 @@ include_js(relname(__FILE__) . "/ctime.js");
 // desc: time object
 //----------------------------------------------
 class CTime {
-	public static function getMicroseconds() { return microtime(true); }
-	public static function getMilliseconds() { return CTimer :: getMicroseconds(); }
-	public static function getSeconds() { return (CTimer :: getMilliseconds() / 1000); }
+	public static function us() { return CTime :: ms() * 1000; }
+	public static function ms() { return CTime :: s() * 1000; }
+	public static function s() { return intval(microtime(TRUE)); }
 } // end CTime
 ?>

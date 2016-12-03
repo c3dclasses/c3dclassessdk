@@ -9,8 +9,8 @@
 //----------------------------------------------
 var CTime = new Class({
 	ClassMethods : { 
-		getMicroseconds : function() { return microtime(true); },
-		getMilliseconds : function() { var d = new Date(); return d.getTime(); },
-		getSeconds : function() { return (CTimer.getMilliseconds() / 1000); }
+		us : function() { return CTime.ms() * 1000; },
+		ms : function() { return (new Date().getTime()) },
+		s : function() { return (CTime.ms() * 0.001); }
 	} // end ClassMethods
 }); // end CTime
