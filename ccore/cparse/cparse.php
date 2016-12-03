@@ -17,18 +17,20 @@ class CParse {
 		return floatval($str);
 	} // end toFloat()
 
-	public function toString($value) {
+	public static function toString($value) {
 		$type = gettype($value);
-		if($type == "boolean") 
+		
+		print_r($type);
+		if($type === "boolean") 
 			return ($value) ? "true" : "false";
 		return $value;
 	} // end toString()
 	
-	public function toJSON($value) {
+	public static function toJSONString($value) {
 		return json_encode($value);
 	} // end toJSON()
 	
-	public function toJSONObject($value, $bassoc=true) {
+	public static function toJSONObject($value, $bassoc=true) {
 		return json_decode($value, $bassoc);
 	} // end toJSONObject()
 } // end CParse

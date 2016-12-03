@@ -14,7 +14,6 @@ include_once("cincludefiles/cincludefiles.php");
 include_once(dirname(dirname(__FILE__))."/clib/clib.php");
 
 // includes
-include_js( relname(__FILE__) . "/cparse/cparse.js" );
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
 //include_once("other/other.php");
 include_once("cmath/cmath.php");
@@ -22,6 +21,7 @@ include_once("cobqueue/cobqueue.php");
 //include_once("ctag/ctag.php");
 
 // includes php files
+include_js( relname(__FILE__) . "/cparse/cparse.js" );
 include("carray/carray.php");
 include("cbit/cbit.php"); 
 include("cstring/cstring.php");

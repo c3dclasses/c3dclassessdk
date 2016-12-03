@@ -9,26 +9,26 @@
 //-------------------------------------------------------------------
 var CParse = new Class({	
 	ClassMethods : {
-	toInt : function(value) { { 
-		return parseInt(value) { 
-	} // end toInt()
+	toInt : function(value) { 
+		return parseInt(value); 
+	}, // end toInt()
 
-	toFloat : function(value) { { 
-		return parseFloat(value) {;
-	} // end toFloat()
+	toFloat : function(value) { 
+		return parseFloat(value);
+	}, // end toFloat()
 
-	toString : function(value) { {
+	toString : function(value) {
 		var type = typeof(value)
 		if(type == "boolean") 
 			return (value) ? "true" : "false";
 		return "" + value;
-	} // end toString()
+	}, // end toString()
 	
-	toJSONString : function(value) { {
+	toJSONString : function(value) {
 		return  JSON.stringify(value);
-	} // end toJSON()
+	}, // end toJSON()
 	
-	toJSONObject: function(value, bassoc=true) {
+	toJSONObject : function(value) {
 		return JSON.parse(value);
 	} // end toJSONObject()
 	} // end ClassMethods
