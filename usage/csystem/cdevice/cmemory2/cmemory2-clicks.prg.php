@@ -3,9 +3,8 @@
 // name: cmemory2_clicks.prg.php
 // desc: demos hows to use cmemory object to store data on server / client
 //---------------------------------------------------------------------------
-
 // Start the session
-session_start();
+// session_start();
 
 // includes
 include_program("CMemoryProgram2_Clicks");

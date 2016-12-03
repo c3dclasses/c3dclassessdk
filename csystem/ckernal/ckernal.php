@@ -23,7 +23,7 @@ class CKernal {
 		$this->m_strfscript = "";
 		$this->m_strstyle = "";
 		CHook :: fire("construct");
-		session_start();
+//		session_start();
 	} // end CKernal()
 
 	// creating / loading / initializing / processing methods

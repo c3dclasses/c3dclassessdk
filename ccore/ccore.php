@@ -6,8 +6,15 @@
 
 // includes cbase files
 include_once("cglobal/cglobal.php");
+
+// include global classes
+include_once("cparse/cparse.php");
+
 include_once("cincludefiles/cincludefiles.php");
 include_once(dirname(dirname(__FILE__))."/clib/clib.php");
+
+// includes
+include_js( relname(__FILE__) . "/cparse/cparse.js" );
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
 //include_once("other/other.php");
 include_once("cmath/cmath.php");

@@ -12,7 +12,7 @@
 } // end if
 */
 include_once(dirname(dirname(dirname(dirname(dirname(__FILE__)))))."/ccore/cincludefiles/cincludeif.php");
-include_if($_REQUEST["cremotememorydriver"], array("../../../../ccore/ccore.php", "../../../csystem.php") );
+include_if(isset($_REQUEST["cremotememorydriver"])?$_REQUEST["cremotememorydriver"]:"", array("../../../../ccore/ccore.php", "../../../csystem.php") );
 include_once("cmemory.drv.php");
 include_js(relname(__FILE__) . "/cremotememory.drv.js");
 include_path("CRemoteMemoryDriver_URI", uri_name(__FILE__));
