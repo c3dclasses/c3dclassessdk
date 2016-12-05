@@ -5,21 +5,20 @@
 //---------------------------------------------------------------------------
 
 // includes
-include_program( "CObqueueProgram" );
+include_program("CObqueueProgram");
 
 //---------------------------------------------------
 // name: CObqueueProgram
 // desc: hello world program
 //---------------------------------------------------
-class CObqueueProgram extends CProgram{
+class CObqueueProgram extends CProgram {
 	// constructor
-	public function CObqueueProgram(){ 
+	public function CObqueueProgram() { 
 		parent :: CProgram();	
 	} // end CObqueueProgram()
 	
-		public function c_main(){
+		public function c_main() {
 return <<<SCRIPT
-
 		/*
 	ob_start();
 		printbr("outer-hello1");
@@ -32,8 +31,6 @@ return <<<SCRIPT
 		printbr("outer-hello4");
 	_print(ob_end());
 	*/
-	
-
 		ob_start();
 		printbr("this is the queued contents1");
 		ob_end_queue("foo");
@@ -67,15 +64,15 @@ return <<<SCRIPT
 
 		printbr();
 		printbr("<b>cobqueueprogram.js</b>");
-		printbr( ob_queue_dump("foo") );
-		printbr( ob_queue_dump("foo7") );
+		printbr(ob_queue_dump("foo"));
+		printbr(ob_queue_dump("foo7"));
 
 SCRIPT;
 	} // end load()
 	
 
 	// rendering methods
-	public function innerhtml(){	
+	public function innerhtml() {	
 		ob_start();
 		printbr("this is the queued contents1");
 		ob_end_queue("foo");
@@ -110,9 +107,9 @@ SCRIPT;
 		ob_start();
 		printbr();
 		printbr("<b>cobqueueprogram.php</b>");
-		//printbr( ob_queue_dump("foo") );
-		//printbr( ob_queue_dump("foo7") );
-		return "";//';/ob_end();
+		printbr(ob_queue_dump("foo"));
+		printbr(ob_queue_dump("foo7"));
+		return ob_end();
 	} // end innerhtml()
 } // end CObqueueProgram
 ?>

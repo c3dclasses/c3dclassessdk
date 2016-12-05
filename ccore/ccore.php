@@ -17,7 +17,7 @@ include_once(dirname(dirname(__FILE__))."/clib/clib.php");
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
 //include_once("other/other.php");
 include_once("cmath/cmath.php");
-include_once("cobqueue/cobqueue.php");
+include_once("cstdio/cstdio.php");
 //include_once("ctag/ctag.php");
 
 // includes php files

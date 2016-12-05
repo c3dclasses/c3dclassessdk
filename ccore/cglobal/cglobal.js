@@ -64,7 +64,7 @@ function urlpath( strfilename, bfullpath ){
 } // end urlpath();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 //------------------------------------------------------------------------------
 // name: print*() / alert() / confirm() / console()
 // desc: printing methods
@@ -113,6 +113,7 @@ function print_r( mixed, btostring, dst ){
 function echo( str, dst ) {
 	_print(str,dst);
 } // end echo()
+*/
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -196,6 +197,7 @@ function buildHTMLCloseTag( strtagname ){
 	return "</"+strtagname+ ">";
 } // buildHTMLClosingTag()
 
+/*
 //--------------------------------------------
 // name: ob_start()
 // desc: start sending output to a buffer
@@ -242,3 +244,4 @@ function ob_end_queue(queueid){
 function ob_queue_dump( strid ){
 	return (!strid || !ob_queues[strid])  ? "" : !ob_queues[strid];	
 } // end ob_queue_dump()
+*/
