@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------------------
 // file: carray.js
-// desc: overrides the javascript Array Object prototype 
+// desc: defines the array object
 //-----------------------------------------------------------------------------------------
 
 // added methods

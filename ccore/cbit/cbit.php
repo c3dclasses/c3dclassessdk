@@ -11,7 +11,8 @@ include_js(relname(__FILE__) . '/cbit.js');
 // file: CBit
 // desc: defines bit constants 
 //----------------------------------------------------------------
-class CBit{	
+class CBit{
+// ClassMethods 	
 	static public $BIT = NULL;
 	static public $BITNONE 	= 0x00000000;
 	static public $BITALL 	= 0xFFFFFFFF; 
@@ -22,8 +23,9 @@ class CBit{
 			CBit::$BIT[$i+1] = (1<<$i);
 		return true;
 	} // end init()
+	// end ClassMethods
 } // end CBit
 
-// intialize the bits
+// initialize the bits
 CBit::init();
 ?>
