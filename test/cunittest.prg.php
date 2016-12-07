@@ -9,7 +9,7 @@ include_program("CUnitTestProgram");
 
 //---------------------------------------------------
 // name: CUnitTestProgram
-// desc: demonstatrates how to use minify_prg
+// desc: the program that runs the unit test
 //---------------------------------------------------
 class CUnitTestProgram extends CProgram{
 	public function CUnitTestProgram(){ 
@@ -18,12 +18,14 @@ class CUnitTestProgram extends CProgram{
 	
 	public function c_main(){
 return <<<SCRIPT
-	CUnitTest.doTest(this.jq());	// run test and show results
+	printbr("<h1>Client-Side</h1>");
+	CUnitTest.doTest(this.jq()); // run test and show results
 SCRIPT;
 	} // end c_main()
 	
 	public function innerhtml(){
 ob_start();
+	printbr("<h1>Server-Side</h1>");
 	CUnitTest :: doTest(); // run test and show results
 return ob_end();
 	} // end innerhtml()

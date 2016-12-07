@@ -10,7 +10,7 @@ include_once(dirname(dirname(__FILE__)) . "/c3dclassessdk.php");
 // include the clientside main
 include_js(relname(__FILE__) . "/test.js", array("no-minify"=>true));
 
-// include all of the test 
+// include all of the tests
 include_unittests(dirname(__FILE__));
 
 // create the kernal object with ckernaltype = CKernal, mainentrypoint = ./main.php 
@@ -19,15 +19,8 @@ if(($ckernal = CKernal :: createCKernal("CKernal", relname(__FILE__) . "/test.ph
 	
 // load kernal and it's programs - $strprogrampath = dirname(__FILE__)
 $ckernal->load(dirname(__FILE__));	
-//include_program("CUnitTestProgram");
 
-// get all of the programs that where included
-//$cprogramtypes = CProgram :: getCProgramTypes();
-// get the selected program
-//$cprogramtype = isset($_REQUEST["cprogramtype"]) ? $_REQUEST["cprogramtype"] : "";
-// use the seletected program
-//if($cprogramtype)
-
+// use the unit test program
 use_program(new CUnitTestProgram());
 
 // intialize the kernal - this initializes all the objects including programs, elements, events
@@ -48,7 +41,7 @@ if ($ckernal->s_main()) {
 echo $ckernal->prebody();
 
 // render the html to the browser
-echo $ckernal->render("main_html");
+echo $ckernal->render("test_html");
 
 // unload the kernal and it's objects
 echo $ckernal->unload();

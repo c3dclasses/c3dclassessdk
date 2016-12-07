@@ -15,7 +15,7 @@ class CUnitTest2 extends CUnitTest {
 // desc: hello world program
 //---------------------------------------------------
 include_unittest("CBitUnitTest");
-class CBitUnitTest extends CUnitTest{
+class CBitUnitTest extends CUnitTest {
 	// rendering methods
 	public function testCBit(){
 		$cbitarray = new CBitArray();

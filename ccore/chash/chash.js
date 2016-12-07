@@ -28,6 +28,6 @@ var CHash = new Class ({
 	toStringVisit : function(fnvisit, cdata) {if(typeof(fnvisit) != "function") return; str=""; for(key in this.m_hash) str += fnvisit(key, this.m_hash[key]); return str; },
 	hash : function(key) { if(arguments.length == 1) return this.get(key); else if(arguments.length == 2) this.set(key, arguments[1]); return; },
 	urlencode : function() { if(this.m_hash) for(key in this.m_hash) this.m_hash[key] = urlencode($value); },
-	toJSON() { return CParse.toJSONObject(this.m_hash); },
+	toJSON : function() { return CParse.toJSONString(this.m_hash); },
 	m_hash : null
 }); // end CHash

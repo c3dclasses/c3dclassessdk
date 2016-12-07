@@ -1,5 +1,6 @@
+ <?php
 //-----------------------------------------------------------------------------------------
-// file: carray.js
+// file: carray.php
 // desc: defines the array object
 //-----------------------------------------------------------------------------------------
 
@@ -88,12 +89,18 @@ class CArray{
 		return $str; 
 	} // end toStringVisit()
 	public function remove($value) { 
-		$i = $this->indexOf($value); 
+		if(($i = $this->indexOf($value))<=-1)
+			return false; 
 		array_splice($this->m_array,$i, 1);  
-		return($i>-1); 
+		return true; 
 	} // end remove()
 	public function removeAt($index) { array_splice($this->m_array,$index,1); }
 	public function removeAll($value) { while($this->remove($value)) {} }
 	public function shuffle() { return shuffle($this->m_array); }
 } // end CArray
+
+// functions 
+function carray() {
+	return new CArray(func_get_args()); 
+} // end carray()
 ?>

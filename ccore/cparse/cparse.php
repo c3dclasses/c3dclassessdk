@@ -19,11 +19,11 @@ class CParse {
 
 	public static function toString($value) {
 		$type = gettype($value);
-		
-		print_r($type);
 		if($type === "boolean") 
 			return ($value) ? "true" : "false";
-		return $value;
+		else if($type === "object" || $type === "array")
+			return print_r($value, true);
+		return "" . $value;
 	} // end toString()
 	
 	public static function toJSONString($value) {
