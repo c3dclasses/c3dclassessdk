@@ -47,7 +47,7 @@ var CBitArrayUnitTest = new Class ({
 	// meta data
     Extends: CUnitTest,  
 	// rendering methods
-	testCBitArray : function(){
+	testCBitArray : function() {
 		var cbitarray = new CBitArray();
 		this.assertTrue(cbitarray != null);
 		this.assertTrue(cbitarray.create(56) != false);
@@ -63,10 +63,10 @@ var CBitArrayUnitTest = new Class ({
 		cbitarray.clearBit(1);
 		this.assertTrue("000000000000000000000000000000000000100000000000000000000"==cbitarray.toBinaryString());
 		this.assertTrue(cbitarray.toDecimalString()=="56 1 1048576 0");
-		
+	
 		cbitarray2 = new CBitArray();
 		this.assertTrue(cbitarray2 != null);
-		this.assertTrue(cbitarray2.createFromString( cbitarray.toDecimalString() ) != false);
+		this.assertTrue(cbitarray2.createFromString( cbitarray.toDecimalString()) != false);
 		this.assertTrue(cbitarray2.toBinaryString()==cbitarray.toBinaryString());
 		this.assertTrue(cbitarray2.toDecimalString()==cbitarray.toDecimalString());
 	} // end testCBitArray()

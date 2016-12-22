@@ -28,7 +28,7 @@ class CArray{
 	} // end CArray()
 	public function length(){ return($this->m_array == NULL) ? 0 : count($this->m_array); }
 
-    	public function indexOf($element) { return(($index = array_search($element, $this->m_array)) == FALSE) ? -1 : $index; }
+    	public function indexOf($element) { return(($index = array_search($element, $this->m_array)) === FALSE) ? -1 : $index; }
 	public function lastIndexOf($element) { 
 		$len = $this->length(); 
 		if($len <= 0) 
@@ -50,7 +50,7 @@ class CArray{
     	} // end push()
     	public function concat($array) { return new CArray(array_merge($array, $this->m_array)); }
 	public function join($seperator) { return implode($seperator,  $this->m_array); }
-    	public function reverse() { $this->m_array = array_reverse($this->m_array); return $this;}
+    public function reverse() { return new CArray(array_reverse($this->m_array)); }
 	public function shift() { return array_shift($this->m_array); }
 	public function unshift() {
 		if(func_num_args() < 1)
@@ -59,8 +59,8 @@ class CArray{
 		foreach($args as $index => $value)
 			array_unshift($this->m_array, $value);
         	return $this->length();
-    	} // end unshift()
-    	public function slice($offset, $length = NULL, $preserve_keys = false) { 
+    } // end unshift()
+    public function slice($offset, $length = NULL, $preserve_keys = false) {
 		return new CArray(array_slice($this->m_array, $offset, $length, $preserve_keys)); 
 	} // end slice()
 	public function splice($offset, $length = 0, $replacement = NULL) { 

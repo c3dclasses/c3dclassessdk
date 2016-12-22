@@ -26,15 +26,17 @@ var CUnitTest = new Class ({
 			if(!CUnitTest.m_cunittesttypes)
 				return;
 			var types =  CUnitTest.m_cunittesttypes;
-			for( var type in types ){
-				var typename=type;
+			for (var type in types) {
+				var typename = type;
 				var typeparams = types[typename];
-				var test = new window[typename]();
 				if(test && test.create(typeparams)) {
-					QUnit.test(typename, function(assert) {
-						test.setAssert(assert);
-						test.run();
-					}); // end QUnit.test()
+					QUnit.test(typename, function(type) {
+						return function(assert) {
+							var test = new window[type]();
+							test.setAssert(assert);
+							test.run();
+						} // end function()
+					}(typename)); // end QUnit.test()
 				} // end if
 			} // end foreach()
 			return;
@@ -59,8 +61,7 @@ var CUnitTest = new Class ({
 	assertFalse : function(condition){
 		this.m_assert.ok(!condition, "Passed!");
 	}, // end assertTrue()
-	
-	
+		
 	run: function() {
 		var obj=this;
 		for(var m in obj) {
