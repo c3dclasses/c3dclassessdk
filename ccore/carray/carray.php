@@ -19,6 +19,8 @@ class CArray{
 		if($mvalue == NULL)
 			return;
 		if(is_array($mvalue)) {
+			if(count($mvalue)==1 && is_array($mvalue[0]))
+				$mvalue = $mvalue[0];
 			$this->m_array = array_merge($mvalue, $this->m_array);
 			return;
 		} // end if
