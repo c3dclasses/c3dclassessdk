@@ -31,3 +31,13 @@ var CHash = new Class ({
 	toJSON : function() { return CParse.toJSONString(this.m_hash); },
 	m_hash : null
 }); // end CHash
+
+//------------------------------------------------
+// name: chash() 
+// desc: creates a chash object
+//------------------------------------------------
+function chash(obj) {
+	var chash = new CHash();
+	chash.create(obj);
+	return chash;
+} // end chash

@@ -32,7 +32,8 @@ class CArrayUnitTest extends CUnitTest {
 		$this->assertCArrayEquals($a,carray(10,20));
 		$a->unshift(50, 60, 70);
 		$this->assertCArrayEquals($a,carray(50,60,70,10,20));
-		$this->assertCArrayEquals($a->reverse(),carray(20,10,70,60,50));	
+		$this->assertCArrayEquals($a->reverse(),carray(20,10,70,60,50));
+		$a->reverse();	
 		$this->assertCArrayEquals($a,carray(50,60,70,10,20));
 		$this->assertCArrayEquals($a->splice(0, 3), carray(50,60,70));
 		$this->assertCArrayEquals($a,carray(10,20));
@@ -94,11 +95,6 @@ var CArrayUnitTest = new Class ({
 	
 	// test method
 	testCArray : function() {
-		//this.assertTrue(false);
-		//global str;
-		//a = new CArray();
-		alert("testing");
-		
 		var a = [];
 		this.assertTrue(a);
 		a.push(8);
@@ -113,22 +109,17 @@ var CArrayUnitTest = new Class ({
 		a.unshift(50, 60, 70);
 		this.assertCArrayEquals(a,[50,60,70,10,20]);
 		this.assertCArrayEquals(a.reverse(),[20,10,70,60,50]);	
+		a.reverse();
 		this.assertCArrayEquals(a,[50,60,70,10,20]);
-		
-		/*
 		this.assertCArrayEquals(a.splice(0, 3), [50,60,70]);
-		*/
-		/*
 		this.assertCArrayEquals(a,[10,20]);
 		a.push(10, 20, 30, 40, 50, 60, 70, 80, 200, 210, 220);
-		this.assertTrue(a.length()==13);
+		this.assertTrue(a.length==13);
 		this.assertCArrayEquals(a,[10, 20, 10, 20, 30, 40, 50, 60, 70, 80, 200, 210, 220]);
 		this.assertTrue(a.lastIndexOf(40)==5);
 		this.assertTrue(a.join(":") == [10, 20, 10, 20, 30, 40, 50, 60, 70, 80, 200, 210, 220].join(":"));
 		this.assertTrue(a.indexOf(30)==4);  
 		this.assertCArrayEquals(a.slice(0, 3),[10,20,10]);
-		
-		/*
 		a.remove(10);
 		this.assertCArrayEquals(a,[20, 10, 20, 30, 40, 50, 60, 70, 80, 200, 210, 220]);
 		a.removeAll(20);
@@ -136,7 +127,7 @@ var CArrayUnitTest = new Class ({
 		a.sort(carray_cmp);
 		this.assertCArrayEquals(a,[10, 30, 40, 50, 60, 70, 80, 200, 210, 220]);
 		a.removeAt(2);
-		this.assertCArrayEquals(a,[10, 30, 50, 60, 70, 80, 200, 210, 220]);	
+		this.assertCArrayEquals(a,[10, 30, 50, 60, 70, 80, 200, 210, 220]);		
 		a.insertAt(0, 5599);
 		this.assertCArrayEquals(a,[5599,10, 30, 50, 60, 70, 80, 200, 210, 220]); 
 		a.insertAt(10, 5599);
@@ -148,7 +139,6 @@ var CArrayUnitTest = new Class ({
 		str=""; 		
 		a.shuffle();
 		this.assertTrue(a.length==[10, 30, 50, 60, 70, 80, 200, 210, 220, 5599, 5599].length);
-		*/
 	}, // end innerhtml()
 	
 	//---------------------------------------------

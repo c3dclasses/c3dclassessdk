@@ -48,9 +48,9 @@ class CArray{
 			array_push($this->m_array, $value);
 		return $this->length();
     	} // end push()
-    	public function concat($array) { return new CArray(array_merge($array, $this->m_array)); }
+    public function concat($array) { return new CArray(array_merge($array, $this->m_array)); }
 	public function join($seperator) { return implode($seperator,  $this->m_array); }
-    public function reverse() { return new CArray(array_reverse($this->m_array)); }
+    public function reverse() { $this->m_array = array_reverse($this->m_array); return new CArray($this->m_array); }
 	public function shift() { return array_shift($this->m_array); }
 	public function unshift() {
 		if(func_num_args() < 1)

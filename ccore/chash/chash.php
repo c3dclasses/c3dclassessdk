@@ -35,4 +35,11 @@ class CHash {
 	public function toJSON() { return CParse::toJSONString($this->m_hash); }
 	protected $m_hash = NULL;
 } // end CHash
+
+// functions 
+function chash($inhash=NULL) {
+	$hash = new CHash();
+	$hash->create($inhash); 
+	return $hash;
+} // end carray()
 ?>
