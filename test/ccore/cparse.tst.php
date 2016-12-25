@@ -39,6 +39,7 @@ ob_start();
 include_unittest("CParseUnitTest");
 var CParseUnitTest = new Class ({ 
     Extends: CUnitTest,	
+	
 	// test method
 	testCParse : function() {
 		this.assertTrue((CParse.toInt("100") + 3) === 103);

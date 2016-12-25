@@ -18,7 +18,6 @@ var CStdio = new Class({
 				str="";			
 			if(CObqueue.ob_started) {
 				CObqueue.ob_output += str;
-				alert(str);
 				return;
 			} // end if
 			if(!dst) { 
