@@ -29,12 +29,12 @@ ClassMethods:{
 	sin : function(x){ return Math.sin(x); },
 	sqrt : function(x){ return Math.sqrt(x); },
 	tan : function(x){ return Math.tan(x); },
-	max : function( arrnumbers ){ return Math.max(arrnumbers); },
-	min : function( arrnumbers ){ return Math.min(arrnumbers); },
+	max : function(){ return Math.max.apply(null, arguments); },
+	min : function(){ return Math.min.apply(null, arguments); },
 	pow : function(x,y){ return Math.pow(x,y); },
 	rand: function(){ return Math.random(); },
 	round : function(x){ return Math.round(x); },
-	in : function( inum, imin, imax ){ return (imin<=inum) && (inum<=imax); }, 
-	bound : function( inum, imin, imax ){ if(inum<imin) inum=imin; else if(inum>imax) inum=imax; return inum; } 
+	in : function(inum, imin, imax){ return (imin<=inum) && (inum<=imax); }, 
+	bound : function(inum, imin, imax){ if(inum<imin) inum=imin; else if(inum>imax) inum=imax; return inum; } 
 } // end ClassMethods
 }); // end CMath

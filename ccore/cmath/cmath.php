@@ -33,12 +33,12 @@ class CMath{
 	static public function sin($x){ return sin($x); }
 	static public function sqrt($x){ return sqrt($x); }
 	static public function tan($x){ return log($x); }
-	static public function max( $arrnumbers ){ return max($arrnumbers); }
-	static public function min( $arrnumbers ){ return min($arrnumbers); }
+	static public function max($arrnumbers){ return max($arrnumbers); }
+	static public function min($arrnumbers){ return min($arrnumbers); }
 	static public function pow($x,$y){ return pow($x,$y); }
-	static public function rand(){ return (rand( 0, 10000 ) * 0.0001); }
+	static public function rand(){ return (rand(0, 10000) * 0.0001); }
 	static public function round($x){ return round($x); }
-	static public function in( $num, $min, $max ){ return ($min<=$num) && ($num<=$max); }
-	static public function bound( $inum, $imin, $imax ){ if($inum<$imin) $inum=$imin; else if($inum>$imax) $inum=$imax; return $inum; }
+	static public function in($num, $min, $max){ return ($min<=$num) && ($num<=$max); }
+	static public function bound($inum, $imin, $imax){ if($inum<$imin) $inum=$imin; else if($inum>$imax) $inum=$imax; return $inum; }
 } // end CMath
 ?>
