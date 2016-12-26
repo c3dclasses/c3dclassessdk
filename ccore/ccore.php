@@ -29,7 +29,7 @@ include("cbitarray/cbitarray.php");
 include("chash/chash.php");
 include("chook/chook.php");
 include("cconstants/cconstants.php");
-include("cgeometry/cgeometry.php");
+include("cphysics/cphysics.php");
 include_once(dirname(dirname(__FILE__))."/clib/cangularjs/cangularjs.php");
 include_once("ccompiler/ccompiler.php");
 include_once("cpath/cpath.php");
