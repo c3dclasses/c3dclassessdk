@@ -10,4 +10,6 @@ include_once("cincludefiles/cincludefiles.php");
 include_once("_3rdParty/_3rdParty.php");
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
 include_once("cparse/cparse.php");
+include_once("cthread/cthread.php");
+include_once("cconstructs/cconstructs.php");
 ?>
