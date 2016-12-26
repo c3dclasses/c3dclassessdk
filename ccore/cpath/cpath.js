@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------------------
-// file: cpath.php
+// file: cpath.js
 // desc: defines a class that store path information used globally throughout the sdk
 //-----------------------------------------------------------------------------------------
 
