@@ -13,4 +13,5 @@ include_once("cparse/cparse.php");
 include_once("cthread/cthread.php");
 include_once("cconstructs/cconstructs.php");
 include_once("cvar/cvar.php");
+include_once("ccompiler/ccompiler.php");
 ?>

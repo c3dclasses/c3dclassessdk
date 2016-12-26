@@ -29,7 +29,6 @@ include("chook/chook.php");
 include("cconstants/cconstants.php");
 include("cphysics/cphysics.php");
 //include_once(dirname(dirname(__FILE__))."/clib/cangularjs/cangularjs.php");
-include_once("ccompiler/ccompiler.php");
 include_once("cpath/cpath.php");
 include_once("ctime/ctime.php");
 ?>
