@@ -18,7 +18,6 @@ include_once("cconstants/cconstants.php");
 include_once("cthread/cthread.php");
 include_once("cresource/cresource.php");
 include_once("cconstructs/cconstructs.php");
-include_once("cvar/cvar.php");
 include_once("ccompiler/ccompiler.php");
 include_once("ctime/ctime.php");
 include_once("cdatastructures/cdatastructures.php");
