@@ -7,12 +7,18 @@
 // includes
 include_once("cglobal/cglobal.php");
 include_once("cincludefiles/cincludefiles.php");
-include_once("_3rdParty/_3rdParty.php");
+include_once("cvendor/cvendor.php");
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
+include_once("cstdio/cstdio.php");
 include_once("cparse/cparse.php");
+include_once("chook/chook.php");
+include_once("cpath/cpath.php");
+include_once("cbit/cbit.php");
+include_once("cconstants/cconstants.php");
 include_once("cthread/cthread.php");
 include_once("cresource/cresource.php");
 include_once("cconstructs/cconstructs.php");
 include_once("cvar/cvar.php");
 include_once("ccompiler/ccompiler.php");
+include_once("ctime/ctime.php");
 ?>
