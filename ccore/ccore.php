@@ -1,10 +1,8 @@
 <?php
-//-----------------------------------------------------------------------------
-// file: libs.php
-// desc: defines the class and framework that makes up the base of c3dclasses
-//-----------------------------------------------------------------------------
-
-// includes
+//-------------------------------------------------------------------------------
+// file: ccore.php
+// desc: defines the class and framework that makes up the bases of c3dclasses
+//-------------------------------------------------------------------------------
 include_once("cglobal/cglobal.php");
 include_once("cincludefiles/cincludefiles.php");
 include_once("../cvendor/cvendor.php");
@@ -22,6 +20,7 @@ include_once("ccompiler/ccompiler.php");
 include_once("ctime/ctime.php");
 include_once("cdatastructures/cdatastructures.php");
 include_once("cevent/cevent.php");
-include_once("cevent/cconcurrentevent.php");;
+include_once("cevent/cconcurrentevent.php");
 include_once("cfunction/cfunction.php");
+include_once("cmath/cmath.php");
 ?>
