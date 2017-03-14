@@ -7,7 +7,7 @@
 // includes
 include_once("cglobal/cglobal.php");
 include_once("cincludefiles/cincludefiles.php");
-include_once("cvendor/cvendor.php");
+include_once("../cvendor/cvendor.php");
 include_js(relname(__FILE__)."/cglobal/cglobal.js");
 include_once("cstdio/cstdio.php");
 include_once("cparse/cparse.php");
