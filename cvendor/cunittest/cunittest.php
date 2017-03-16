@@ -7,6 +7,7 @@
 // includes
 include_once("simpletest/unit_tester.php");
 include_once("simpletest/reporter.php");
+include_once("simpletest/mock_objects.php");
 include_js( "http://code.jquery.com/qunit/qunit-1.17.1.js" );
 include_css( "http://code.jquery.com/qunit/qunit-1.17.1.css" );
 include_js( relname(__FILE__) . "/cunittest.js" );

@@ -6,6 +6,7 @@
 
 // includes
 include_unittest("CStdioUnitTest");
+Mock::generate('CStdio');
 
 //-----------------------------------------------------
 // name: CStdioUnitTest
@@ -49,7 +50,7 @@ class CStdioUnitTest extends CUnitTest {
 		print("B5");
 		ob_end_queue("foo7");
 		$this->assertTrue(ob_queue_dump("foo") == "A1A2A3A4A5");
-		$this->assertTrue(ob_queue_dump("foo7") == "B1B2B3B4B5");
+		$this->assertTrue(ob_queue_dump("foo7") == "B1B2B3B4B5");		
 	} // end testCStdio()
 } // end CStdioProgram
 
