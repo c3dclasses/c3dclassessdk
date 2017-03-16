@@ -21,11 +21,11 @@ function println($str="") {
 	
 function printScript($strscript) { 
 	CStdio :: _printScript($strscript); 
-} // end printjs();
+} // end printScript();
 	
 function _print($str="") {
 	CStdio :: _print($str);
-} // end print()
+} // end _print()
 	
 function console($str) { 
 	printScript("console.log('{$str}');");		
