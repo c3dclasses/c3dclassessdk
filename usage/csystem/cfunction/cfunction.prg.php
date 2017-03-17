@@ -7,10 +7,11 @@
 // includes
 include_program("CFunctionProgram");
 include_function("testfn", "testfunction", NULL, NULL, NULL);
-include_function("testremotefn", 
-	"testfunction2", 
-	"http://kevlewis.com/c3dclassessdk/csystem/cfunction/cfunction.drv.php", 
-	__FILE__, 
+include_function("testremotefn", 	// identifier
+	"testfunction2", 	// function to call
+	//relname(CPath._("CFunctionDriver_Path"))
+	"http://localhost/ccore/cfunction/cfunction.drv.php", // function driver uri
+	__FILE__, 	// the file the function is in - this file
 	NULL
 );
 

@@ -4,6 +4,9 @@
 // desc: provides hooks and listeners to link remote functions to the system
 //----------------------------------------------------------------------------
 
+// include this file to point to the driver
+//include_path("CFunctionDriver_Path", __FILE__);
+
 //---------------------------------------------
 // name: _return_remote_call()
 // desc: does the function call
@@ -15,8 +18,9 @@ function _return_remote_call($struri, $strfile, $strfunction, $inparams) {
             return call_user_func($strfunction,$inparams);
         else return _return_done(NULL);
     } // end if
+	
     // do a remote call
-    $cds = new CDataStream();	// create
+	$cds = new CDataStream();	// create
 	if(!$cds || $cds->open($struri, "post", "cfunction") == false) // open
         return _return_done(NULL);	
     $cds->setDataParam("cfunction",true);
@@ -45,8 +49,7 @@ if($_REQUEST) {
 	$inparams = isset($_REQUEST["cfunction_inparam"]) ? $_REQUEST["cfunction_inparam"] : $_REQUEST;
 	if($isCFunction && $function) {
 		include_once("../../ccore/ccore.php");
-		include_once("../csystem.php");
-	
+		include_once("../csystem.php");	
 		$outparams = NULL;
 		$file = urldecode($file);
 		$function = urldecode($function);

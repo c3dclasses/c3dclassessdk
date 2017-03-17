@@ -19,7 +19,7 @@ class CCompilerUnitTest extends CUnitTest {
 	// test method
 	public function testCCompiler() {	
 		// get the input
-		$strinput1 = inputToCompare(); //file_get_contents(relname(__FILE__, true) . "/test.js");
+		$strinput1 = inputToCompare(); // file_get_contents(relname(__FILE__, true) . "/test.js");
 		$strinput2 = inputToCompare();
 		$strinput3 = inputToCompare2();
 		
@@ -28,12 +28,13 @@ class CCompilerUnitTest extends CUnitTest {
 		$this->assertTrue($strinput1 == $strinput2);
 		$this->assertTrue($strinput3 != $strinput2);
 		
-		
 		// construct the compiler object
 		$ccompiler1 = new CCompiler();
 		$ccompiler2 = new CCompiler();
+		$ccompiler3 = new CCompiler();
 		$this->assertTrue($ccompiler1 != NULL);
 		$this->assertTrue($ccompiler2 != NULL);
+		$this->assertTrue($ccompiler3 != NULL);
 		
 		// add the token types
 		$ctokenizer = $ccompiler1->getTokenizer();
@@ -70,17 +71,39 @@ class CCompilerUnitTest extends CUnitTest {
 		$ctokenizer->addTokenType("}", "}", "");
 		$ctokenizer->addTokenType("[", "[", "");
 		$ctokenizer->addTokenType("]", "]", "");
+		$ctokenizer = $ccompiler3->getTokenizer();
+		$this->assertTrue($ctokenizer != NULL);
+		$ctokenizer->addTokenType("comment1", "/*", "*/");
+		$ctokenizer->addTokenType("comment2", "//",  PHP_EOL); 
+		$ctokenizer->addTokenType("comment3", "//",  PHP_EOF);
+		$ctokenizer->addTokenType("_if", "_if", "");
+		$ctokenizer->addTokenType("_elseif", "_elseif", "");
+		$ctokenizer->addTokenType("_else", "_else", "");
+		$ctokenizer->addTokenType("_while", "_while", "");
+		$ctokenizer->addTokenType("(", "(", "");
+		$ctokenizer->addTokenType(",", ",", "");
+		$ctokenizer->addTokenType(";", ";", "");
+		$ctokenizer->addTokenType(")", ")", "");
+		$ctokenizer->addTokenType("{", "{", "");
+		$ctokenizer->addTokenType("}", "}", "");
+		$ctokenizer->addTokenType("[", "[", "");
+		$ctokenizer->addTokenType("]", "]", "");
 		
 		// create the compiler object
 		$this->assertTrue($ccompiler1->create($strinput1)==true);
 		$this->assertTrue($ccompiler2->create($strinput2)==true);
+		$this->assertTrue($ccompiler3->create($strinput3)==true);
 		$this->assertTrue($ccompiler2->getTokenizer()->toString() == $ccompiler2->getTokenizer()->toString());
+		$this->assertTrue($ccompiler2->getTokenizer()->toString() != $ccompiler3->getTokenizer()->toString());
 		
 		// parse the body of the program
 		$this->assertTrue($ccompiler1->getParser()->parse("BODY") == true);
 		$this->assertTrue($ccompiler2->getParser()->parse("BODY") == true);
+		$this->assertTrue($ccompiler3->getParser()->parse("BODY") == true);
 		$this->assertTrue(print_r($ccompiler1->getParser()->getParseTree(),true) == print_r($ccompiler2->getParser()->getParseTree(),true));	
+		$this->assertTrue(print_r($ccompiler1->getParser()->getParseTree(),true) != print_r($ccompiler3->getParser()->getParseTree(),true));	
 		$this->assertTrue($ccompiler1->getParser()->translate() == $ccompiler2->getParser()->translate());
+		$this->assertTrue($ccompiler1->getParser()->translate() != $ccompiler3->getParser()->translate());
 	} // end testCCompiler()
 } // end CCompilerProgram
 
